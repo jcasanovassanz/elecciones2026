@@ -1,0 +1,1890 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Observatorio Electoral 29-N · Promesas vs. Gestión (España 2026)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Merriweather:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            serif: ['Merriweather', 'Georgia', 'serif'],
+          },
+          colors: {
+            slateDark: '#0F172A',
+            psoe: '#E30613',
+            pp: '#0056A3',
+            frente: '#7B2CBF',
+            vox: '#63BE21',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Estilos editoriales complementarios */
+    body {
+      background-color: #F8FAFC;
+      color: #1E293B;
+      -webkit-font-smoothing: antialiased;
+    }
+    .editorial-serif {
+      font-family: 'Merriweather', Georgia, serif;
+    }
+    /* Transiciones suaves en tarjetas y filtros */
+    .card-transition {
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+    .card-transition:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+    }
+    /* Ocultar barra de desplazamiento en contenedores horizontales móviles */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Barra superior de metodología y transparencia -->
+  <div class="bg-slate-900 text-slate-200 text-xs py-2 px-4 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>
+        <span><strong>Elecciones Generales 29-N (2026)</strong> · Edición de verificación y análisis programático · Corte: Noviembre 2026</span>
+      </div>
+      <button onclick="openMethodologyModal()" class="text-slate-300 hover:text-white underline underline-offset-2 font-medium transition cursor-pointer">
+        Nota metodológica y fuentes
+      </button>
+    </div>
+  </div>
+
+  <!-- Cabecera Principal / Hero Editorial -->
+  <header class="bg-white border-b border-slate-200 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+        <div class="max-w-3xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold tracking-wide uppercase mb-3 border border-slate-200">
+            <svg class="w-3.5 h-3.5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            Periodismo de Datos · Análisis Electoral España
+          </div>
+          <h1 class="editorial-serif text-2xl sm:text-4xl font-bold text-slate-900 tracking-tight leading-tight">
+            Observatorio Electoral 29-N · <span class="text-slate-700">Promesas vs. Gestión</span>
+          </h1>
+          <p class="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed">
+            Herramienta comparativa y neutral que contrasta las <strong>propuestas programáticas</strong> de <strong>PSOE</strong>, <strong>PP</strong>, <strong>Frente Amplio</strong> y <strong>Vox</strong> para las elecciones generales del 29 de noviembre de 2026 con su <strong>historial real de gobierno</strong> en el Ejecutivo central, comunidades autónomas y ayuntamientos.
+          </p>
+        </div>
+
+        <!-- Buscador instantáneo de palabras clave -->
+        <div class="w-full lg:w-96 shrink-0">
+          <label for="searchInput" class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
+            Buscador en programas e historial
+          </label>
+          <div class="relative">
+            <input
+              type="text"
+              id="searchInput"
+              oninput="handleSearchInput(this.value)"
+              onkeydown="handleSearchKeydown(event)"
+              placeholder="Ej: alquiler, autonomos, IRPF, pensiones, Madrid..."
+              class="w-full pl-10 pr-9 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-800 focus:border-slate-800 focus:bg-white transition"
+            />
+            <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-3 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+            <button type="button" id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute right-2.5 top-2 text-slate-400 hover:text-slate-700 p-1 rounded-lg cursor-pointer" title="Limpiar búsqueda">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+          </div>
+          <div id="globalSearchStatus" class="hidden mt-1.5 text-[11px] text-slate-600 flex flex-wrap items-center justify-between gap-1">
+            <!-- Resumen de coincidencias en vivo -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Navegación Principal por Vistas (Tabs) -->
+      <nav class="mt-8 pt-4 border-t border-slate-200 flex flex-wrap gap-2" aria-label="Vistas del observatorio">
+        <button onclick="switchMainView('comparador')" id="tab-comparador" class="main-tab-btn px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2 transition cursor-pointer bg-slate-900 text-white shadow-xs">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"></path></svg>
+          Comparador Temático
+        </button>
+        <button onclick="switchMainView('contradicciones')" id="tab-contradicciones" class="main-tab-btn px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2 transition cursor-pointer bg-amber-50 text-amber-950 border border-amber-300 hover:bg-amber-100">
+          <svg class="w-4 h-4 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+          Auditoría de Contradicciones
+        </button>
+        <button onclick="switchMainView('radiografia')" id="tab-radiografia" class="main-tab-btn px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2 transition cursor-pointer bg-slate-100 text-slate-700 hover:bg-slate-200">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+          Trayectoria Ejecutiva
+        </button>
+        <button onclick="switchMainView('matriz')" id="tab-matriz" class="main-tab-btn px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2 transition cursor-pointer bg-slate-100 text-slate-700 hover:bg-slate-200">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+          Choques y Consensos
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Contenedor Principal -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+
+    <!-- ===================================================================== -->
+    <!-- VISTA 1: COMPARADOR TEMÁTICO (PROGRAMA VS. HISTORIAL)                 -->
+    <!-- ===================================================================== -->
+    <section id="view-comparador" class="space-y-6">
+      
+      <!-- Panel de Controles y Filtros -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-4 sm:p-5 shadow-xs space-y-4">
+        
+        <!-- Fila 1: Selector de Partidos Activos -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 border-b border-slate-100">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-500 block">1. Selecciona formaciones a comparar (mín. 1)</span>
+            <p class="text-xs text-slate-400">Activa o desactiva partidos para analizar bloques o comparar cara a cara</p>
+          </div>
+          <div class="flex flex-wrap gap-2" id="partyToggles">
+            <!-- Generado dinámicamente por JS -->
+          </div>
+        </div>
+
+        <!-- Fila 2: Ejes Temáticos y Perfil Ciudadano -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-end">
+          <div class="lg:col-span-8">
+            <label class="text-xs font-bold uppercase tracking-wider text-slate-500 block mb-2">2. Eje temático</label>
+            <div class="flex flex-wrap gap-1.5" id="topicFilters">
+              <!-- Generado dinámicamente por JS -->
+            </div>
+          </div>
+
+          <div class="lg:col-span-4">
+            <label for="profileSelect" class="text-xs font-bold uppercase tracking-wider text-slate-500 block mb-2">3. Filtrar por perfil ciudadano</label>
+            <select id="profileSelect" onchange="handleProfileChange(this.value)" class="w-full py-2 px-3 bg-slate-50 border border-slate-300 rounded-xl text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-800">
+              <option value="all">Todos los perfiles ciudadanos</option>
+              <option value="jovenes">Jóvenes y primer empleo / acceso a vivienda</option>
+              <option value="autonomos">Autónomos, pymes y emprendedores</option>
+              <option value="vivienda_perfil">Inquilinos y propietarios</option>
+              <option value="familias">Familias y pensionistas</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Barra de estado de resultados y modo de lectura -->
+        <div class="pt-3 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-slate-500">
+          <div id="resultsCounter" class="font-medium text-slate-700">Mostrando 6 ejes temáticos</div>
+          <div class="flex items-center gap-2">
+            <span>Vista en tarjetas:</span>
+            <button onclick="setCardDefaultTab('all')" id="mode-all" class="px-2.5 py-1 rounded-lg bg-slate-800 text-white font-medium cursor-pointer">Los 3 bloques desplegados</button>
+            <button onclick="setCardDefaultTab('compact')" id="mode-compact" class="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 font-medium cursor-pointer">Por pestañas</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contenedor dinámico de Ejes Temáticos -->
+      <div id="topicsContainer" class="space-y-8">
+        <!-- Renderizado por JS -->
+      </div>
+
+      <!-- Mensaje cuando no hay resultados -->
+      <div id="emptyState" class="hidden bg-white rounded-2xl border border-slate-200 p-12 text-center">
+        <div class="w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-3">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        </div>
+        <h3 class="text-base font-bold text-slate-900">No se encontraron coincidencias exactas</h3>
+        <p class="text-sm text-slate-500 mt-1 max-w-md mx-auto">Prueba con otro término de búsqueda o restablece los filtros de eje temático y perfil ciudadano.</p>
+        <button onclick="resetAllFilters()" class="mt-4 px-4 py-2 bg-slate-900 text-white text-sm font-medium rounded-xl hover:bg-slate-800 transition cursor-pointer">
+          Restablecer todos los filtros
+        </button>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- VISTA 1B: AUDITORÍA DE CONTRADICCIONES (DECIR VS. HACER)              -->
+    <!-- ===================================================================== -->
+    <section id="view-contradicciones" class="hidden space-y-6">
+      <div class="bg-white rounded-2xl border border-amber-200 p-5 sm:p-6 shadow-xs">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div class="max-w-3xl">
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 text-xs font-bold uppercase tracking-wider mb-2">
+              Decir vs. Hacer · Coherencia y Tensión Programática
+            </div>
+            <h2 class="editorial-serif text-xl sm:text-2xl font-bold text-slate-900">Auditoría de Contradicciones por Materia y Partido</h2>
+            <p class="text-sm text-slate-600 mt-1.5 leading-relaxed">
+              Contraste directo entre lo que cada formación proclama en su programa o discurso para el 29-N, las decisiones ejecutivas o pactos adoptados donde gobierna o ha gobernado, y el análisis equilibrado de la contradicción o tensión observada.
+            </p>
+          </div>
+          <div class="bg-amber-50/80 border border-amber-200 rounded-xl p-3.5 text-xs text-amber-950 max-w-sm shrink-0">
+            <strong>Criterio editorial:</strong> Se señalan incoherencias, giros estratégicos y brechas entre objetivos y resultados verificables, explicando tanto el argumento defensivo del partido como la crítica de fondo.
+          </div>
+        </div>
+
+        <!-- Filtros específicos de Auditoría de Contradicciones -->
+        <div class="mt-5 pt-4 border-t border-slate-100 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="text-xs font-bold uppercase tracking-wider text-slate-500 block mb-2">Filtrar por eje temático</label>
+            <div class="flex flex-wrap gap-1.5" id="contradictionTopicFilters">
+              <!-- Renderizado por JS -->
+            </div>
+          </div>
+          <div>
+            <label class="text-xs font-bold uppercase tracking-wider text-slate-500 block mb-2">Filtrar por formación política</label>
+            <div class="flex flex-wrap gap-1.5" id="contradictionPartyFilters">
+              <!-- Renderizado por JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="contradictionsCounter" class="text-xs font-semibold text-slate-600"></div>
+
+      <div id="contradictionsContainer" class="space-y-5">
+        <!-- Renderizado por JS -->
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- VISTA 2: RADIOGRAFÍA DE TRAYECTORIA EJECUTIVA                         -->
+    <!-- ===================================================================== -->
+    <section id="view-radiografia" class="hidden space-y-6">
+      <div class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-xs">
+        <h2 class="editorial-serif text-xl sm:text-2xl font-bold text-slate-900">Radiografía Ejecutiva: ¿Dónde ha gobernado cada partido?</h2>
+        <p class="text-sm text-slate-600 mt-2 max-w-3xl leading-relaxed">
+          Para evaluar la viabilidad y coherencia de los programas del 29-N, cada ficha sintetiza la experiencia institucional previa de cada formación, los logros que reivindica su dirección y las críticas o asignaturas pendientes señaladas por la oposición y analistas independientes.
+        </p>
+      </div>
+
+      <div id="radiografiaGrid" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Renderizado por JS -->
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- VISTA 3: MATRIZ DE CHOQUES Y CONSENSOS                                -->
+    <!-- ===================================================================== -->
+    <section id="view-matriz" class="hidden space-y-6">
+      <div class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-xs">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h2 class="editorial-serif text-xl sm:text-2xl font-bold text-slate-900">Matriz de Choques, Matices y Consensos</h2>
+            <p class="text-sm text-slate-600 mt-1.5 max-w-3xl">
+              Síntesis transversal de las principales líneas de fractura entre bloques, las diferencias internas dentro de la izquierda (PSOE vs. Frente Amplio) y de la derecha (PP vs. Vox), y los escasos puntos de convergencia parcial.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 text-xs font-semibold shrink-0">
+            <span class="px-2.5 py-1 rounded-lg bg-rose-50 text-rose-800 border border-rose-200">Choque frontal</span>
+            <span class="px-2.5 py-1 rounded-lg bg-amber-50 text-amber-800 border border-amber-200">Matiz intra-bloque</span>
+            <span class="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200">Convergencia parcial</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse min-w-[820px]">
+            <thead>
+              <tr class="bg-slate-900 text-white text-xs uppercase tracking-wider">
+                <th class="py-3.5 px-4 font-semibold w-44">Ámbito / Debate</th>
+                <th class="py-3.5 px-4 font-semibold w-36">Dinámica</th>
+                <th class="py-3.5 px-4 font-semibold">Bloque Progresista (PSOE / Frente Amplio)</th>
+                <th class="py-3.5 px-4 font-semibold">Bloque Conservador (PP / Vox)</th>
+                <th class="py-3.5 px-4 font-semibold w-64">Clave de Gestión Previa</th>
+              </tr>
+            </thead>
+            <tbody id="matrixTableBody" class="divide-y divide-slate-200 text-sm">
+              <!-- Renderizado por JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Pie de página editorial y metodológico -->
+  <footer class="bg-white border-t border-slate-200 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-slate-500">
+        <div>
+          <h4 class="font-bold text-slate-800 uppercase tracking-wider mb-2">Sobre este Observatorio</h4>
+          <p class="leading-relaxed">
+            Iniciativa de análisis comparativo diseñada bajo estándares de neutralidad editorial. No asigna puntuaciones ni recomendaciones de voto; expone propuestas programáticas verificables junto al historial institucional de cada formación.
+          </p>
+        </div>
+        <div>
+          <h4 class="font-bold text-slate-800 uppercase tracking-wider mb-2">Criterios de Verificación</h4>
+          <ul class="space-y-1.5 leading-relaxed">
+            <li>• <strong>Programas 29-N:</strong> Documentos programáticos oficiales y marcos electorales presentados para las elecciones generales de noviembre de 2026.</li>
+            <li>• <strong>Historial Ejecutivo:</strong> Leyes aprobadas en el BOE, ejecución presupuestaria, datos de EPA/INE/Banco de España y gestión autonómica/municipal (2011–2026).</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-slate-800 uppercase tracking-wider mb-2">Formaciones Analizadas</h4>
+          <div class="flex flex-wrap gap-2 mt-2">
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 text-slate-800 font-medium">
+              <span class="w-2 h-2 rounded-full bg-[#E30613]"></span> PSOE (P. Sánchez)
+            </span>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 text-slate-800 font-medium">
+              <span class="w-2 h-2 rounded-full bg-[#0056A3]"></span> PP (A. N. Feijóo)
+            </span>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 text-slate-800 font-medium">
+              <span class="w-2 h-2 rounded-full bg-[#7B2CBF]"></span> Frente Amplio (A. Colau)
+            </span>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 text-slate-800 font-medium">
+              <span class="w-2 h-2 rounded-full bg-[#63BE21]"></span> Vox (S. Abascal)
+            </span>
+          </div>
+          <p class="mt-3 text-slate-400">Actualización de cierre: Noviembre 2026 · España.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal de Nota Metodológica -->
+  <div id="methodologyModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4" onclick="closeMethodologyModal(event)">
+    <div class="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
+      <div class="flex items-start justify-between gap-4 pb-4 border-b border-slate-200">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Transparencia Editorial</span>
+          <h3 class="editorial-serif text-xl font-bold text-slate-900 mt-0.5">Metodología: Cómo cruzamos Promesas y Gestión</h3>
+        </div>
+        <button onclick="closeMethodologyModal()" class="p-1.5 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 cursor-pointer">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+      <div class="py-4 space-y-4 text-sm text-slate-600 leading-relaxed">
+        <p>
+          El análisis electoral convencional suele limitarse a enumerar las promesas de campaña. Sin embargo, para las elecciones generales del <strong>29 de noviembre de 2026</strong>, las cuatro principales fuerzas nacionales cuentan con experiencia directa en distintos niveles de gobierno:
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+            <div class="font-bold text-slate-900 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#E30613]"></span> PSOE
+            </div>
+            <p class="text-xs mt-1">8 años al frente del Gobierno de España (desde junio de 2018), primero en solitario y después en coalición.</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+            <div class="font-bold text-slate-900 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#0056A3]"></span> Partido Popular (PP)
+            </div>
+            <p class="text-xs mt-1">8 años en La Moncloa bajo Mariano Rajoy (2011–2018) y amplia gestión autonómica actual, incluida la Comunidad de Madrid.</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+            <div class="font-bold text-slate-900 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#7B2CBF]"></span> Frente Amplio
+            </div>
+            <p class="text-xs mt-1">Evolución del espacio de Sumar (socio del Gobierno central en Trabajo y Derechos Sociales) junto a la experiencia municipal de Ada Colau en Barcelona (2015–2023).</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+            <div class="font-bold text-slate-900 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#63BE21]"></span> Vox
+            </div>
+            <p class="text-xs mt-1">Participación y condicionamiento parlamentario en gobiernos autonómicos junto al PP (Castilla y León, Aragón, Extremadura, Comunidad Valenciana, entre otros).</p>
+          </div>
+        </div>
+        <h4 class="font-bold text-slate-900 pt-2">Estructura de cada ficha comparativa</h4>
+        <ul class="space-y-2 text-xs sm:text-sm">
+          <li><strong>1. Qué promete para el 29-N:</strong> Resumen fiel y neutral de las medidas anunciadas en su programa electoral de 2026, diferenciando objetivos cuantificados de compromisos generales.</li>
+          <li><strong>2. Qué ha hecho donde ha gobernado:</strong> Hechos verificables, leyes promulgadas o políticas ejecutadas en sus respectivas áreas de responsabilidad.</li>
+          <li><strong>3. Puntos de debate y contraste:</strong> Exposición equilibrada tanto de los argumentos de defensa de cada partido como de las principales críticas documentadas desde la oposición o centros de estudio.</li>
+        </ul>
+      </div>
+      <div class="pt-4 border-t border-slate-200 flex justify-end">
+        <button onclick="closeMethodologyModal()" class="px-5 py-2 bg-slate-900 text-white text-sm font-semibold rounded-xl hover:bg-slate-800 transition cursor-pointer">
+          Entendido
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================= -->
+  <!-- BASE DE DATOS Y LÓGICA INTERACTIVA                                      -->
+  <!-- ======================================================================= -->
+  <script>
+    const PARTIES = {
+      psoe: {
+        id: 'psoe',
+        name: 'PSOE',
+        fullName: 'Partido Socialista Obrero Español',
+        candidate: 'Pedro Sánchez',
+        color: '#E30613',
+        bgLight: 'bg-red-50',
+        textDark: 'text-red-900',
+        borderClass: 'border-red-200',
+        badgeClass: 'bg-[#E30613] text-white',
+        roleSummary: 'Gobierno de España (2018–2026 · 8 años en La Moncloa)'
+      },
+      pp: {
+        id: 'pp',
+        name: 'PP',
+        fullName: 'Partido Popular',
+        candidate: 'Alberto Núñez Feijóo',
+        color: '#0056A3',
+        bgLight: 'bg-blue-50',
+        textDark: 'text-blue-900',
+        borderClass: 'border-blue-200',
+        badgeClass: 'bg-[#0056A3] text-white',
+        roleSummary: 'Gobierno central (2011–2018) y Gobiernos Autonómicos (incluida C. de Madrid)'
+      },
+      frente: {
+        id: 'frente',
+        name: 'Frente Amplio',
+        fullName: 'Frente Amplio (espacio de Sumar)',
+        candidate: 'Ada Colau',
+        color: '#7B2CBF',
+        bgLight: 'bg-purple-50',
+        textDark: 'text-purple-900',
+        borderClass: 'border-purple-200',
+        badgeClass: 'bg-[#7B2CBF] text-white',
+        roleSummary: 'Socio de coalición en Gobierno central (Sumar) + Alcaldía Barcelona (2015–2023)'
+      },
+      vox: {
+        id: 'vox',
+        name: 'Vox',
+        fullName: 'Vox',
+        candidate: 'Santiago Abascal',
+        color: '#63BE21',
+        bgLight: 'bg-lime-50',
+        textDark: 'text-lime-950',
+        borderClass: 'border-lime-300',
+        badgeClass: 'bg-[#63BE21] text-slate-950',
+        roleSummary: 'Socio y apoyo parlamentario en gobiernos autonómicos junto al PP'
+      }
+    };
+
+    // Datos estructurados por Eje Temático (Promesas 29-N + Historial de Gestión + Contradicciones + Contraste)
+    const TOPICS_DATA = [
+      {
+        id: 'vivienda',
+        title: 'Vivienda y Alquiler',
+        subtitle: 'Acceso para jóvenes, regulación de rentas, oferta de suelo y seguridad jurídica',
+        profiles: ['jovenes', 'vivienda_perfil', 'familias'],
+        parties: {
+          psoe: {
+            promesas: [
+              'Impulso a un parque público estatal de 100.000 viviendas y movilización del 1 % del PIB anual en políticas de vivienda.',
+              'Refuerzo de la regulación de precios del alquiler, congelación temporal de rentas abusivas en zonas tensionadas y límites a pisos turísticos.',
+              'Ampliación de avales y préstamos sin intereses para jóvenes (programa TUCASA) y recargos fiscales a grandes tenedores y compras especulativas.'
+            ],
+            historial: [
+              'Aprobación de la primera Ley estatal por el Derecho a la Vivienda (2023), línea de avales ICO para jóvenes y despliegue parcial de fondos europeos para rehabilitación y vivienda social.',
+              'Durante sus 8 años de mandato, el precio medio de compra y alquiler acumuló fuertes subidas en grandes capitales y zonas turísticas.'
+            ],
+            contradiccion: {
+              titulo: 'Ley de vivienda garantista vs. 8 años de encarecimiento y ejecución lenta',
+              dicen: 'Prometen convertir la vivienda en el "quinto pilar" del Estado del Bienestar, movilizar 100.000 viviendas públicas y topar rentas abusivas como prioridad urgente.',
+              hacen: 'Tras 8 años en La Moncloa y más de tres años desde la Ley de Vivienda, el esfuerzo de alquiler ha alcanzado máximos en grandes ciudades y la entrega efectiva de vivienda pública de nueva construcción ha avanzado a un ritmo inferior al anunciado.',
+              analisis: 'El PSOE atribuye el retraso a la falta de competencias autonómicas exclusivas en suelo/urbanismo y a la no aplicación de la ley por comunidades del PP; sus críticos sostienen que tras casi dos legislaturas en el poder el balance real en accesibilidad contradice la retórica de urgencia social.'
+            },
+            debate: {
+              aFavor: 'Defiende que la intervención pública y la Ley de Vivienda han permitido topar subidas en comunidades que la aplican (como Cataluña) y sentar las bases de un parque público permanente.',
+              criticas: 'Oposición y sector inmobiliario señalan que la aplicación de la ley ha sido desigual (boicoteada por CC.AA. del PP), que la oferta de alquiler tradicional se ha reducido y que los anuncios de viviendas públicas tardan en materializarse.'
+            }
+          },
+          pp: {
+            promesas: [
+              'Plan para movilizar suelo y promover hasta un millón de viviendas durante la legislatura, con una nueva Ley del Suelo y silencio administrativo positivo.',
+              'Derogación de la actual Ley de Vivienda estatal y eliminación de los topes al alquiler para incentivar la salida de pisos al mercado.',
+              'Rebaja del IVA de primera vivienda al 4 % para menores de 40 años, avales del 100 % para hipotecas jóvenes y desalojos exprés en 24-48 horas frente a la ocupación.'
+            ],
+            historial: [
+              'En comunidades donde gobierna —como la Comunidad de Madrid con el Plan Vive— ha apostado por la colaboración público-privada, cesión de suelo público y deducciones fiscales en IRPF por alquiler.',
+              'En su etapa de Gobierno central (2011–2018) reformó la LAU reduciendo la duración mínima de contratos de 5 a 3 años y reguló el régimen fiscal de las SOCIMI.'
+            ],
+            contradiccion: {
+              titulo: 'Promesa de vivienda asequible vs. máximos de precio donde gobierna',
+              dicen: 'Aseguran que desregular el alquiler, liberar suelo y bajar impuestos hará la vivienda más asequible para jóvenes y familias.',
+              hacen: 'En la Comunidad de Madrid y otras regiones donde gobierna con amplias mayorías y políticas liberales de suelo e impuestos, los precios del alquiler y de compra han tocado máximos históricos y el acceso sigue tensionado.',
+              analisis: 'El PP sostiene que los precios suben por la alta demanda demográfica, la falta de seguridad jurídica estatal y la presión migratoria, no por su política autonómica; sus detractores ven una contradicción entre recetar liberalización como panacea y los precios alcanzados en plazas bajo gestión del PP.'
+            },
+            debate: {
+              aFavor: 'Sostiene que la única vía eficaz para moderar precios es aumentar la oferta de suelo, dar seguridad jurídica a propietarios y reducir impuestos en la compra.',
+              criticas: 'Críticos y sindicatos de inquilinos apuntan que en Madrid y otras regiones gobernadas por el PP los alquileres han marcado máximos históricos y que el modelo de concesiones mantiene rentas elevadas para rentas bajas.'
+            }
+          },
+          frente: {
+            promesas: [
+              'Creación acelerada de un parque público de alquiler permanente mediante compra directa, tanteo y retracto y movilización de viviendas vacías de fondos y banca.',
+              'Prórroga obligatoria de contratos de alquiler, extensión automática de los topes de renta a todo el territorio y prohibición de compras especulativas por no residentes.',
+              'Moratoria permanente de desahucios sin alternativa habitacional y drástica reducción de licencias de pisos turísticos.'
+            ],
+            historial: [
+              'Como socio del Gobierno central (espacio Sumar) impulsó la Ley de Vivienda de 2023 y las moratorias antidesahucios desde la pandemia.',
+              'En la Alcaldía de Barcelona con Ada Colau (2015–2023) aplicó la reserva obligatoria del 30 % para VPO en nuevas promociones, multas a pisos turísticos ilegales y ampliación del parque municipal.'
+            ],
+            contradiccion: {
+              titulo: 'Bandera antidesahucios y vivienda pública vs. resultados en Barcelona y coalición',
+              dicen: 'Plantean medidas radicales e inmediatas para frenar los desahucios y multiplicar el alquiler social como eje central de su identidad política.',
+              hacen: 'Tras años como socio de gobierno en Moncloa y ocho años de Ada Colau al frente de Barcelona, la medida estrella de la reserva del 30 % generó escasa obra protegida efectiva y se asoció a un descenso de visados, mientras los desahucios y precios del alquiler siguieron siendo un problema grave.',
+              analisis: 'Frente Amplio argumenta que en Barcelona hubo avances en vivienda pública y freno a pisos turísticos pese a las trabas legales y resistencias de promotores y del PSOE; sus críticos señalan que las normas restrictivas desincentivaron la oferta nueva.'
+            },
+            debate: {
+              aFavor: 'Reivindica haber colocado la regulación de alquileres en la agenda estatal y haber frenado miles de desahucios y licencias turísticas en Barcelona.',
+              criticas: 'Desde el PSOE y sectores empresariales se argumenta que algunas medidas (como la reserva del 30 % en Barcelona) paralizaron visados de obra nueva y que sus propuestas exceden competencias constitucionales.'
+            }
+          },
+          vox: {
+            promesas: [
+              'Derogación íntegra de la Ley de Vivienda y liberalización total del suelo que no esté expresamente protegido por razones ambientales.',
+              'Supresión del IVA y del Impuesto de Transmisiones Patrimoniales en la compra de primera vivienda habitual para españoles.',
+              'Endurecimiento penal contra la ocupación ilegal y la "inquiocupación", autorizando el desalojo inmediato por fuerzas de seguridad sin esperar resolución judicial larga.'
+            ],
+            historial: [
+              'En gobiernos autonómicos compartidos con el PP ha impulsado líneas de avales jóvenes, rebajas en impuestos autonómicos de transmisiones y oficinas autonómicas antiocupación.',
+              'En el Congreso ha votado sistemáticamente contra los decretos de prórroga de suspensión de desahucios.'
+            ],
+            contradiccion: {
+              titulo: 'Defensa del acceso a la vivienda y bajada de impuestos vs. choque con rentas vulnerables',
+              dicen: 'Prometen facilitar el acceso a la vivienda eliminando impuestos y regulaciones, presentándose como defensores de las familias trabajadoras.',
+              hacen: 'En el Congreso y en pactos autonómicos ha priorizado la eliminación de escudos antidesahucios y la desregulación del mercado, sin articular políticas de parque público de alquiler social para hogares de baja renta.',
+              analisis: 'Vox sostiene que proteger a ocupas o impagos destruye la oferta y encarece el mercado para todos; analistas y grupos sociales apuntan que centrarse solo en propiedad y desregulación deja sin alternativa habitacional a familias vulnerables.'
+            },
+            debate: {
+              aFavor: 'Argumenta que el exceso de burocracia, impuestos y el temor a impagos retraen la oferta y encarecen el acceso a la propiedad.',
+              criticas: 'Analistas de vivienda señalan que la supresión generalizada de impuestos sin control de oferta puede trasladarse a mayores precios de venta y deja desprotegidos a hogares vulnerables en alquiler.'
+            }
+          }
+        }
+      },
+      {
+        id: 'empleo',
+        title: 'Empleo, Salarios y Autónomos',
+        subtitle: 'Jornada laboral, Salario Mínimo, contratación y régimen de trabajadores por cuenta propia',
+        profiles: ['jovenes', 'autonomos'],
+        parties: {
+          psoe: {
+            promesas: [
+              'Culminar la reducción de la jornada laboral ordinaria a 37,5 horas semanales sin reducción salarial y abrir el camino hacia las 35 horas en la legislatura.',
+              'Blindar por ley que el Salario Mínimo Interprofesional (SMI) se mantenga siempre en al menos el 60 % del salario medio.',
+              'Nuevos incentivos a la contratación indefinida de jóvenes y mayores de 52 años, y despliegue del sistema de cotización por ingresos reales para autónomos.'
+            ],
+            historial: [
+              'Aprobación de la Reforma Laboral de 2021 (acordada con patronal y sindicatos), que redujo la tasa de temporalidad del ~26 % al entorno del 15-16 %, y subida acumulada del SMI de más del 54 % desde 2018.',
+              'Implantación del nuevo sistema de cotización por tramos de ingresos reales para autónomos.'
+            ],
+            contradiccion: {
+              titulo: 'Protección al autónomo y "fin de la precariedad" vs. cuotas crecientes y fijos discontinuos',
+              dicen: 'Proclaman el fin de la precariedad laboral y defienden el apoyo a los trabajadores por cuenta propia y a las pymes.',
+              hacen: 'Han impulsado un esquema de cotizaciones por ingresos reales que eleva cuotas a tramos de rendimientos netos intermedios/altos y mantienen figuras como los contratos fijos discontinuos y la rotación en alta/baja.',
+              analisis: 'El Gobierno destaca la caída de la temporalidad ordinaria y el apoyo a los autónomos de menores ingresos; críticos y asociaciones de autónomos señalan cargas administrativas y subidas de cotización en un contexto de mayores costes.'
+            },
+            debate: {
+              aFavor: 'Destaca los récords históricos de afiliación a la Seguridad Social (superando los 21,5 millones) y la fuerte caída de la temporalidad contractual.',
+              criticas: 'Patronal y oposición cuestionan el uso recurrente de los fijos discontinuos en las estadísticas, el alza de costes laborales para microempresas y la subida de cuotas a autónomos con ingresos medios.'
+            }
+          },
+          pp: {
+            promesas: [
+              'Implantación de la "cuota cero" durante el primer año (ampliable a dos) para nuevos autónomos y exención de presentar declaraciones trimestrales de IVA a autónomos que facturen menos de 85.000 €.',
+              'Creación de la "mochila austriaca" (cuenta individual portátil para trabajadores) y flexibilidad negociada en convenios para distribución irregular de jornada.',
+              'Bonificaciones fiscales a empresas que contraten jóvenes indefinidos y reduzcan el absentismo laboral.'
+            ],
+            historial: [
+              'Durante el Gobierno de Mariano Rajoy (2012) aprobó la reforma laboral centrada en la flexibilidad interna, descuelgue de convenios y reducción de indemnizaciones por despido improcedente (de 45 a 33 días).',
+              'En comunidades como Madrid o Andalucía ha desplegado ayudas de tarifa plana ampliada ("cuota cero") para el inicio de actividad autónoma.'
+            ],
+            contradiccion: {
+              titulo: 'Defensa de la estabilidad y el poder adquisitivo hoy vs. reforma laboral de 2012',
+              dicen: 'Prometen mejorar las condiciones de los trabajadores, incentivar el empleo estable y aliviar a familias y autónomos.',
+              hacen: 'En su etapa de Gobierno central (2012) aprobaron la reforma laboral que abarató el despido improcedente y debilitó la negociación colectiva sectorial, y en el Congreso votaron en contra de la reforma laboral de 2021 que redujo la temporalidad.',
+              analisis: 'El PP justifica la reforma de 2012 como necesaria para contener el paro masivo tras la crisis financiera y critica la de 2021 por rigidez; sus adversarios subrayan el contraste entre prometer estabilidad hoy y haber facilitado el abaratamiento del despido y votado en contra de reducir la temporalidad.'
+            },
+            debate: {
+              aFavor: 'Sostiene que la reforma de 2012 permitió frenar la destrucción de empleo tras la crisis financiera y que sus medidas descargan de burocracia y costes a pymes y autónomos.',
+              criticas: 'Sindicatos y partidos de izquierda subrayan que la etapa 2012-2018 estuvo marcada por una alta temporalidad, devaluación salarial y pérdida de poder adquisitivo.'
+            }
+          },
+          frente: {
+            promesas: [
+              'Reducción inmediata de la jornada laboral a 37,5 horas y hoja de ruta legal hacia las 32 horas semanales en 2030 sin merma salarial, con control horario digital accesible a Inspección.',
+              'Incremento adicional del SMI por encima del IPC real y reforma del despido para hacerlo "reparador y disuasorio" conforme a la Carta Social Europea.',
+              'Participación obligatoria de representantes de trabajadores en los consejos de administración de grandes empresas.'
+            ],
+            historial: [
+              'Desde el Ministerio de Trabajo (espacio Sumar, 2020–2026) lideró las sucesivas subidas del SMI, los ERTE durante la pandemia, la Ley Rider y la negociación de la reforma laboral de 2021.',
+              'En 2025-2026 mantuvo tensiones parlamentarias y con la CEOE para sacar adelante la reducción de jornada a 37,5 horas.'
+            ],
+            contradiccion: {
+              titulo: 'Promesa de cambios laborales profundos vs. límites de la coalición y del mercado',
+              dicen: 'Exigen reformas estructurales rápidas (32 horas, encarecimiento fuerte del despido, control sindical en consejos) como solución directa a la precariedad.',
+              hacen: 'Tras años en el Ministerio de Trabajo dentro de la coalición, medidas como la reducción de jornada a 37,5 horas han chocado con resistencias parlamentarias y empresariales, y el encarecimiento del despido no se materializó en la reforma laboral pactada.',
+              analisis: 'Frente Amplio sostiene que el avance ha sido real en el SMI y los ERTE pero que el PSOE y la patronal han frenado ambiciones mayores; críticos señalan la brecha entre promesas de ruptura laboral y la viabilidad en minoría parlamentaria.'
+            },
+            debate: {
+              aFavor: 'Reivindica ser el motor de las mejoras salariales y de derechos laborales del Gobierno de coalición.',
+              criticas: 'Organizaciones empresariales y PP/Vox advierten del impacto sobre la productividad de pequeñas empresas y del incremento de costes de seguridad social.'
+            }
+          },
+          vox: {
+            promesas: [
+              'Eliminación de la cuota mensual para todos los autónomos cuyos ingresos netos no alcancen el Salario Mínimo Interprofesional y bonificación del 100 % en situaciones de baja o maternidad.',
+              'Derogación de la legislación laboral aprobada desde 2020 y reducción de las cotizaciones sociales empresariales por cada contratación indefinida de trabajadores españoles.',
+              'Supresión de subvenciones públicas a sindicatos y patronales.'
+            ],
+            historial: [
+              'En gobiernos autonómicos compartidos con el PP respaldó planes autonómicos de apoyo a autónomos, reducción de tasas administrativas y supresión de fondos destinados a agentes sociales en presupuestos regionales.',
+              'En el Congreso votó en contra de la reforma laboral de 2021 y de las subidas del SMI pactadas sin rebaja fiscal paralela.'
+            ],
+            contradiccion: {
+              titulo: 'Alivio inmediato al autónomo y trabajador vs. sostenibilidad del sistema contributivo',
+              dicen: 'Prometen eximir de cuota a los autónomos que no alcancen el SMI y bajar cotizaciones manteniendo las prestaciones.',
+              hacen: 'Al rechazar los mecanismos de financiación y cotización pactados a nivel estatal y proponer exenciones amplias sin fuente compensatoria explícita, dejan abierta la tensión con el equilibrio financiero de las prestaciones contributivas.',
+              analisis: 'Vox argumenta que las cotizaciones actuales asfixian al pequeño negocio y que el ahorro debe salir de recortar gasto político; economistas advierten que eximir cuotas sin compensación presupuestaria merma derechos futuros o genera déficit.'
+            },
+            debate: {
+              aFavor: 'Plantea un alivio directo de cargas fijas para el pequeño autónomo y defiende que bajar cotizaciones fomenta la contratación.',
+              criticas: 'Economistas señalan que eximir de cotización sin compensación presupuestaria reduce la futura pensión del autónomo y abre un déficit en la Seguridad Social.'
+            }
+          }
+        }
+      },
+      {
+        id: 'fiscalidad',
+        title: 'Fiscalidad y Cuentas Públicas',
+        subtitle: 'IRPF, impuestos a grandes patrimonios y empresas, IVA y estabilidad presupuestaria',
+        profiles: ['autonomos', 'familias'],
+        parties: {
+          psoe: {
+            promesas: [
+              'Subida de la tributación de las rentas del capital más elevadas (hasta el 35 % a partir de 300.000 €) y consolidación de impuestos permanentes a grandes entidades financieras y energéticas.',
+              'Nuevos gravámenes armonizados a grandes plataformas tecnológicas/IA y tasas ambientales sobre jets privados y viajes de lujo de alta huella de carbono.',
+              'Mantenimiento de deducciones en IRPF para rentas bajas y transición verde, cumpliendo la senda europea de reducción de déficit y deuda.'
+            ],
+            historial: [
+              'Creación del Impuesto Temporal de Solidaridad de las Grandes Fortunas, gravámenes extraordinarios a banca y energéticas, y rebaja del IVA en alimentos básicos durante la crisis inflacionaria (2023-2024).',
+              'Reducción del déficit público desde el 10,1 % en 2020 hasta por debajo del 3 % en 2024-2025, aunque con dificultades parlamentarias para aprobar nuevos Presupuestos Generales.'
+            ],
+            contradiccion: {
+              titulo: 'Discurso de justicia fiscal para rentas medias y bajas vs. no deflactar el IRPF',
+              dicen: 'Defienden proteger el poder adquisitivo de las clases medias y trabajadoras y gravar solo a quienes más tienen.',
+              hacen: 'Han mantenido sin deflactar la tarifa estatal del IRPF pese a la inflación acumulada —lo que ha elevado la carga fiscal efectiva de salarios que subían para no perder poder adquisitivo—, mientras enfrentaban bloqueos presupuestarios en las Cortes.',
+              analisis: 'El PSOE argumenta que deflactar linealmente beneficia más a las rentas altas y reduce ingresos para servicios públicos; críticos y economistas señalan que la no deflactación supone una subida fiscal silenciosa sobre rentas salariales.'
+            },
+            debate: {
+              aFavor: 'Defiende una fiscalidad progresiva que ha permitido financiar el escudo social y las pensiones mientras se reducía el déficit público.',
+              criticas: 'Oposición y contribuyentes critican la no deflactación de la tarifa estatal del IRPF frente a la inflación ("progresividad en frío") y la creación de más de medio centenar de subidas o figuras tributarias.'
+            }
+          },
+          pp: {
+            promesas: [
+              'Rebaja generalizada del IRPF para rentas medias y bajas (menores de 40.000 €), deflactación de tramos por inflación y exención de IRPF durante 4 años para jóvenes que accedan a su primer empleo.',
+              'Supresión del Impuesto de Solidaridad de las Grandes Fortunas y bonificación del Impuesto de Sucesiones y Donaciones a nivel nacional.',
+              'Eliminación del impuesto del 7 % a la generación eléctrica y reducción del Impuesto de Sociedades para pymes que reinviertan beneficios.'
+            ],
+            historial: [
+              'En la Comunidad de Madrid y otras CC.AA. gobernadas por el PP ha aplicado sucesivas rebajas del tramo autonómico del IRPF, deflactación de tarifas y bonificación al 99-100 % de Patrimonio y Sucesiones.',
+              'En el Gobierno de Mariano Rajoy (2012) subió inicialmente el IRPF y el IVA (del 18 % al 21 %) para contener el déficit en plena crisis, aplicando posteriormente una rebaja de IRPF en 2015.'
+            ],
+            contradiccion: {
+              titulo: 'Bandera permanente de bajada de impuestos vs. subida histórica de IRPF e IVA en 2012',
+              dicen: 'Presentan la rebaja fiscal como una seña de identidad innegociable y contraponen su modelo de bajos impuestos a las subidas de otros gobiernos.',
+              hacen: 'Cuando gobernó en España con mayoría absoluta bajo Mariano Rajoy (2012), aprobó una fuerte subida temporal del IRPF y elevó el tipo general del IVA del 18 % al 21 %, además de mantener impuestos energéticos que ahora promete suprimir.',
+              analisis: 'El PP explica el giro de 2012 por la emergencia fiscal heredada y la exigencia de Bruselas para evitar un rescate; sus oponentes utilizan aquel precedente para cuestionar la inmutabilidad de su promesa fiscal cuando gobierna en solitario.'
+            },
+            debate: {
+              aFavor: 'Sostiene que bajar impuestos incentiva el consumo, atrae inversión y aumenta la recaudación por dinamismo económico, citando el crecimiento del PIB en Madrid.',
+              criticas: 'El Gobierno y analistas fiscales señalan que las rebajas autonómicas erosionan recursos propios para sanidad y educación y recuerdan que el PP ejecutó la mayor subida del IVA y del IRPF en 2012.'
+            }
+          },
+          frente: {
+            promesas: [
+              'Reforma fiscal integral para equiparar la tributación de las rentas del capital con las del trabajo y establecer un impuesto permanente a grandes fortunas sin posibilidad de bonificación autonómica.',
+              'Imposición de un tipo mínimo efectivo real del 15-20 % sobre el beneficio contable de grandes corporaciones y multinacionales.',
+              'Reducción permanente del IVA en productos básicos, suministros esenciales (luz, agua, gas) y productos de higiene y veterinaria.'
+            ],
+            historial: [
+              'Desde su participación en el Ejecutivo impulsó el impuesto a las grandes fortunas (diseñado para neutralizar la bonificación de Patrimonio en Madrid y Andalucía) y los gravámenes a banca y energéticas.',
+              'Presionó dentro de la coalición para mantener las rebajas del IVA energético y alimentario.'
+            ],
+            contradiccion: {
+              titulo: 'Ambición redistributiva y fiscalidad verde/social vs. topes de la coalición',
+              dicen: 'Proponen una transformación fiscal profunda con impuestos permanentes altos a grandes patrimonios y corporaciones y rebajas permanentes de IVA.',
+              hacen: 'Durante su etapa en el Gobierno de coalición muchas de estas medidas tuvieron carácter temporal, se negociaron a la baja o dependieron de mayorías parlamentarias fragmentadas sin lograr una reforma fiscal estructural completa.',
+              analisis: 'Frente Amplio señala que la correlación de fuerzas en el Congreso y las reticencias de su socio mayoritario limitaron el alcance de sus propuestas; críticos apuntan que promete una ambición recaudatoria y de gasto difícil de cuadrar sin tensiones.'
+            },
+            debate: {
+              aFavor: 'Argumenta que España mantiene una brecha de recaudación respecto a la media de la eurozona que recae en las grandes fortunas y corporaciones.',
+              criticas: 'Sectores empresariales y comunidades del PP denuncian invasión de la autonomía fiscal regional y riesgo de fuga de capitales e inversión.'
+            }
+          },
+          vox: {
+            promesas: [
+              'Rebaja drástica del IRPF reduciendo el sistema a dos únicos tramos (15 % hasta 70.000 € y 25 % a partir de esa cifra), con fuertes deducciones por hijo a cargo.',
+              'Supresión total de los impuestos de Patrimonio, Sucesiones y Donaciones, Plusvalía municipal y tasas verdes.',
+              'Reducción del IVA al 4 % para productos de primera necesidad y suministros básicos, compensando la caída de ingresos con un recorte radical del gasto político, subvenciones y estructura autonómica.'
+            ],
+            historial: [
+              'En los gobiernos autonómicos compartidos con el PP respaldó rebajas en el tramo autonómico del IRPF, Sucesiones y Transmisiones Patrimoniales, exigiendo recortes en subvenciones a sindicatos, cooperación y organismos culturales.',
+              'En el Parlamento ha rechazado todas las leyes de presupuestos y creaciones de nuevos impuestos del Ejecutivo.'
+            ],
+            contradiccion: {
+              titulo: 'Rebaja fiscal masiva y recorte del gasto vs. aritmética presupuestaria real',
+              dicen: 'Prometen recortes fiscales de gran calado (dos tramos de IRPF, supresión de impuestos y IVA al 4 %) financiados eliminando gasto político y duplicidades.',
+              hacen: 'En su experiencia en gobiernos autonómicos, el recorte de partidas de gasto político o subvenciones tuvo un peso presupuestario limitado frente al volumen de ingresos fiscales y al gasto social y sanitario obligatorio.',
+              analisis: 'Vox defiende que el recorte estructural exige desmantelar organismos y redes clientelares; analistas fiscales advierten que el ajuste en partidas no sociales es insuficiente para compensar una rebaja fiscal generalizada sin subir deuda o recortar servicios.'
+            },
+            debate: {
+              aFavor: 'Defiende devolver el dinero al bolsillo de las familias y recortar lo que denomina "gasto político superfluo".',
+              criticas: 'Instituciones económicas independientes advierten que una rebaja fiscal de esa magnitud sin recorte equivalente en partidas estructurales (pensiones/sanidad) dispararía el déficit público.'
+            }
+          }
+        }
+      },
+      {
+        id: 'inmigracion',
+        title: 'Inmigración y Seguridad',
+        subtitle: 'Control de fronteras, regularización, integración laboral, multirreincidencia y orden público',
+        profiles: ['familias', 'autonomos'],
+        parties: {
+          psoe: {
+            promesas: [
+              'Desarrollo del nuevo Reglamento de Extranjería para agilizar vías de migración regular, arraigo formativo y contratación en origen en sectores con falta de mano de obra.',
+              'Corresponsabilidad obligatoria entre comunidades autónomas en la acogida de menores extranjeros no acompañados y refuerzo de medios en fronteras exteriores.',
+              'Aumento de plantillas de Policía Nacional y Guardia Civil y planes específicos contra la ciberdelincuencia y la violencia de género.'
+            ],
+            historial: [
+              'Reforma del Reglamento de Extranjería (2024-2025) flexibilizando permisos de estudio y trabajo; gestión de repuntes migratorios en la ruta canaria mediante acuerdos con países de origen y tránsito (Mauritania, Senegal, Marruecos).',
+              'Recuperación de más de 15.000 plazas de Fuerzas y Cuerpos de Seguridad del Estado perdidas en la década anterior.'
+            ],
+            contradiccion: {
+              titulo: 'Defensa del orden y control fronterizo vs. gestión reactiva y desacuerdos territoriales',
+              dicen: 'Afirman garantizar una migración ordenada, segura y solidaria, con control eficaz de fronteras y reparto equitativo entre territorios.',
+              hacen: 'Ha encadenado repuntes de llegadas irregulares en rutas marítimas (especialmente Canarias) con respuestas de emergencia y no ha logrado consenso suficiente con las comunidades autónomas para aplicar un reparto vinculante de menores sin fuerte litigio político.',
+              analisis: 'El PSOE destaca la cooperación diplomática con países de origen y el refuerzo de las fuerzas de seguridad; críticos señalan improvisación en picos de llegada y falta de acuerdo previo con las autonomías que deben prestar los servicios de acogida.'
+            },
+            debate: {
+              aFavor: 'Subraya que la migración regular ha sido clave para sostener el crecimiento del empleo y la afiliación, manteniendo tasas de criminalidad por debajo de la media europea.',
+              criticas: 'PP y Vox acusan al Ejecutivo de falta de previsión ante las llegadas a Canarias, saturación de recursos de acogida y concesiones excesivas en materia de regularización.'
+            }
+          },
+          pp: {
+            promesas: [
+              'Política migratoria vinculada a la capacidad real de acogida, contratos en origen y compromiso expreso de integración y respeto a valores constitucionales.',
+              'Expulsión inmediata de extranjeros que cometan delitos graves o incurran en multirreincidencia, y despliegue de Frontex y refuerzo de medios en fronteras.',
+              'Endurecimiento del Código Penal frente a la multirreincidencia en hurtos y estafas, y equiparación salarial de Policía Nacional y Guardia Civil.'
+            ],
+            historial: [
+              'En la etapa de Mariano Rajoy gestionó el control fronterizo en Ceuta y Melilla mediante cooperación bilateral con Marruecos.',
+              'En 2024-2026 sus comunidades autónomas mantuvieron un pulso con el Gobierno central sobre el reparto obligatorio de menores migrantes, exigiendo financiación estatal íntegra y declaración de emergencia migratoria.'
+            ],
+            contradiccion: {
+              titulo: 'Llamamientos a la solidaridad y gestión ordenada vs. rechazo al reparto de menores',
+              dicen: 'Apelan a la necesidad de una política migratoria ordenada y con sentido de Estado, al tiempo que buscan marcar perfil firme frente a la inmigración irregular.',
+              hacen: 'Sus gobiernos autonómicos rechazaron o condicionaron fuertemente los mecanismos de distribución solidaria de menores migrantes no acompañados desde territorios saturados como Canarias, chocando con el Ejecutivo central y con su propia apelación a la corresponsabilidad.',
+              analisis: 'El PP sostiene que no puede aceptar imposiciones sin financiación estatal ni capacidad real en los centros autonómicos; sus críticos le reprochan anteponer el cálculo político y la presión de Vox a la solidaridad interterritorial.'
+            },
+            debate: {
+              aFavor: 'Plantea una posición intermedia entre el humanitarismo y el orden fronterizo, reclamando apoyo europeo y firmeza contra la delincuencia multirreincidente.',
+              criticas: 'Desde la izquierda se le critica haber endurecido su discurso por presión de Vox bloqueando acuerdos de solidaridad interterritorial; desde Vox se le acusa de tibieza.'
+            }
+          },
+          frente: {
+            promesas: [
+              'Regularización extraordinaria y ágil de personas extranjeras que ya residen y trabajan en España, y derogación de los aspectos más restrictivos de la Ley de Extranjería.',
+              'Cierre definitivo de los Centros de Internamiento de Extranjeros (CIE) y garantía de vías seguras y legales de asilo y refugio.',
+              'Enfoque de seguridad preventiva y comunitaria, refuerzo de servicios públicos de mediación y blindaje de derechos frente a delitos de odio.'
+            ],
+            historial: [
+              'Como socio en el Gobierno central impulsó la tramitación de la Iniciativa Legislativa Popular (ILP) de regularización extraordinaria y reformas del arraigo laboral.',
+              'En el Ayuntamiento de Barcelona promovió programas de empadronamiento sin domicilio fijo para garantizar acceso sanitario y escolar, junto con políticas de policía de proximidad.'
+            ],
+            contradiccion: {
+              titulo: 'Garantismo migratorio y cierre de CIE vs. continuidad de la política de coalición',
+              dicen: 'Defienden la derogación de los enfoques punitivos en extranjería, el cierre de los CIE y una política migratoria radicalmente centrada en derechos.',
+              hacen: 'Ha permanecido en el Gobierno de coalición junto a un PSOE que ha mantenido los CIE operativos, defendido acuerdos de control fronterizo con terceros países y aplicado devoluciones y controles policiales en frontera.',
+              analisis: 'Frente Amplio explica su permanencia en el Ejecutivo como vía para lograr avances en arraigo y regularización que de otro modo serían imposibles; críticos señalan la tensión entre su programa garantista y la gestión ordinaria del Estado en fronteras.'
+            },
+            debate: {
+              aFavor: 'Sostiene que otorgar papeles combate la economía sumergida, protege los derechos laborales y evita la exclusión social.',
+              criticas: 'Oposición conservadora y sectores policiales argumentan que las regularizaciones masivas generan un "efecto llamada" y tensionan los servicios municipales.'
+            }
+          },
+          vox: {
+            promesas: [
+              'Eje de "prioridad nacional" en el acceso a ayudas sociales, vivienda pública y becas, y aplicación de políticas de "remigración" para inmigrantes en situación irregular o que cometan delitos.',
+              'Prohibición expresa de cualquier regularización extraordinaria, endurecimiento de los requisitos de residencia (mínimo 15 años) y lengua para obtener la nacionalidad española.',
+              'Bloqueo naval y despliegue militar en fronteras si es necesario, supresión de subvenciones a ONG que colaboren con redes de tráfico y endurecimiento general de penas.'
+            ],
+            historial: [
+              'En los gobiernos autonómicos compartidos con el PP (2023–2024) llegó a romper los ejecutivos regionales precisamente por el rechazo frontal a aceptar el reparto de menores migrantes acordado a nivel nacional.',
+              'En ayuntamientos y regiones ha promovido auditorías sobre ayudas sociales por nacionalidad.'
+            ],
+            contradiccion: {
+              titulo: 'Promesa de mano dura y deportaciones masivas vs. límites competenciales y jurídicos',
+              dicen: 'Anuncian bloqueos navales, deportaciones/"remigración" masiva y prohibición de ayudas a irregulares como soluciones directas e inmediatas.',
+              hacen: 'En las instituciones autonómicas y municipales donde ha tenido presencia real, las competencias de control de fronteras, expulsiones y nacionalidad corresponden al Estado o a la normativa europea/internacional, limitando la ejecución práctica de sus promesas más drásticas.',
+              analisis: 'Vox reivindica que su ruptura de gobiernos autonómicos demuestra que no cede en sus principios; analistas jurídicos y políticos subrayan la distancia entre las promesas de choque y los límites competenciales y del derecho europeo.'
+            },
+            debate: {
+              aFavor: 'Reivindica coherencia absoluta en su discurso sobre fronteras, seguridad ciudadana y prioridad para los contribuyentes españoles.',
+              criticas: 'Juristas, entidades sociales y el resto de fuerzas señalan que varias de sus propuestas vulneran el derecho internacional de asilo, la normativa de la UE y el principio constitucional de igualdad.'
+            }
+          }
+        }
+      },
+      {
+        id: 'pensiones',
+        title: 'Pensiones y Servicios Públicos',
+        subtitle: 'Revalorización de jubilaciones, sostenibilidad del sistema, sanidad y educación',
+        profiles: ['familias', 'jovenes'],
+        parties: {
+          psoe: {
+            promesas: [
+              'Blindaje constitucional de la revalorización anual de las pensiones conforme al IPC real y aumento progresivo del Fondo de Reserva ("hucha de las pensiones").',
+              'Reducción de la brecha de género en las pensiones, ampliación de los permisos por nacimiento y cuidado hasta las 20 semanas y universalización de la educación pública de 0 a 3 años.',
+              'Ley de Equidad y Cohesión del Sistema Nacional de Salud para limitar conciertos privados y reducir listas de espera en atención primaria.'
+            ],
+            historial: [
+              'Aprobación de la reforma de pensiones (2021-2023) vinculando la subida al IPC, creando el Mecanismo de Equidad Intergeneracional (MEI) y reactivando el Fondo de Reserva hasta superar los 12.000-14.000 millones.',
+              'Equiparación de permisos de maternidad y paternidad en 16 semanas y aprobación de la LOMLOE en educación.'
+            ],
+            contradiccion: {
+              titulo: '"Sostenibilidad garantizada" de las pensiones vs. transferencias crecientes y tensión demográfica',
+              dicen: 'Aseguran que el sistema de pensiones está blindado y es sostenible a largo plazo mediante reformas ya aprobadas y el recargo del Fondo de Reserva.',
+              hacen: 'El gasto en pensiones ha alcanzado máximos históricos y requiere transferencias extraordinarias crecientes desde los Presupuestos Generales del Estado, mientras organismos independientes advierten de la presión del relevo generacional.',
+              analisis: 'El PSOE defiende que el MEI y las cotizaciones adicionales refuerzan la equidad intergeneracional; economistas y la AIReF señalan que persiste un reto de financiación estructural a medio plazo.'
+            },
+            debate: {
+              aFavor: 'Destaca haber garantizado el poder adquisitivo de más de 10 millones de pensionistas frente a la inflación y haber iniciado la recarga de la hucha de las pensiones.',
+              criticas: 'La AIReF y economistas advierten del fuerte incremento del gasto en pensiones a medio plazo (jubilación del baby boom) y de que el MEI supone una subida encubierta de cotizaciones.'
+            }
+          },
+          pp: {
+            promesas: [
+              'Mantenimiento de la revalorización de las pensiones con el IPC, combinada con auditoría de cuentas de la Seguridad Social, incentivos a la jubilación activa y fomento de planes de pensiones de empleo.',
+              'Plan de choque nacional contra las listas de espera sanitarias, creación de 1.000 nuevas plazas MIR de medicina de familia y tarjeta sanitaria única interoperable.',
+              'Gratuidad de la educación infantil de 0 a 3 años cofinanciada con las CC.AA., EBAU común en toda España y defensa de la libertad de elección de centro (pública y concertada).'
+            ],
+            historial: [
+              'Durante el Gobierno de Mariano Rajoy (2013) aprobó el Índice de Revalorización de las Pensiones (subidas mínimas del 0,25 % en años de déficit) y el Factor de Sostenibilidad, además de utilizar el Fondo de Reserva para cubrir el déficit.',
+              'En comunidades como Madrid, Galicia o Castilla y León gestiona los sistemas sanitarios y educativos autonómicos, destacando altos indicadores de esperanza de vida y resultados PISA (Castilla y León), pero afrontando protestas por atención primaria.'
+            ],
+            contradiccion: {
+              titulo: 'Defensa actual del IPC en pensiones y sanidad pública vs. 2013 y gestión autonómica',
+              dicen: 'Garantizan la revalorización de las pensiones con el IPC y prometen reforzar la sanidad pública y reducir las esperas.',
+              hacen: 'En 2013 el PP aprobó desvincular las pensiones del IPC (topándolas al 0,25 %) y agotó casi por completo la hucha de las pensiones; además, en varias comunidades gobernadas por el PP se han registrado protestas por demoras en atención primaria y conciertos sanitarios.',
+              analisis: 'El PP sostiene que en 2013 actuó ante la quiebra técnica heredada y que hoy asume el IPC como pacto social, defendiendo su gestión sanitaria y educativa; la oposición le reprocha haber roto la indexación al IPC y tensionar la sanidad pública.'
+            },
+            debate: {
+              aFavor: 'Defiende la eficiencia de su gestión educativa y sanitaria autonómica y sostiene que el crecimiento del empleo es la única garantía real de las pensiones.',
+              criticas: 'El bloque de izquierdas recuerda la subida del 0,25 % bajo Rajoy y critica el peso creciente de la sanidad privada y concertada en comunidades gobernadas por el PP.'
+            }
+          },
+          frente: {
+            promesas: [
+              'Subida de las pensiones mínimas y no contributivas por encima del IPC hasta equipararlas al 100 % del umbral de pobreza, financiada vía presupuestos generales.',
+              'Incorporación de salud bucodental, óptica (gafas y lentillas gratuitas para menores y rentas bajas) y salud mental en la cartera básica del Sistema Nacional de Salud.',
+              'Prestación universal por crianza de 200 euros al mes por hijo menor de 18 años y derogación de la Ley 15/97 que permite la gestión privada de hospitales públicos.'
+            ],
+            historial: [
+              'Desde el Ministerio de Derechos Sociales y Sanidad (espacio Sumar) impulsó el inicio de la ampliación de la cartera bucodental, el plan de salud mental y el aumento de pensiones no contributivas.',
+              'En Barcelona desplegó servicios municipales pioneros de atención psicológica gratuita para jóvenes y dentista municipal.'
+            ],
+            contradiccion: {
+              titulo: 'Promesa de universalidad y prestaciones amplias vs. ritmo y alcance en el Gobierno',
+              dicen: 'Proponen ampliar de forma ambiciosa las prestaciones universales (como los 200 € mensuales por crianza o la óptica universal) y eliminar la colaboración privada sanitaria.',
+              hacen: 'Pese a formar parte del Ejecutivo central y gestionar carteras sociales y sanitarias, la prestación universal por crianza y la eliminación integral de conciertos sanitarios no se materializaron en la legislatura.',
+              analisis: 'Frente Amplio señala que las prioridades presupuestarias y las posiciones de su socio en el Gobierno frenaron estas medidas; críticos apuntan que se prometen programas de alto coste recurrente sin respaldo fiscal cerrado.'
+            },
+            debate: {
+              aFavor: 'Pone el foco en ampliar la cobertura universal del Estado del Bienestar a necesidades cotidianas como la salud bucodental o la crianza.',
+              criticas: 'Analistas presupuestarios cuestionan el elevado coste anual de la prestación universal por crianza (más de 15.000 millones €) y la falta de detalle en su financiación.'
+            }
+          },
+          vox: {
+            promesas: [
+              'Reforma profunda del sistema hacia un modelo mixto de reparto y capitalización individual, garantizando el poder adquisitivo de los pensionistas actuales mediante el recorte del gasto autonómico.',
+              'Devolución al Estado de las competencias de Sanidad y Educación para eliminar las 17 carteras y currículos autonómicos y garantizar igualdad de prestaciones en toda España.',
+              'Implantación del "cheque escolar" para que las familias elijan libremente centro educativo y establecimiento del "pin parental" en contenidos morales o afectivo-sexuales.'
+            ],
+            historial: [
+              'En gobiernos autonómicos compartidos con el PP impulsó medidas de apoyo a la natalidad, reducción de listas de espera mediante conciertos y promoción de la educación concertada y diferenciada.',
+              'Votó en contra de la reforma de pensiones de 2023 al considerar que penaliza a empresas y trabajadores con mayores cotizaciones.'
+            ],
+            contradiccion: {
+              titulo: 'Defensa de la gestión pública centralizada vs. apoyo a conciertos y educación diferenciada',
+              dicen: 'Critican los despilfarros y fragmentación del sistema y abogan por simplificar estructuras y defender los derechos de los mayores y familias.',
+              hacen: 'En gobiernos autonómicos ha respaldado fórmulas de concierto sanitario y escolar y cheque/apoyo a centros privados/concertados, mientras en el Congreso rechazó la reforma de pensiones de 2023 y propone un giro hacia la capitalización.',
+              analisis: 'Vox argumenta que el concierto permite aliviar listas de espera y dar libertad a los padres, y que la capitalización protege el ahorro futuro; sus críticos ven tensiones entre su discurso contra "intermediarios" y su apoyo a conciertos o reformas de alto impacto.'
+            },
+            debate: {
+              aFavor: 'Argumenta que recentralizar Sanidad y Educación ahorraría duplicidades administrativas y acabaría con desigualdades entre territorios.',
+              criticas: 'Expertos constitucionalistas señalan que revertir el Estado autonómico exigiría una reforma agravada de la Constitución, y sindicatos advierten que el cheque escolar debilita la escuela pública.'
+            }
+          }
+        }
+      },
+      {
+        id: 'territorial',
+        title: 'Modelo Territorial e Instituciones',
+        subtitle: 'Financiación autonómica, Cataluña, regeneración democrática, Justicia y Estado de las Autonomías',
+        profiles: ['familias', 'autonomos'],
+        parties: {
+          psoe: {
+            promesas: [
+              'Despliegue del nuevo sistema de financiación autonómica combinando la singularidad de territorios como Cataluña con un refuerzo multilateral de recursos y condonación parcial de deuda autonómica.',
+              'Plan de regeneración democrática: reforma de la ley de publicidad institucional, transparencia en medios y renovación garantizada del Poder Judicial.',
+              'Impulso a la cogobernanza, oficialidad de las lenguas cooficiales en instituciones europeas y España federal.'
+            ],
+            historial: [
+              'Concesión de indultos (2021), reforma del Código Penal (derogación de sedición) y aprobación de la Ley de Amnistía (2024) como eje de su política de distensión en Cataluña y acuerdos de investidura.',
+              'Acuerdo con el PP en 2024 para renovar el CGPJ tras cinco años de bloqueo, en un mandato marcado también por investigaciones judiciales que afectaron a su entorno político.'
+            ],
+            contradiccion: {
+              titulo: 'Giros sobre la amnistía y discurso de regeneración vs. pactos y casos judiciales',
+              dicen: 'Prometen regeneración democrática, igualdad interterritorial y defensa del Estado de Derecho.',
+              hacen: 'Pasó de descartar rotundamente la amnistía antes de las elecciones de 2023 a aprobarla como clave de investidura y pactar una financiación singular para Cataluña, mientras afrontaba investigaciones judiciales vinculadas a su entorno y exdirigentes.',
+              analisis: 'El PSOE justifica el cambio sobre la amnistía como un instrumento pragmático para cerrar una crisis política y asegurar la gobernabilidad; sus críticos señalan una contradicción flagrante entre lo afirmado en campaña y lo pactado tras el voto, además del contraste con su bandera de regeneración.'
+            },
+            debate: {
+              aFavor: 'Reivindica la normalización institucional en Cataluña y la reducción de la conflictividad territorial respecto a 2017.',
+              criticas: 'PP, Vox y sectores críticos dentro del propio PSOE cuestionan la Ley de Amnistía y el acuerdo de "financiación singular" para Cataluña por romper, a su juicio, la igualdad entre españoles.'
+            }
+          },
+          pp: {
+            promesas: [
+              'Reforma del Código Penal para recuperar el delito de sedición, tipificar la convocatoria de referéndums ilegales y prohibir por ley indultos o amnistías por delitos de corrupción o contra el orden constitucional.',
+              'Endurecimiento de los requisitos de independencia para acceder al Tribunal Constitucional, Fiscalía General del Estado y CGPJ, y reforma de la ley electoral para primar la lista más votada en ayuntamientos.',
+              'Reforma multilateral de la financiación autonómica en el Consejo de Política Fiscal y Financiera rechazando acuerdos bilaterales privilegiados.'
+            ],
+            historial: [
+              'Durante el Gobierno de Mariano Rajoy aplicó el artículo 155 de la Constitución en Cataluña (2017) tras la declaración unilateral de independencia, contando con el respaldo del PSOE.',
+              'Desde las CC.AA. donde gobierna ha coordinado recursos ante el Tribunal Constitucional contra leyes estatales y ha reclamado un fondo de nivelación transitorio.'
+            ],
+            contradiccion: {
+              titulo: 'Defensa de la independencia judicial y la igualdad vs. 5 años de bloqueo del CGPJ',
+              dicen: 'Exigen despolitizar la Justicia, reforzar la independencia de los órganos judiciales y defender la igualdad institucional.',
+              hacen: 'Mantuvo bloqueada durante más de cinco años la renovación obligatoria del Consejo General del Poder Judicial (CGPJ) hasta el acuerdo de 2024, y ha recurrido a pactos con formaciones de distinto signo según la conveniencia territorial o parlamentaria.',
+              analisis: 'El PP argumenta que exigía garantías legales para que los jueces eligieran a los jueces y evitar el control gubernamental del órgano; sus críticos señalan que bloquear un mandato constitucional contradice la defensa de la normalidad institucional.'
+            },
+            debate: {
+              aFavor: 'Se presenta como garantía de igualdad territorial, seguridad jurídica y contrapeso institucional frente a las cesiones a partidos independentistas.',
+              criticas: 'El bloque progresista le reprocha haber mantenido bloqueado el CGPJ durante cinco años y utilizar las instituciones autonómicas y el Senado para una oposición de desgaste.'
+            }
+          },
+          frente: {
+            promesas: [
+              'Reconocimiento efectivo de la plurinacionalidad del Estado, impulso al diálogo político en Cataluña y blindaje de las lenguas cooficiales en todos los ámbitos.',
+              'Reforma del sistema de elección del CGPJ y ampliación del acceso a la carrera judicial mediante becas públicas para democratizar su composición.',
+              'Mayor descentralización fiscal y refuerzo de la financiación de los ayuntamientos y servicios locales.'
+            ],
+            historial: [
+              'Apoyó activamente los indultos, la Ley de Amnistía y la mesa de diálogo en Cataluña como socio de Gobierno.',
+              'Con Ada Colau en Barcelona impulsó mecanismos de participación ciudadana directa, consultas vecinales y remunicipalización de servicios.'
+            ],
+            contradiccion: {
+              titulo: 'Discurso de unidad y fuerza progresista vs. fragmentación y tensiones con el PSOE',
+              dicen: 'Prometen articular un frente amplio, cohesionado y eficaz para impulsar transformaciones plurinacionales y sociales.',
+              hacen: 'El espacio a la izquierda del PSOE ha atravesado divisiones orgánicas y electorales, y en el gobierno de coalición ha convivido con fricciones públicas frecuentes con el PSOE en materias territoriales, fiscales y sociales.',
+              analisis: 'Frente Amplio sostiene que la pluralidad interna y la exigencia firme son necesarias para no diluir el programa transformador; sus críticos ven una contradicción entre predicar unidad amplia y mostrar fracturas recurrentes.'
+            },
+            debate: {
+              aFavor: 'Defiende que los conflictos territoriales solo se resuelven mediante negociación política y reconocimiento de la diversidad.',
+              criticas: 'La oposición critica su alineamiento con las demandas del nacionalismo periférico y acusa al espacio de anteponer pactos territoriales a la cohesión nacional.'
+            }
+          },
+          vox: {
+            promesas: [
+              'Sustitución progresiva del Estado de las Autonomías por un Estado unitario descentralizado administrativamente, devolviendo competencias clave al Gobierno central.',
+              'Ilegalización de los partidos separatistas que atenten contra la unidad de España, derogación de la Ley de Memoria Democrática y supresión de instituciones autonómicas duplicadas.',
+              'Elección directa de los vocales del CGPJ por los jueces y reducción drástica del número de diputados, asesores y subvenciones a partidos políticos.'
+            ],
+            historial: [
+              'Ejerció la acusación popular en el juicio del "procés" ante el Tribunal Supremo (2019) y ha recurrido ante el Tribunal Constitucional leyes como la Amnistía o los estados de alarma.',
+              'En gobiernos autonómicos con el PP promovió leyes de "concordia" en sustitución de normativas autonómicas de memoria histórica.'
+            ],
+            contradiccion: {
+              titulo: 'Rechazo frontal al Estado de las Autonomías vs. participación en gobiernos autonómicos',
+              dicen: 'Defienden suprimir o vaciar el Estado de las Autonomías por considerarlo un sistema ineficiente y disgregador.',
+              hacen: 'Ha aceptado cargos ejecutivos y vicepresidencias dentro de los propios gobiernos autonómicos que critica en su programa estatal, ocupando puestos institucionales dentro de la arquitectura autonómica.',
+              analisis: 'Vox sostiene que entrar en los gobiernos autonómicos servía para desactivar políticas que considera perjudiciales desde dentro y que su salida posterior ratificó su coherencia; críticos apuntan la paradoja de gestionar estructuras autonómicas mientras se proclama su superación.'
+            },
+            debate: {
+              aFavor: 'Atrae a votantes que perciben el modelo autonómico como costoso, desigual y fuente de privilegios para los nacionalismos.',
+              criticas: 'Constitucionalistas y partidos mayoritarios señalan que su programa territorial choca frontalmente con el Título VIII de la Constitución de 1978.'
+            }
+          }
+        }
+      }
+    ];
+
+    // Datos de Radiografía de Trayectoria Ejecutiva (Vista 2)
+    const RADIOGRAFIA_DATA = [
+      {
+        partyId: 'psoe',
+        periodBadge: '2018 – 2026 · 8 años en el Gobierno de España',
+        executiveRoles: [
+          'Presidencia del Gobierno de España desde junio de 2018 (tras moción de censura) y revalidada tras las elecciones de 2019 y 2023.',
+          'Gestión de tres grandes ciclos: salida de crisis institucional, pandemia COVID-19 y crisis inflacionaria/energética.'
+        ],
+        claimedAchievements: [
+          'Creación neta de más de 2,5 millones de empleos y reducción histórica de la temporalidad tras la reforma laboral de 2021.',
+          'Subida del Salario Mínimo Interprofesional en más de un 54 % y revalorización de las pensiones con el IPC.',
+          'Despliegue de los fondos europeos Next Generation EU y reducción del déficit público por debajo del 3 %.'
+        ],
+        pendingIssuesAndCritics: [
+          'Encarecimiento acumulado de la vivienda (compra y alquiler) pese a la aprobación de la Ley de Vivienda de 2023.',
+          'Dificultades parlamentarias para aprobar presupuestos anuales y desgaste por concesiones a socios independentistas (amnistía, financiación singular).',
+          'Impacto mediático y político de investigaciones judiciales sobre exdirigentes y entorno cercano en el tramo final de legislatura.'
+        ]
+      },
+      {
+        partyId: 'pp',
+        periodBadge: '2011 – 2018 (España) + Gobiernos Autonómicos (Madrid, etc.)',
+        executiveRoles: [
+          'Gobierno de España bajo Mariano Rajoy (2011–2018), con mayoría absoluta en 2011–2015 y minoría en 2016–2018.',
+          'Presidencia de la mayoría de Comunidades Autónomas desde 2023 (destacando la Comunidad de Madrid, Andalucía, Galicia, Castilla y León, C. Valenciana).'
+        ],
+        claimedAchievements: [
+          'Evitar el rescate total de la economía española en 2012, saneamiento bancario y recuperación del crecimiento y creación de empleo entre 2014 y 2018.',
+          'Modelo económico de bajos impuestos y atracción de inversión extranjera en comunidades como Madrid y Andalucía.',
+          'Buenos resultados educativos en regiones como Castilla y León y liderazgo en actividad económica en Madrid.'
+        ],
+        pendingIssuesAndCritics: [
+          'Recortes presupuestarios en sanidad y educación y subida de impuestos (IVA e IRPF) durante su anterior mandato estatal (2012–2014), además del agotamiento del Fondo de Reserva de pensiones.',
+          'Conflictos laborales en la sanidad pública autonómica (atención primaria) y escalada de precios de vivienda en Madrid.',
+          'Dependencia parlamentaria de Vox en varias regiones y críticas por los años de bloqueo en la renovación del CGPJ.'
+        ]
+      },
+      {
+        partyId: 'frente',
+        periodBadge: '2020 – 2026 (Coalición Estatal Sumar) + Barcelona (2015–2023)',
+        executiveRoles: [
+          'Participación en el Gobierno de coalición junto al PSOE (espacio Sumar) liderando carteras como Trabajo, Derechos Sociales, Sanidad y Cultura.',
+          'Alcaldía de Barcelona durante dos mandatos consecutivos con Ada Colau (2015–2023).'
+        ],
+        claimedAchievements: [
+          'Impulso determinante a los ERTE pandémicos, subidas del SMI, Ley Rider y despliegue de políticas sociales y de conciliación en el Gobierno central.',
+          'En Barcelona: ampliación del parque público de vivienda, regulación pionera de pisos turísticos, superillas y transformación urbana.',
+          'Aprobación del impuesto estatal a las grandes fortunas.'
+        ],
+        pendingIssuesAndCritics: [
+          'Fragmentación interna del espacio a la izquierda del PSOE y pérdida de representación territorial en ciclos autonómicos previos.',
+          'En Barcelona, críticas de sectores empresariales y vecinales por problemas de seguridad/limpieza, caída de visados de vivienda nueva tras la reserva del 30 % y judicialización de políticas municipales.',
+          'Promesas incumplidas en la legislatura como la implantación inmediata de la prestación universal por crianza.'
+        ]
+      },
+      {
+        partyId: 'vox',
+        periodBadge: '2022 – 2026 · Socio y apoyo en Gobiernos Autonómicos',
+        executiveRoles: [
+          'Vicepresidencias y consejerías (Agricultura, Cultura, Industria, Justicia/Interior) en gobiernos autonómicos con el PP (Castilla y León, Aragón, Extremadura, C. Valenciana, Murcia) hasta su salida de los ejecutivos en 2024.',
+          'Apoyo parlamentario externo y gobiernos municipales en capitales de provincia.'
+        ],
+        claimedAchievements: [
+          'Condicionamiento de la agenda política nacional en materia de inmigración, sector primario (oposición a exigencias verdes europeas) y rebajas fiscales autonómicas.',
+          'Supresión de subvenciones a sindicatos, patronales y organismos ideológicos en las consejerías que gestionó.',
+          'Coherencia discursiva al abandonar vicepresidencias autonómicas en 2024 para no respaldar el reparto de menores migrantes.'
+        ],
+        pendingIssuesAndCritics: [
+          'Inestabilidad institucional derivada de su salida abrupta de los gobiernos autonómicos a mitad de mandato.',
+          'Escaso balance legislativo propio en las consejerías dirigidas y anulaciones o recursos judiciales contra algunas de sus medidas (como leyes de concordia o protocolos sanitarios).',
+          'Cuestionamiento por parte de analistas sobre la viabilidad fiscal y constitucional de sus propuestas estatales.'
+        ]
+      }
+    ];
+
+    // Datos de Matriz de Choques y Consensos (Vista 3)
+    const MATRIX_DATA = [
+      {
+        topic: 'Regulación del Alquiler y Vivienda',
+        type: 'choque',
+        typeLabel: 'Choque frontal',
+        leftBlock: 'PSOE y Frente Amplio defienden intervenir precios en zonas tensionadas, ampliar el parque público y gravar pisos vacíos y turísticos (con mayor intensidad en Frente Amplio).',
+        rightBlock: 'PP y Vox abogan por derogar la Ley de Vivienda, liberalizar suelo, rebajar impuestos a la compra y agilizar desalojos por ocupación.',
+        governanceKey: 'La Ley de Vivienda de 2023 solo se aplica donde gobierna la izquierda (ej. Cataluña); las CC.AA. del PP aplican avales y concesiones de suelo.'
+      },
+      {
+        topic: 'Jornada Laboral y Salario Mínimo',
+        type: 'matiz',
+        typeLabel: 'Choque + Matiz izq.',
+        leftBlock: 'Ambos respaldan el SMI al 60 % del salario medio y bajar la jornada a 37,5 h, pero Frente Amplio exige ir ya hacia las 32 horas y endurecer el despido.',
+        rightBlock: 'PP y Vox rechazan imponer la reducción de jornada por ley sin acuerdo con la patronal y priorizan reducir cotizaciones y cuotas a autónomos.',
+        governanceKey: 'El Gobierno de coalición subió el SMI más de un 54 % desde 2018, pero encontró resistencias parlamentarias para aprobar las 37,5 horas.'
+      },
+      {
+        topic: 'Política Fiscal y Grandes Fortunas',
+        type: 'choque',
+        typeLabel: 'Choque frontal',
+        leftBlock: 'Subida de impuestos a rentas del capital altas, grandes empresas, banca y energéticas para financiar servicios públicos.',
+        rightBlock: 'Rebajas generalizadas de IRPF, supresión de Patrimonio y Sucesiones (más radical en Vox con tarifa de dos tramos).',
+        governanceKey: 'Choque directo entre el Impuesto estatal a Grandes Fortunas del Gobierno y las bonificaciones al 100 % en Madrid y Andalucía.'
+      },
+      {
+        topic: 'Inmigración y Acogida de Menores',
+        type: 'matiz',
+        typeLabel: 'Choque + Matiz dcha.',
+        leftBlock: 'PSOE apuesta por migración regular ordenada y reparto solidario; Frente Amplio pide regularización extraordinaria amplia y cierre de CIE.',
+        rightBlock: 'PP pide control fronterizo y expulsión por delitos manteniendo migración legal; Vox exige "remigración", bloqueo y prioridad nacional en ayudas.',
+        governanceKey: 'El reparto de menores migrantes provocó la ruptura de los gobiernos autonómicos de PP y Vox en 2024.'
+      },
+      {
+        topic: 'Revalorización de Pensiones con IPC',
+        type: 'consenso',
+        typeLabel: 'Convergencia parcial',
+        leftBlock: 'Blindaje legal y constitucional de la subida anual con el IPC y aumento del Fondo de Reserva.',
+        rightBlock: 'PP asume mantener la revalorización con el IPC (corrigiendo la fórmula de 2013); Vox propone transitar a un sistema mixto de capitalización.',
+        governanceKey: 'PSOE y Sumar aprobaron la indexación al IPC en 2021; PP promete mantenerla pero cuestiona la subida de cotizaciones (MEI).'
+      },
+      {
+        topic: 'Modelo Territorial y Cataluña',
+        type: 'choque',
+        typeLabel: 'Choque frontal',
+        leftBlock: 'Diálogo político, amnistía, impulso a lenguas cooficiales y financiación autonómica con singularidad (Frente Amplio propone plurinacionalidad).',
+        rightBlock: 'PP rechaza acuerdos bilaterales y recupera delitos de sedición/referéndum; Vox propone suprimir el Estado de las Autonomías.',
+        governanceKey: 'Contraste entre el 155 aplicado por Rajoy en 2017 y los indultos y Ley de Amnistía aprobados por Sánchez en 2021-2024.'
+      },
+      {
+        topic: 'Avales y Ayudas a Jóvenes / Autónomos',
+        type: 'consenso',
+        typeLabel: 'Convergencia parcial',
+        leftBlock: 'Avales públicos para compra de primera vivienda (TUCASA/ICO) y bonificaciones para nuevos autónomos.',
+        rightBlock: 'Avales del 100 % hipotecario, rebajas de impuestos a jóvenes y "cuota cero" para nuevos autónomos.',
+        governanceKey: 'Tanto el Ejecutivo central como CC.AA. del PP (Madrid, Andalucía) han desplegado líneas de avales jóvenes y cuota cero.'
+      }
+    ];
+
+    // Estado global de la aplicación
+    let state = {
+      mainView: 'comparador',
+      activeParties: ['psoe', 'pp', 'frente', 'vox'],
+      selectedTopic: 'all',
+      selectedProfile: 'all',
+      contradictionTopic: 'all',
+      contradictionParty: 'all',
+      searchQuery: '',
+      cardMode: 'all', // 'all' (3 bloques abiertos) | 'compact' (pestañas internas)
+      activeSubTabs: {} // guarda pestaña activa por tarjeta en modo compacto
+    };
+
+    // Inicialización al cargar el DOM
+    function initObservatorio() {
+      renderPartyToggles();
+      renderTopicFilters();
+      renderContradictionFilters();
+      renderAllViews();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initObservatorio);
+    } else {
+      initObservatorio();
+    }
+
+    // Normalizar texto eliminando tildes y mayúsculas para búsquedas flexibles
+    function normalizeText(str) {
+      return String(str || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase();
+    }
+
+    // Comprobar si un bloque de texto coincide con todas las palabras buscadas
+    function matchesSearch(text, query) {
+      if (!query) return true;
+      const normalizedTarget = normalizeText(text);
+      const tokens = normalizeText(query).split(/\s+/).filter(Boolean);
+      return tokens.every(token => normalizedTarget.includes(token));
+    }
+
+    function handleSearchInput(rawVal) {
+      state.searchQuery = (rawVal || '').trim();
+      const clearBtn = document.getElementById('clearSearchBtn');
+      if (state.searchQuery.length > 0) {
+        clearBtn.classList.remove('hidden');
+      } else {
+        clearBtn.classList.add('hidden');
+      }
+      renderAllViews();
+    }
+
+    // Renderizar botones de activación/desactivación de partidos
+    function renderPartyToggles() {
+      const container = document.getElementById('partyToggles');
+      container.innerHTML = Object.values(PARTIES).map(party => {
+        const isActive = state.activeParties.includes(party.id);
+        return `
+          <button
+            onclick="toggleParty('${party.id}')"
+            class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-2 border transition cursor-pointer ${
+              isActive
+                ? 'bg-slate-900 text-white border-slate-900 shadow-xs'
+                : 'bg-white text-slate-500 border-slate-300 hover:bg-slate-50'
+            }"
+            title="Activar o desactivar ${party.name}"
+          >
+            <span class="w-2.5 h-2.5 rounded-full shrink-0" style="background-color: ${party.color};"></span>
+            <span>${party.name}</span>
+            <span class="text-[11px] opacity-75 hidden sm:inline">(${party.candidate.split(' ').pop()})</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    // Activar / desactivar partido (manteniendo al menos 1 activo)
+    function toggleParty(partyId) {
+      if (state.activeParties.includes(partyId)) {
+        if (state.activeParties.length <= 1) return; // Evita dejar 0 partidos
+        state.activeParties = state.activeParties.filter(id => id !== partyId);
+      } else {
+        // Mantener orden canónico
+        const order = ['psoe', 'pp', 'frente', 'vox'];
+        state.activeParties = order.filter(id => state.activeParties.includes(id) || id === partyId);
+      }
+      renderPartyToggles();
+      renderComparador();
+    }
+
+    // Renderizar píldoras de ejes temáticos
+    function renderTopicFilters() {
+      const container = document.getElementById('topicFilters');
+      const topics = [{ id: 'all', title: 'Todos los ejes' }, ...TOPICS_DATA.map(t => ({ id: t.id, title: t.title }))];
+      container.innerHTML = topics.map(t => {
+        const active = state.selectedTopic === t.id;
+        return `
+          <button
+            onclick="selectTopic('${t.id}')"
+            class="px-3 py-1.5 rounded-xl text-xs font-semibold transition cursor-pointer ${
+              active
+                ? 'bg-slate-800 text-white shadow-xs'
+                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+            }"
+          >
+            ${t.title}
+          </button>
+        `;
+      }).join('');
+    }
+
+    function selectTopic(topicId) {
+      state.selectedTopic = topicId;
+      renderTopicFilters();
+      renderComparador();
+    }
+
+    function handleProfileChange(profileVal) {
+      state.selectedProfile = profileVal;
+      renderComparador();
+    }
+
+    function clearSearch() {
+      const searchInput = document.getElementById('searchInput');
+      if (searchInput) searchInput.value = '';
+      state.searchQuery = '';
+      document.getElementById('clearSearchBtn').classList.add('hidden');
+      renderAllViews();
+    }
+
+    function resetAllFilters() {
+      state.selectedTopic = 'all';
+      state.selectedProfile = 'all';
+      state.contradictionTopic = 'all';
+      state.contradictionParty = 'all';
+      state.activeParties = ['psoe', 'pp', 'frente', 'vox'];
+      document.getElementById('profileSelect').value = 'all';
+      const searchInput = document.getElementById('searchInput');
+      if (searchInput) searchInput.value = '';
+      state.searchQuery = '';
+      document.getElementById('clearSearchBtn').classList.add('hidden');
+      renderPartyToggles();
+      renderTopicFilters();
+      renderContradictionFilters();
+      renderAllViews();
+    }
+
+    function setCardDefaultTab(mode) {
+      state.cardMode = mode;
+      const btnAll = document.getElementById('mode-all');
+      const btnCompact = document.getElementById('mode-compact');
+      if (mode === 'all') {
+        btnAll.className = 'px-2.5 py-1 rounded-lg bg-slate-800 text-white font-medium cursor-pointer';
+        btnCompact.className = 'px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 font-medium cursor-pointer';
+      } else {
+        btnCompact.className = 'px-2.5 py-1 rounded-lg bg-slate-800 text-white font-medium cursor-pointer';
+        btnAll.className = 'px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 font-medium cursor-pointer';
+      }
+      renderComparador();
+    }
+
+    function switchCardSubTab(cardKey, subTab) {
+      state.activeSubTabs[cardKey] = subTab;
+      renderComparador();
+    }
+
+    // Resaltar término buscado en el texto (insensible a tildes y mayúsculas)
+    function highlightText(text, query) {
+      const rawText = String(text || '');
+      if (!query || query.trim().length < 2) return rawText;
+      const tokens = query.trim().split(/\s+/).filter(t => t.length >= 2);
+      if (tokens.length === 0) return rawText;
+
+      const accentMap = {
+        a: '[aáàäâ]',
+        e: '[eéèëê]',
+        i: '[iíìïî]',
+        o: '[oóòöô]',
+        u: '[uúùüû]',
+        n: '[nñ]',
+        c: '[cç]'
+      };
+
+      const pattern = tokens.map(token => {
+        const norm = normalizeText(token);
+        return norm.split('').map(ch => accentMap[ch] || ch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('');
+      }).join('|');
+
+      const regex = new RegExp(`(${pattern})`, 'gi');
+      return rawText.replace(regex, '<mark class="bg-amber-200 text-slate-900 px-0.5 rounded-xs font-medium">$1</mark>');
+    }
+
+    // Renderizar el Comparador Temático principal
+    function renderComparador() {
+      const container = document.getElementById('topicsContainer');
+      const emptyState = document.getElementById('emptyState');
+      const counter = document.getElementById('resultsCounter');
+
+      const filteredTopics = TOPICS_DATA.filter(topic => {
+        // Filtro de eje temático
+        if (state.selectedTopic !== 'all' && topic.id !== state.selectedTopic) return false;
+        // Filtro de perfil ciudadano
+        if (state.selectedProfile !== 'all' && !topic.profiles.includes(state.selectedProfile)) return false;
+        // Filtro por palabra clave en cualquier partido activo o título del tema
+        if (state.searchQuery.length > 0) {
+          const inTitle = matchesSearch(`${topic.title} ${topic.subtitle}`, state.searchQuery);
+          const inParties = state.activeParties.some(pId => {
+            const pData = topic.parties[pId];
+            const blob = [
+              PARTIES[pId].name,
+              PARTIES[pId].fullName,
+              PARTIES[pId].candidate,
+              ...pData.promesas,
+              ...pData.historial,
+              pData.contradiccion.titulo,
+              pData.contradiccion.dicen,
+              pData.contradiccion.hacen,
+              pData.contradiccion.analisis,
+              pData.debate.aFavor,
+              pData.debate.criticas
+            ].join(' ');
+            return matchesSearch(blob, state.searchQuery);
+          });
+          return inTitle || inParties;
+        }
+        return true;
+      });
+
+      if (filteredTopics.length === 0) {
+        container.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        counter.textContent = '0 ejes temáticos encontrados';
+        return 0;
+      }
+
+      emptyState.classList.add('hidden');
+      counter.textContent = `Mostrando ${filteredTopics.length} ${filteredTopics.length === 1 ? 'eje temático' : 'ejes temáticos'} · Comparando ${state.activeParties.length} ${state.activeParties.length === 1 ? 'formación' : 'formaciones'}`;
+
+      // Definir columnas responsive según número de partidos seleccionados
+      const gridColsClass =
+        state.activeParties.length === 1 ? 'grid-cols-1 max-w-3xl' :
+        state.activeParties.length === 2 ? 'grid-cols-1 lg:grid-cols-2' :
+        state.activeParties.length === 3 ? 'grid-cols-1 md:grid-cols-2 xl:grid-cols-3' :
+        'grid-cols-1 md:grid-cols-2 xl:grid-cols-4';
+
+      container.innerHTML = filteredTopics.map(topic => {
+        const cardsHtml = state.activeParties.map(partyId => {
+          const party = PARTIES[partyId];
+          const data = topic.parties[partyId];
+          const cardKey = `${topic.id}_${partyId}`;
+          const activeSub = state.activeSubTabs[cardKey] || 'promesas';
+
+          // Bloques de contenido
+          const promesasBlock = `
+            <div class="space-y-2">
+              <div class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-800">
+                <span>📋 Qué promete para el 29-N</span>
+              </div>
+              <ul class="space-y-2 text-xs sm:text-[13px] text-slate-700 leading-relaxed">
+                ${data.promesas.map(item => `
+                  <li class="flex items-start gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0" style="background-color: ${party.color};"></span>
+                    <span>${highlightText(item, state.searchQuery)}</span>
+                  </li>
+                `).join('')}
+              </ul>
+            </div>
+          `;
+
+          const historialBlock = `
+            <div class="bg-slate-50 rounded-xl p-3 border border-slate-200/80 space-y-2">
+              <div class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-800">
+                <span>🏛️ Qué ha hecho donde ha gobernado</span>
+              </div>
+              <ul class="space-y-1.5 text-xs sm:text-[13px] text-slate-600 leading-relaxed">
+                ${data.historial.map(item => `
+                  <li class="flex items-start gap-2">
+                    <span class="text-slate-400 font-bold">•</span>
+                    <span>${highlightText(item, state.searchQuery)}</span>
+                  </li>
+                `).join('')}
+              </ul>
+            </div>
+          `;
+
+          const contradiccionBlock = `
+            <div class="bg-amber-50/90 rounded-xl p-3 border border-amber-300/80 space-y-1.5">
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-[11px] font-extrabold uppercase tracking-wider text-amber-950">⚡ Foco de Contradicción (Decir vs. Hacer)</span>
+                <button onclick="jumpToContradiction('${topic.id}', '${partyId}')" class="text-[11px] font-semibold text-amber-900 underline hover:text-amber-700 cursor-pointer shrink-0">
+                  Ver detalle
+                </button>
+              </div>
+              <p class="text-xs font-bold text-slate-900">${highlightText(data.contradiccion.titulo, state.searchQuery)}</p>
+              <p class="text-xs text-slate-700 leading-relaxed">${highlightText(data.contradiccion.analisis, state.searchQuery)}</p>
+            </div>
+          `;
+
+          const debateBlock = `
+            <div class="space-y-2 pt-1">
+              <div class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-800">
+                <span>⚖️ Puntos de debate y contraste</span>
+              </div>
+              <div class="space-y-2 text-xs leading-relaxed">
+                <div class="p-2.5 rounded-xl bg-emerald-50/70 border border-emerald-200/70 text-slate-700">
+                  <strong class="text-emerald-900 block mb-0.5">Argumento principal:</strong>
+                  ${highlightText(data.debate.aFavor, state.searchQuery)}
+                </div>
+                <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200/80 text-slate-700">
+                  <strong class="text-slate-900 block mb-0.5">Críticas y límites señalados:</strong>
+                  ${highlightText(data.debate.criticas, state.searchQuery)}
+                </div>
+              </div>
+            </div>
+          `;
+
+          // Renderizado según modo (3 bloques visibles vs pestañas)
+          const bodyContent = state.cardMode === 'all'
+            ? `<div class="p-4 space-y-4 flex-1 flex flex-col justify-between">
+                <div class="space-y-4">
+                  ${promesasBlock}
+                  ${historialBlock}
+                  ${contradiccionBlock}
+                </div>
+                ${debateBlock}
+              </div>`
+            : `<div class="p-4 flex-1 flex flex-col">
+                <div class="grid grid-cols-4 gap-1 bg-slate-100 p-1 rounded-xl mb-3 text-[11px] font-semibold">
+                  <button onclick="switchCardSubTab('${cardKey}', 'promesas')" class="py-1.5 px-1 rounded-lg transition cursor-pointer ${activeSub === 'promesas' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'}">📋 Promesas</button>
+                  <button onclick="switchCardSubTab('${cardKey}', 'historial')" class="py-1.5 px-1 rounded-lg transition cursor-pointer ${activeSub === 'historial' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'}">🏛️ Gestión</button>
+                  <button onclick="switchCardSubTab('${cardKey}', 'contradiccion')" class="py-1.5 px-1 rounded-lg transition cursor-pointer ${activeSub === 'contradiccion' ? 'bg-amber-100 text-amber-950 shadow-xs' : 'text-amber-900 hover:bg-amber-50'}">⚡ Contrad.</button>
+                  <button onclick="switchCardSubTab('${cardKey}', 'debate')" class="py-1.5 px-1 rounded-lg transition cursor-pointer ${activeSub === 'debate' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'}">⚖️ Debate</button>
+                </div>
+                <div class="flex-1">
+                  ${activeSub === 'promesas' ? promesasBlock : activeSub === 'historial' ? historialBlock : activeSub === 'contradiccion' ? contradiccionBlock : debateBlock}
+                </div>
+              </div>`;
+
+          return `
+            <article class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden flex flex-col card-transition">
+              <div class="h-1.5 w-full" style="background-color: ${party.color};"></div>
+              <div class="p-4 pb-3 border-b border-slate-100">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="px-2.5 py-1 rounded-lg text-xs font-bold ${party.badgeClass}">${party.name}</span>
+                  <span class="text-xs font-semibold text-slate-500">${party.candidate}</span>
+                </div>
+                <p class="text-[11px] text-slate-500 mt-1.5 leading-snug">${party.roleSummary}</p>
+              </div>
+              ${bodyContent}
+            </article>
+          `;
+        }).join('');
+
+        return `
+          <section class="space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-slate-200 pb-3">
+              <div>
+                <h2 class="editorial-serif text-lg sm:text-xl font-bold text-slate-900">
+                  ${highlightText(topic.title, state.searchQuery)}
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-600 mt-0.5">
+                  ${highlightText(topic.subtitle, state.searchQuery)}
+                </p>
+              </div>
+              <button
+                onclick="jumpToContradiction('${topic.id}', 'all')"
+                class="self-start sm:self-auto px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-950 border border-amber-300 text-xs font-semibold transition cursor-pointer shrink-0"
+              >
+                ⚡ Auditar contradicciones en ${topic.title}
+              </button>
+            </div>
+            <div class="grid ${gridColsClass} gap-4">
+              ${cardsHtml}
+            </div>
+          </section>
+        `;
+      }).join('');
+
+      return filteredTopics.length;
+    }
+
+    // Renderizar filtros y tarjetas de Auditoría de Contradicciones
+    function renderContradictionFilters() {
+      const topicContainer = document.getElementById('contradictionTopicFilters');
+      const partyContainer = document.getElementById('contradictionPartyFilters');
+
+      const topics = [{ id: 'all', title: 'Todas las materias' }, ...TOPICS_DATA.map(t => ({ id: t.id, title: t.title }))];
+      topicContainer.innerHTML = topics.map(t => {
+        const active = state.contradictionTopic === t.id;
+        return `
+          <button
+            onclick="selectContradictionTopic('${t.id}')"
+            class="px-3 py-1.5 rounded-xl text-xs font-semibold transition cursor-pointer ${
+              active ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+            }"
+          >
+            ${t.title}
+          </button>
+        `;
+      }).join('');
+
+      const parties = [{ id: 'all', name: 'Todos los partidos', color: '#334155' }, ...Object.values(PARTIES)];
+      partyContainer.innerHTML = parties.map(p => {
+        const active = state.contradictionParty === p.id;
+        return `
+          <button
+            onclick="selectContradictionParty('${p.id}')"
+            class="px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 border transition cursor-pointer ${
+              active ? 'bg-slate-900 text-white border-slate-900' : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
+            }"
+          >
+            <span class="w-2 h-2 rounded-full" style="background-color: ${p.color};"></span>
+            <span>${p.name}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function selectContradictionTopic(topicId) {
+      state.contradictionTopic = topicId;
+      renderContradictionFilters();
+      renderContradicciones();
+    }
+
+    function selectContradictionParty(partyId) {
+      state.contradictionParty = partyId;
+      renderContradictionFilters();
+      renderContradicciones();
+    }
+
+    function jumpToContradiction(topicId, partyId) {
+      state.contradictionTopic = topicId;
+      state.contradictionParty = partyId;
+      renderContradictionFilters();
+      renderContradicciones();
+      switchMainView('contradicciones');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderContradicciones() {
+      const container = document.getElementById('contradictionsContainer');
+      const counter = document.getElementById('contradictionsCounter');
+
+      const partyOrder = ['psoe', 'pp', 'frente', 'vox'];
+      const targetParties = state.contradictionParty === 'all' ? partyOrder : [state.contradictionParty];
+      const targetTopics = state.contradictionTopic === 'all'
+        ? TOPICS_DATA
+        : TOPICS_DATA.filter(t => t.id === state.contradictionTopic);
+
+      const items = [];
+      targetTopics.forEach(topic => {
+        targetParties.forEach(partyId => {
+          const cData = topic.parties[partyId].contradiccion;
+          const party = PARTIES[partyId];
+          const haystack = [
+            topic.title,
+            topic.subtitle,
+            party.name,
+            party.fullName,
+            party.candidate,
+            cData.titulo,
+            cData.dicen,
+            cData.hacen,
+            cData.analisis
+          ].join(' ');
+
+          if (state.searchQuery.length > 0 && !matchesSearch(haystack, state.searchQuery)) {
+            return;
+          }
+          items.push({ topic, party, cData });
+        });
+      });
+
+      counter.textContent = `Mostrando ${items.length} ${items.length === 1 ? 'ficha de contraste (Decir vs. Hacer)' : 'fichas de contraste (Decir vs. Hacer)'}`;
+
+      if (items.length === 0) {
+        container.innerHTML = `
+          <div class="bg-white rounded-2xl border border-slate-200 p-10 text-center">
+            <p class="text-sm font-semibold text-slate-800">No hay fichas de contradicción que coincidan con el filtro actual.</p>
+            <button onclick="resetAllFilters()" class="mt-3 px-4 py-2 bg-slate-900 text-white text-xs font-semibold rounded-xl hover:bg-slate-800 cursor-pointer">
+              Restablecer filtros
+            </button>
+          </div>
+        `;
+        return 0;
+      }
+
+      container.innerHTML = items.map(({ topic, party, cData }) => `
+        <article class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden card-transition">
+          <div class="h-1.5 w-full" style="background-color: ${party.color};"></div>
+          <div class="p-5 sm:p-6 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-100">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="px-2.5 py-1 rounded-lg text-xs font-bold ${party.badgeClass}">${party.name}</span>
+                <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700">${highlightText(topic.title, state.searchQuery)}</span>
+              </div>
+              <span class="text-xs text-slate-500">${party.roleSummary}</span>
+            </div>
+
+            <h3 class="text-base sm:text-lg font-bold text-slate-900">
+              ${highlightText(cData.titulo, state.searchQuery)}
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/90">
+                <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 block mb-1">
+                  💬 Lo que dicen / Prometen (29-N)
+                </span>
+                <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                  ${highlightText(cData.dicen, state.searchQuery)}
+                </p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-rose-50/50 border border-rose-200/80">
+                <span class="text-[11px] font-extrabold uppercase tracking-wider text-rose-900 block mb-1">
+                  🛠️ Lo que hacen / Gestionan
+                </span>
+                <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                  ${highlightText(cData.hacen, state.searchQuery)}
+                </p>
+              </div>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-amber-50/80 border border-amber-300/80">
+              <span class="text-[11px] font-extrabold uppercase tracking-wider text-amber-950 block mb-1">
+                🔍 Análisis de la contradicción o tensión
+              </span>
+              <p class="text-xs sm:text-sm text-slate-800 leading-relaxed">
+                ${highlightText(cData.analisis, state.searchQuery)}
+              </p>
+            </div>
+          </div>
+        </article>
+      `).join('');
+
+      return items.length;
+    }
+
+    // Renderizar Vista 2: Radiografía de Trayectoria Ejecutiva
+    function renderRadiografia() {
+      const container = document.getElementById('radiografiaGrid');
+      const filtered = RADIOGRAFIA_DATA.filter(item => {
+        const party = PARTIES[item.partyId];
+        if (!state.searchQuery) return true;
+        const blob = [
+          party.name,
+          party.fullName,
+          party.candidate,
+          item.periodBadge,
+          ...item.executiveRoles,
+          ...item.claimedAchievements,
+          ...item.pendingIssuesAndCritics
+        ].join(' ');
+        return matchesSearch(blob, state.searchQuery);
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full bg-white rounded-2xl border border-slate-200 p-10 text-center">
+            <p class="text-sm font-semibold text-slate-800">No hay fichas de trayectoria ejecutiva que coincidan con "${state.searchQuery}".</p>
+            <button onclick="clearSearch()" class="mt-3 px-4 py-2 bg-slate-900 text-white text-xs font-semibold rounded-xl hover:bg-slate-800 cursor-pointer">
+              Limpiar búsqueda
+            </button>
+          </div>
+        `;
+        return 0;
+      }
+
+      container.innerHTML = filtered.map(item => {
+        const party = PARTIES[item.partyId];
+        return `
+          <article class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden flex flex-col">
+            <div class="h-2 w-full" style="background-color: ${party.color};"></div>
+            <div class="p-5 sm:p-6 space-y-5 flex-1">
+              <div class="flex flex-wrap items-start justify-between gap-3 pb-4 border-b border-slate-100">
+                <div>
+                  <div class="flex items-center gap-2.5">
+                    <span class="px-2.5 py-1 rounded-lg text-xs font-bold ${party.badgeClass}">${party.name}</span>
+                    <h3 class="text-lg font-bold text-slate-900">${highlightText(party.fullName, state.searchQuery)}</h3>
+                  </div>
+                  <p class="text-sm text-slate-600 mt-1">Candidato/a a la Presidencia: <strong class="text-slate-900">${highlightText(party.candidate, state.searchQuery)}</strong></p>
+                </div>
+                <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold border border-slate-200">
+                  ${highlightText(item.periodBadge, state.searchQuery)}
+                </span>
+              </div>
+
+              <div>
+                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">🏛️ Responsabilidades de gobierno ejercidas</h4>
+                <ul class="space-y-1.5 text-sm text-slate-700">
+                  ${item.executiveRoles.map(r => `<li class="flex items-start gap-2"><span class="text-slate-400 font-bold">•</span><span>${highlightText(r, state.searchQuery)}</span></li>`).join('')}
+                </ul>
+              </div>
+
+              <div class="bg-emerald-50/60 rounded-xl p-4 border border-emerald-200/70">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-emerald-900 mb-2">✓ Hitos y balance reivindicado por la formación</h4>
+                <ul class="space-y-1.5 text-xs sm:text-sm text-slate-700">
+                  ${item.claimedAchievements.map(a => `<li class="flex items-start gap-2"><span class="text-emerald-600 font-bold">+</span><span>${highlightText(a, state.searchQuery)}</span></li>`).join('')}
+                </ul>
+              </div>
+
+              <div class="bg-amber-50/60 rounded-xl p-4 border border-amber-200/70">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-amber-950 mb-2">! Asignaturas pendientes y principales críticas</h4>
+                <ul class="space-y-1.5 text-xs sm:text-sm text-slate-700">
+                  ${item.pendingIssuesAndCritics.map(c => `<li class="flex items-start gap-2"><span class="text-amber-600 font-bold">–</span><span>${highlightText(c, state.searchQuery)}</span></li>`).join('')}
+                </ul>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      return filtered.length;
+    }
+
+    // Renderizar Vista 3: Matriz de Choques y Consensos
+    function renderMatrix() {
+      const tbody = document.getElementById('matrixTableBody');
+      const filtered = MATRIX_DATA.filter(row => {
+        if (!state.searchQuery) return true;
+        const blob = `${row.topic} ${row.typeLabel} ${row.leftBlock} ${row.rightBlock} ${row.governanceKey}`;
+        return matchesSearch(blob, state.searchQuery);
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="5" class="py-10 px-4 text-center text-sm text-slate-600">
+              No se encontraron filas en la matriz para "<strong>${state.searchQuery}</strong>".
+              <button onclick="clearSearch()" class="ml-2 underline font-semibold text-slate-900 cursor-pointer">Limpiar búsqueda</button>
+            </td>
+          </tr>
+        `;
+        return 0;
+      }
+
+      tbody.innerHTML = filtered.map(row => {
+        const badgeStyle =
+          row.type === 'choque' ? 'bg-rose-50 text-rose-800 border-rose-200' :
+          row.type === 'matiz' ? 'bg-amber-50 text-amber-800 border-amber-200' :
+          'bg-emerald-50 text-emerald-800 border-emerald-200';
+
+        return `
+          <tr class="hover:bg-slate-50/80 transition align-top">
+            <td class="py-4 px-4 font-bold text-slate-900">${highlightText(row.topic, state.searchQuery)}</td>
+            <td class="py-4 px-4">
+              <span class="inline-block px-2.5 py-1 rounded-lg text-xs font-semibold border ${badgeStyle}">
+                ${highlightText(row.typeLabel, state.searchQuery)}
+              </span>
+            </td>
+            <td class="py-4 px-4 text-xs sm:text-sm text-slate-700 leading-relaxed">${highlightText(row.leftBlock, state.searchQuery)}</td>
+            <td class="py-4 px-4 text-xs sm:text-sm text-slate-700 leading-relaxed">${highlightText(row.rightBlock, state.searchQuery)}</td>
+            <td class="py-4 px-4 text-xs text-slate-600 bg-slate-50/60 leading-relaxed">${highlightText(row.governanceKey, state.searchQuery)}</td>
+          </tr>
+        `;
+      }).join('');
+
+      return filtered.length;
+    }
+
+    // Actualizar todas las vistas y el resumen de coincidencias del buscador
+    function renderAllViews() {
+      const compCount = renderComparador();
+      const contrCount = renderContradicciones();
+      const radioCount = renderRadiografia();
+      const matrixCount = renderMatrix();
+
+      const statusEl = document.getElementById('globalSearchStatus');
+      if (!statusEl) return;
+
+      if (state.searchQuery.length > 0) {
+        statusEl.classList.remove('hidden');
+        statusEl.innerHTML = `
+          <span>Coincidencias:</span>
+          <div class="flex flex-wrap gap-1.5">
+            <button type="button" onclick="switchMainView('comparador')" class="underline hover:text-slate-900 cursor-pointer">Comparador (${compCount})</button>
+            <span>·</span>
+            <button type="button" onclick="switchMainView('contradicciones')" class="underline hover:text-slate-900 cursor-pointer">Contradicciones (${contrCount})</button>
+            <span>·</span>
+            <button type="button" onclick="switchMainView('radiografia')" class="underline hover:text-slate-900 cursor-pointer">Trayectoria (${radioCount})</button>
+            <span>·</span>
+            <button type="button" onclick="switchMainView('matriz')" class="underline hover:text-slate-900 cursor-pointer">Matriz (${matrixCount})</button>
+          </div>
+        `;
+      } else {
+        statusEl.classList.add('hidden');
+        statusEl.innerHTML = '';
+      }
+    }
+
+    // Cambiar entre las vistas principales de navegación
+    function switchMainView(viewName) {
+      state.mainView = viewName;
+      const views = ['comparador', 'contradicciones', 'radiografia', 'matriz'];
+
+      views.forEach(v => {
+        const sectionEl = document.getElementById(`view-${v}`);
+        const tabBtn = document.getElementById(`tab-${v}`);
+        if (!sectionEl || !tabBtn) return;
+
+        if (v === viewName) {
+          sectionEl.classList.remove('hidden');
+          tabBtn.className = 'main-tab-btn px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2 transition cursor-pointer bg-slate-900 text-white shadow-xs';
+        } else {
+          sectionEl.classList.add('hidden');
+          if (v === 'contradicciones') {
+            tabBtn.className = 'main-tab-btn px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2 transition cursor-pointer bg-amber-50 text-amber-950 border border-amber-300 hover:bg-amber-100';
+          } else {
+            tabBtn.className = 'main-tab-btn px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2 transition cursor-pointer bg-slate-100 text-slate-700 hover:bg-slate-200';
+          }
+        }
+      });
+    }
+
+    // Teclado en el buscador (Escape limpia, Enter ejecuta búsqueda inmediata)
+    function handleSearchKeydown(event) {
+      if (event.key === 'Escape') {
+        clearSearch();
+      } else if (event.key === 'Enter') {
+        event.preventDefault();
+        handleSearchInput(event.target.value);
+      }
+    }
+
+    // Modal de Metodología
+    function openMethodologyModal() {
+      document.getElementById('methodologyModal').classList.remove('hidden');
+    }
+
+    function closeMethodologyModal() {
+      document.getElementById('methodologyModal').classList.add('hidden');
+    }
+  </script>
+</body>
+</html>
