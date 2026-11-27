@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Observatorio Electoral 29-N · Programas, Gestión, Contradicciones y Verificación (Newtral.es)</title>
+  <style>
+    :root {
+      --bg: #f4f6f9;
+      --surface: #ffffff;
+      --surface-alt: #f8fafc;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --primary: #1e3a8a;
+      --primary-light: #eff6ff;
+      --psoe: #dc2626;
+      --pp: #2563eb;
+      --fa: #9333ea;
+      --vox: #16a34a;
+      --warn: #b45309;
+      --warn-bg: #fffbeb;
+      --danger: #991b1b;
+      --danger-bg: #fef2f2;
+      --ok: #166534;
+      --ok-bg: #f0fdf4;
+      --shadow: 0 1px 3px rgba(15, 23, 42, 0.08), 0 1px 2px rgba(15, 23, 42, 0.04);
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      color: #ffffff;
+      padding: 28px 20px 22px;
+      border-bottom: 4px solid #3b82f6;
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    .header-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .badge-29n {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: clamp(1.5rem, 3vw, 2.15rem);
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: #dbeafe;
+      font-size: 0.98rem;
+      max-width: 780px;
+    }
+
+    .search-box {
+      min-width: 290px;
+      max-width: 390px;
+      flex: 1 1 320px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: var(--radius);
+      padding: 10px 12px;
+    }
+
+    .search-box label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: #e0e7ff;
+      margin-bottom: 6px;
+    }
+
+    .search-input-wrap {
+      display: flex;
+      gap: 6px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 14px;
+      color: var(--text);
+      background: #ffffff;
+    }
+
+    .search-box button {
+      background: #1d4ed8;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 8px;
+      padding: 0 10px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    .search-box button:hover {
+      background: #2563eb;
+    }
+
+    #searchSummary {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #bfdbfe;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .search-jump {
+      background: rgba(255, 255, 255, 0.18);
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      padding: 2px 7px;
+      font-size: 11px;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .main-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .main-tab {
+      background: rgba(15, 23, 42, 0.45);
+      color: #e2e8f0;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 9px 14px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .main-tab:hover {
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    .main-tab.active {
+      background: #ffffff;
+      color: #0f172a;
+      border-color: #ffffff;
+      box-shadow: var(--shadow);
+    }
+
+    main {
+      padding: 24px 0 48px;
+    }
+
+    .view-section {
+      display: none;
+    }
+
+    .view-section.active {
+      display: block;
+    }
+
+    .toolbar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 14px;
+    }
+
+    .toolbar-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .filter-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      margin-right: 4px;
+    }
+
+    .chip {
+      border: 1px solid var(--border);
+      background: var(--surface-alt);
+      color: var(--text);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .chip:hover {
+      border-color: #94a3b8;
+    }
+
+    .chip.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .party-toggle.active[data-party="psoe"] { background: var(--psoe); border-color: var(--psoe); color: #fff; }
+    .party-toggle.active[data-party="pp"] { background: var(--pp); border-color: var(--pp); color: #fff; }
+    .party-toggle.active[data-party="fa"] { background: var(--fa); border-color: var(--fa); color: #fff; }
+    .party-toggle.active[data-party="vox"] { background: var(--vox); border-color: var(--vox); color: #fff; }
+
+    select.filter-select {
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .grid-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .card-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+
+    .party-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      color: #fff;
+    }
+
+    .party-psoe { background: var(--psoe); }
+    .party-pp { background: var(--pp); }
+    .party-fa { background: var(--fa); }
+    .party-vox { background: var(--vox); }
+    .party-matiz { background: #334155; }
+
+    .topic-tag {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 3px 9px;
+      border-radius: 999px;
+    }
+
+    .debate-tag {
+      font-size: 11px;
+      font-weight: 700;
+      color: #475569;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+
+    .subtabs {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .subtab-btn {
+      border: 1px solid var(--border);
+      background: var(--surface-alt);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 9px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .subtab-btn.active {
+      background: #0f172a;
+      color: #ffffff;
+      border-color: #0f172a;
+    }
+
+    .block-box {
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 11px 12px;
+      font-size: 14px;
+    }
+
+    .block-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .contradiction-box {
+      background: var(--warn-bg);
+      border: 1px solid #fcd34d;
+      border-radius: 10px;
+      padding: 11px 12px;
+      font-size: 13.5px;
+    }
+
+    .contradiction-box .block-title {
+      color: var(--warn);
+    }
+
+    .source-footer {
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px dashed var(--border);
+      padding-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .verdict-pill {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: var(--danger-bg);
+      color: var(--danger);
+      border: 1px solid #fecaca;
+    }
+
+    .verdict-pill.matiz {
+      background: #f1f5f9;
+      color: #1e293b;
+      border-color: #cbd5e1;
+    }
+
+    .verdict-pill.verified {
+      background: var(--ok-bg);
+      color: var(--ok);
+      border-color: #bbf7d0;
+    }
+
+    .section-banner {
+      background: var(--surface);
+      border-left: 4px solid var(--primary);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .section-banner h2 {
+      margin: 0 0 4px;
+      font-size: 1.25rem;
+    }
+
+    .section-banner p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .source-note-box {
+      margin-top: 10px;
+      padding: 8px 12px;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #1e3a8a;
+    }
+
+    .source-note-box a {
+      color: #1d4ed8;
+      font-weight: 700;
+    }
+
+    .matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--surface);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .matrix-table th,
+    .matrix-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+      font-size: 13.5px;
+    }
+
+    .matrix-table th {
+      background: #0f172a;
+      color: #ffffff;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    mark {
+      background: #fde047;
+      color: #0f172a;
+      padding: 0 2px;
+      border-radius: 3px;
+    }
+
+    .empty-state {
+      background: var(--surface);
+      border: 1px dashed #94a3b8;
+      border-radius: var(--radius);
+      padding: 28px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    footer {
+      background: #0f172a;
+      color: #cbd5e1;
+      padding: 22px 16px;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    footer a {
+      color: #93c5fd;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-top">
+        <div>
+          <span class="badge-29n">Elecciones Generales · 29 de noviembre de 2026</span>
+          <h1>Observatorio Electoral 29-N · Programas vs. Gestión</h1>
+          <p class="subtitle">
+            Comparador temático, historial de gobierno, auditoría de contradicciones y verificación de bulos y datos de los debates (fuente: Newtral.es) entre PSOE, PP, Frente Amplio y Vox.
+          </p>
+        </div>
+
+        <div class="search-box" role="search">
+          <label for="globalSearch">Buscador en programas, historial, contradicciones y debates</label>
+          <div class="search-input-wrap">
+            <input
+              id="globalSearch"
+              type="text"
+              placeholder="Ej.: vivienda, pensiones, Ceuta, pulseras, OTAN..."
+              onkeydown="handleSearchKeydown(event)"
+            />
+            <button type="button" id="clearSearchBtn" title="Limpiar búsqueda">Limpiar</button>
+          </div>
+          <div id="searchSummary">Escribe para filtrar y ver coincidencias por sección.</div>
+        </div>
+      </div>
+
+      <nav class="main-nav" aria-label="Secciones principales">
+        <button type="button" class="main-tab active" data-view="comparador" onclick="switchMainView('comparador')">
+          Comparador Temático
+        </button>
+        <button type="button" class="main-tab" data-view="contradicciones" onclick="switchMainView('contradicciones')">
+          Auditoría de Contradicciones
+        </button>
+        <button type="button" class="main-tab" data-view="debate19n" onclick="switchMainView('debate19n')">
+          Debates y Fact-Check
+        </button>
+        <button type="button" class="main-tab" data-view="trayectoria" onclick="switchMainView('trayectoria')">
+          Trayectoria Ejecutiva
+        </button>
+        <button type="button" class="main-tab" data-view="matriz" onclick="switchMainView('matriz')">
+          Choques y Consensos
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- VISTA 1: COMPARADOR TEMÁTICO -->
+    <section id="view-comparador" class="view-section active">
+      <div class="section-banner">
+        <h2>1. Comparador Temático (Programa 29-N vs. Historial de Gobierno)</h2>
+        <p>Filtra por eje temático, perfil ciudadano o partidos activos. Cada ficha contrasta lo que se promete, lo que se ha gestionado y las tensiones principales.</p>
+      </div>
+
+      <div class="toolbar">
+        <div class="toolbar-row">
+          <div class="filter-group" id="topicFilters">
+            <span class="filter-label">Eje temático:</span>
+            <button type="button" class="chip active" data-topic="all">Todos</button>
+            <button type="button" class="chip" data-topic="vivienda">Vivienda</button>
+            <button type="button" class="chip" data-topic="empleo">Empleo y Autónomos</button>
+            <button type="button" class="chip" data-topic="fiscalidad">Fiscalidad</button>
+            <button type="button" class="chip" data-topic="inmigracion">Inmigración y Seguridad</button>
+            <button type="button" class="chip" data-topic="pensiones">Pensiones y Servicios Públicos</button>
+            <button type="button" class="chip" data-topic="territorial">Modelo Territorial e Instituciones</button>
+          </div>
+
+          <div class="filter-group">
+            <label for="profileFilter" class="filter-label">Perfil:</label>
+            <select id="profileFilter" class="filter-select">
+              <option value="all">Todos los perfiles</option>
+              <option value="jovenes">Jóvenes e inquilinos</option>
+              <option value="autonomos">Autónomos y pymes</option>
+              <option value="familias">Familias y rentas medias</option>
+              <option value="pensionistas">Pensionistas y sanidad</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="toolbar-row">
+          <div class="filter-group" id="partyFilters">
+            <span class="filter-label">Partidos:</span>
+            <button type="button" class="chip party-toggle active" data-party="psoe">PSOE</button>
+            <button type="button" class="chip party-toggle active" data-party="pp">PP</button>
+            <button type="button" class="chip party-toggle active" data-party="fa">Frente Amplio</button>
+            <button type="button" class="chip party-toggle active" data-party="vox">Vox</button>
+          </div>
+
+          <div class="filter-group">
+            <span class="filter-label">Vista de tarjeta:</span>
+            <button type="button" class="chip active" id="modeExpandedBtn" onclick="setCardDefaultTab('expanded')">Todo visible</button>
+            <button type="button" class="chip" id="modeTabsBtn" onclick="setCardDefaultTab('tabs')">Pestañas compactas</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="comparadorContainer"></div>
+    </section>
+
+    <!-- VISTA 2: AUDITORÍA DE CONTRADICCIONES -->
+    <section id="view-contradicciones" class="view-section">
+      <div class="section-banner">
+        <h2>2. Auditoría de Contradicciones (Decir vs. Hacer)</h2>
+        <p>Contraste específico entre el discurso y las promesas electorales para el 29-N frente a la acción de gobierno, pactos o votaciones en cada materia.</p>
+      </div>
+
+      <div class="toolbar">
+        <div class="toolbar-row">
+          <div class="filter-group" id="contraTopicFilters">
+            <span class="filter-label">Materia:</span>
+            <button type="button" class="chip active" data-ctopic="all">Todas</button>
+            <button type="button" class="chip" data-ctopic="vivienda">Vivienda</button>
+            <button type="button" class="chip" data-ctopic="empleo">Empleo y Autónomos</button>
+            <button type="button" class="chip" data-ctopic="fiscalidad">Fiscalidad</button>
+            <button type="button" class="chip" data-ctopic="inmigracion">Inmigración y Seguridad</button>
+            <button type="button" class="chip" data-ctopic="pensiones">Pensiones y Servicios Públicos</button>
+            <button type="button" class="chip" data-ctopic="territorial">Modelo Territorial e Instituciones</button>
+          </div>
+
+          <div class="filter-group" id="contraPartyFilters">
+            <span class="filter-label">Partido:</span>
+            <button type="button" class="chip active" data-cparty="all">Todos</button>
+            <button type="button" class="chip" data-cparty="psoe">PSOE</button>
+            <button type="button" class="chip" data-cparty="pp">PP</button>
+            <button type="button" class="chip" data-cparty="fa">Frente Amplio</button>
+            <button type="button" class="chip" data-cparty="vox">Vox</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="contradiccionesContainer" class="grid-2"></div>
+    </section>
+
+    <!-- VISTA 3: DEBATES Y FACT-CHECK -->
+    <section id="view-debate19n" class="view-section">
+      <div class="section-banner">
+        <h2>3. Verificación de Debates Electorales y Fact-Check (Fuente: Newtral.es)</h2>
+        <p>Esquema exhaustivo de las <strong>61 verificaciones</strong> (afirmaciones falsas, datos engañosos, verdades a medias y matices estadísticos) comprobadas en el <strong>Debate a Cuatro de Candidatos (26-N)</strong>, el <strong>Cara a Cara Sánchez–Feijóo (19-N)</strong> y el <strong>Debate de Portavoces en laSexta (13-N)</strong>.</p>
+        <div class="source-note-box">
+          <strong>Fuente de verificación:</strong> Datos y comprobaciones elaborados a partir de las verificaciones en directo de <a href="https://www.newtral.es/zona-verificacion/" target="_blank" rel="noopener noreferrer">Newtral.es</a> (debate a cuatro de candidatos del 26 de noviembre de 2026, cara a cara del 19 de noviembre y debate de portavoces del 13 de noviembre de 2026) y organismos oficiales citados (INE, Eurostat, Banco de España, CGPJ, OCDE y Agencia Tributaria).
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <div class="toolbar-row">
+          <div class="filter-group" id="debateSessionFilters">
+            <span class="filter-label">Debate:</span>
+            <button type="button" class="chip active" data-dsession="all">Todos los debates (61)</button>
+            <button type="button" class="chip" data-dsession="debate-candidatos-26n">Debate candidatos (26-N)</button>
+            <button type="button" class="chip" data-dsession="cara-a-cara">Cara a cara Sánchez–Feijóo (19-N)</button>
+            <button type="button" class="chip" data-dsession="debate-a-cuatro">Debate portavoces laSexta (13-N)</button>
+          </div>
+
+          <div class="filter-group" id="debatePartyFilters">
+            <span class="filter-label">Partido / Candidato:</span>
+            <button type="button" class="chip active" data-dparty="all">Todos</button>
+            <button type="button" class="chip" data-dparty="psoe">PSOE (Sánchez / Cuerpo)</button>
+            <button type="button" class="chip" data-dparty="pp">PP (Feijóo / Bravo)</button>
+            <button type="button" class="chip" data-dparty="vox">Vox (Abascal / Figaredo)</button>
+            <button type="button" class="chip" data-dparty="fa">Frente Amplio (Colau / Bustinduy)</button>
+            <button type="button" class="chip" data-dparty="matiz">Contraste de datos</button>
+          </div>
+        </div>
+
+        <div class="toolbar-row">
+          <div class="filter-group" id="debateTopicFilters">
+            <span class="filter-label">Materia:</span>
+            <button type="button" class="chip active" data-dtopic="all">Todas</button>
+            <button type="button" class="chip" data-dtopic="inmigracion">Inmigración y empleo</button>
+            <button type="button" class="chip" data-dtopic="pensiones">Pensiones y sanidad</button>
+            <button type="button" class="chip" data-dtopic="vivienda">Vivienda</button>
+            <button type="button" class="chip" data-dtopic="fiscalidad">Impuestos, deuda y salarios</button>
+            <button type="button" class="chip" data-dtopic="infraestructuras">Economía e infraestructuras</button>
+            <button type="button" class="chip" data-dtopic="justicia">Justicia e instituciones</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="debateContainer" class="grid-2"></div>
+    </section>
+
+    <!-- VISTA 4: TRAYECTORIA EJECUTIVA -->
+    <section id="view-trayectoria" class="view-section">
+      <div class="section-banner">
+        <h2>4. Radiografía de Trayectoria Ejecutiva</h2>
+        <p>Contexto institucional de cada formación donde ha gobernado o formado coaliciones/acuerdos.</p>
+      </div>
+      <div id="trayectoriaContainer" class="grid-2"></div>
+    </section>
+
+    <!-- VISTA 5: CHOQUES Y CONSENSOS -->
+    <section id="view-matriz" class="view-section">
+      <div class="section-banner">
+        <h2>5. Matriz de Choques y Consensos</h2>
+        <p>Síntesis de los principales puntos de confrontación y de los márgenes de coincidencia o debate técnico.</p>
+      </div>
+      <div id="matrizContainer"></div>
+    </section>
+  </main>
+
+  <footer>
+    Observatorio Electoral 29-N · Actualizado a 27 de noviembre de 2026 · Verificaciones de debates documentadas con <a href="https://www.newtral.es/" target="_blank" rel="noopener noreferrer">Newtral.es</a>.
+  </footer>
+
+  <script>
+    const PARTIES = {
+      psoe: { name: "PSOE", badgeClass: "party-psoe" },
+      pp: { name: "PP", badgeClass: "party-pp" },
+      fa: { name: "Frente Amplio", badgeClass: "party-fa" },
+      vox: { name: "Vox", badgeClass: "party-vox" }
+    };
+
+    const TOPICS = [
+      {
+        id: "vivienda",
+        label: "Vivienda",
+        profiles: ["jovenes", "familias"],
+        items: {
+          psoe: {
+            promise: "Impulso a un parque público estatal de 100.000 viviendas, movilización del 1% del PIB anual en vivienda, prórroga/regulación de alquileres en zonas tensionadas, avales/préstamos sin intereses para jóvenes y medidas fiscales contra compras especulativas.",
+            history: "Ocho años en el Gobierno central con la Ley de Vivienda estatal, planes de avales y programas públicos, pero con un fuerte encarecimiento acumulado de los precios de compra y alquiler y retrasos en la entrega de vivienda pública.",
+            debate: "Defiende la intervención del mercado tensionado y el esfuerzo presupuestario; críticos señalan la brecha entre anuncios y viviendas terminadas (719.602 finalizadas desde 2018 frente a cerca de un millón iniciadas, según verificaciones) y la caída de oferta de alquiler en zonas topadas.",
+            contradiction: "Promete ampliar drásticamente la oferta y aliviar el acceso a la vivienda tras ocho años en Moncloa durante los que los precios de la vivienda han subido un 70% según el IPV del INE."
+          },
+          pp: {
+            promise: "Plan para promover un millón de viviendas en la legislatura, nueva Ley del Suelo, agilización de licencias, derogación de la actual Ley de Vivienda, IVA del 4% en primera vivienda para menores de 40 años, avales y medidas contra la ocupación ilegal.",
+            history: "Gestión autonómica en comunidades como Madrid y etapa estatal con Mariano Rajoy, apostando por liberalización de suelo, incentivos fiscales y colaboración público-privada.",
+            debate: "Sostiene que aumentar suelo y oferta es la vía eficaz para bajar precios; detractores advierten que la desregulación sin vivienda asequible pública no resuelve la tensión en grandes ciudades.",
+            contradiction: "Critica con dureza la falta de vivienda asequible mientras en varias comunidades autónomas donde gobierna la oferta protegida sigue siendo limitada y los precios continúan tensionados en núcleos urbanos."
+          },
+          fa: {
+            promise: "Ampliación ambiciosa del parque público de alquiler y vivienda protegida, limitación/prórroga de rentas, freno a desahucios y restricciones a compras especulativas y pisos turísticos.",
+            history: "Participación en el espacio de Sumar dentro de la coalición estatal y experiencia de Ada Colau en la alcaldía de Barcelona con regulación de alquileres, multas a pisos turísticos ilegales y tanteo y retracto.",
+            debate: "Reivindica el derecho a la vivienda y el control de rentas; críticos cuestionan el impacto de la regulación en la inversión y la inseguridad jurídica en arrendamientos.",
+            contradiction: "Exige políticas de vivienda mucho más contundentes y denuncia insuficiencias del Ejecutivo mientras ha formado parte y respaldado el bloque de gobierno durante los últimos años."
+          },
+          vox: {
+            promise: "Derogación de la Ley de Vivienda, impulso a la compra de vivienda, agilización de desalojos ante ocupaciones y vinculación del debate de demanda habitacional con la política migratoria.",
+            history: "Participación o apoyo parlamentario en gobiernos autonómicos junto al PP, centrando su discurso en seguridad jurídica de la propiedad y crítica a normativas autonómicas/estatales.",
+            debate: "Pone el foco en la propiedad privada y la ocupación; analistas señalan que atribuir el problema habitacional exclusivamente a las llegadas de migrantes omite las salidas del país y factores estructurales.",
+            contradiction: "Defiende medidas urgentes contra la falta de vivienda y la ocupación, pero en varios acuerdos y presupuestos autonómicos compartidos con el PP ha priorizado otros recortes o ajustes frente a planes específicos de vivienda social."
+          }
+        }
+      },
+      {
+        id: "empleo",
+        label: "Empleo y Autónomos",
+        profiles: ["autonomos", "jovenes"],
+        items: {
+          psoe: {
+            promise: "Reducción de la jornada laboral a 37,5 horas semanales (con horizonte hacia las 35 horas), blindaje del SMI por encima del 60% del salario medio y políticas activas de empleo y formación.",
+            history: "Subidas sucesivas del SMI (de 735,9 € en 2018 a 1.221 € en 2026, un +66%), reforma laboral de 2021/2022 con aumento de la contratación indefinida y despliegue de ERTE y bonificaciones.",
+            debate: "Destaca el crecimiento de afiliados y reducción de temporalidad; sectores empresariales y de autónomos alertan sobre costes laborales, absentismo y dificultades en pymes.",
+            contradiction: "Promete reducir la jornada y reforzar la protección laboral mientras en el debate público y parlamentario han aflorado tensiones internas y dificultades para sacar adelante la reducción de jornada sin consensos amplios."
+          },
+          pp: {
+            promise: "Apoyo a pymes y autónomos con 'cuota cero' para nuevos autónomos, incentivos/exenciones en facturación para pequeños negocios, reducción de trabas burocráticas y moderación de costes laborales.",
+            history: "Reforma laboral de 2012 y políticas de contención salarial y flexibilidad durante la etapa Rajoy; en comunidades autónomas promueve bonificaciones y simplificación administrativa.",
+            debate: "Subraya la creación de empleo y el alivio a emprendedores; críticos apuntan a que la flexibilidad previa favoreció mayor precariedad y rotación contractual.",
+            contradiction: "Defiende la simplificación administrativa y el alivio de cargas a pymes y autónomos, pero en algunas administraciones autonómicas que dirige se mantienen trámites complejos y tasas o exigencias dispares según el territorio."
+          },
+          fa: {
+            promise: "Avance hacia la jornada de 32 horas semanales (partiendo de las 37,5 horas) sin pérdida salarial, refuerzo del SMI y mayor participación de los trabajadores en las empresas.",
+            history: "Presencia del espacio de Sumar en el Ministerio de Trabajo impulsando subidas del SMI (+28,5% desde 2020), medidas de protección laboral y el debate sobre la reducción de jornada.",
+            debate: "Defiende repartir el empleo y mejorar productividad y conciliación; asociaciones de autónomos y pymes advierten de costes difíciles de asumir en microempresas.",
+            contradiction: "Reivindica una agenda laboral transformadora y la reducción drástica de jornada como bandera propia, pese a que gran parte de esa agenda se ha negociado o topado con resistencias dentro del mismo Gobierno de coalición."
+          },
+          vox: {
+            promise: "Reducción de cotizaciones y alivio fiscal para autónomos de bajos ingresos, derogación de normativa laboral vigente considerada rígida y defensa del comercio y la industria nacional.",
+            history: "Impulso en parlamentos y ejecutivos autonómicos de rebajas de tasas, eliminación de subvenciones o chiringuitos y crítica a las políticas laborales del Gobierno central.",
+            debate: "Atrae a autónomos críticos con las cuotas y la burocracia; analistas señalan que derogar marcos laborales vigentes generaría litigiosidad y cambios de reglas abruptos.",
+            contradiction: "Sostiene un discurso de rebaja de cargas y apoyo a trabajadores y autónomos, pero en ocasiones respalda o coincide con políticas de ajuste o flexibilización que chocan con demandas de estabilidad de distintos sectores."
+          }
+        }
+      },
+      {
+        id: "fiscalidad",
+        label: "Fiscalidad",
+        profiles: ["autonomos", "familias"],
+        items: {
+          psoe: {
+            promise: "Subida de impuestos a las rentas de capital más altas (hasta el 35% por encima de 300.000 €), gravámenes a grandes tecnológicas/IA, tasas a viajes de lujo y defensa de la progresividad fiscal.",
+            history: "Aumento de la recaudación tributaria (de 208.685 millones € en 2018 a 325.356 millones € en 2025, un +56%), creación de gravámenes temporales/especiales y ajustes en IRPF y capital.",
+            debate: "Argumenta que permite financiar servicios públicos y cohesión social; críticos denuncian que la falta de deflactación del IRPF ha supuesto una subida encubierta para rentas medias.",
+            contradiction: "Asegura proteger a las clases medias y trabajadoras mientras ha evitado deflactar el tramo estatal del IRPF pese al repunte acumulado de precios y salarios."
+          },
+          pp: {
+            promise: "Rebajas de impuestos para rentas medias y bajas y jóvenes (incluyendo deducciones/rebajas en el IRPF), supresión del impuesto del 7% a la generación eléctrica y defensa de la competencia fiscal.",
+            history: "Reforma fiscal de 2014-2015 con Mariano Rajoy y rebajas/bonificaciones autonómicas (especialmente en Patrimonio, Sucesiones y tramos autonómicos del IRPF en comunidades como Madrid).",
+            debate: "Defiende que bajar impuestos estimula el consumo y la inversión; críticos sostienen que beneficia más a rentas altas y reduce recursos para servicios públicos comunes.",
+            contradiction: "Pide rebajas fiscales y contención del gasto en el ámbito estatal, pero en varias comunidades donde gobierna ha incrementado o mantenido partidas de gasto y deuda sin una reducción homogénea de toda la presión fiscal."
+          },
+          fa: {
+            promise: "Creación o refuerzo de un impuesto a los 'ultrarricos' y grandes fortunas, mayor progresividad fiscal y cierre de vacíos de elusión fiscal para financiar políticas sociales.",
+            history: "Impulso desde el espacio de Sumar y aliados de izquierda del impuesto temporal de solidaridad a las grandes fortunas y de figuras fiscales sobre grandes empresas y banca.",
+            debate: "Busca mayor redistribución y financiación del estado del bienestar; críticos advierten sobre posibles deslocalizaciones de capital o solapamientos con impuestos autonómicos.",
+            contradiction: "Exige una reforma fiscal profunda y permanente contra los grandes patrimonios, pero ha tenido que aceptar prórrogas, topes o modificaciones negociadas con el PSOE y partidos territoriales."
+          },
+          vox: {
+            promise: "Rebaja generalizada y profunda de impuestos (IRPF, IVA y Sociedades), eliminación de impuestos considerados confiscatorios o verdes y alivio fiscal por familia numerosa.",
+            history: "En comunidades autónomas ha presionado por bonificaciones fiscales y reducción de tributos propios o autonómicos, denunciando al mismo tiempo el récord de recaudación estatal.",
+            debate: "Defiende devolver renta a familias y empresas; economistas advierten de que una rebaja masiva simultánea abriría un fuerte agujero fiscal si no va acompañada de recortes drásticos.",
+            contradiction: "Critica el aumento de la deuda pública y exige grandes rebajas de impuestos a la vez que propone elevar partidas de gasto como defensa y seguridad."
+          }
+        }
+      },
+      {
+        id: "inmigracion",
+        label: "Inmigración y Seguridad",
+        profiles: ["familias", "jovenes"],
+        items: {
+          psoe: {
+            promise: "Refuerzo de vías legales y seguras de migración ordenada, cooperación con países de origen y tránsito, acogida humanitaria y protección de menores.",
+            history: "Gestión de crisis fronterizas (Ceuta, Melilla, Canarias), medidas de regularización o arraigo y refuerzo de medios y cooperación diplomática.",
+            debate: "Defiende una gestión ordenada y humanitaria ligada a necesidades demográficas y laborales; opositores critican falta de control fronterizo y sobrecarga en territorios concretos.",
+            contradiction: "Defiende una política migratoria ordenada y planificada mientras ha afrontado picos de llegadas y tensiones de acogida en territorios como Canarias y Ceuta sin consenso de reparto."
+          },
+          pp: {
+            promise: "Vinculación de la política migratoria a la capacidad de acogida, expulsiones por delitos graves o multirreincidencia, control fronterizo estricto y retorno de irregulares.",
+            history: "Gestión fronteriza durante la etapa Rajoy y postura crítica con las políticas migratorias del Gobierno actual, exigiendo mayor presencia policial y cooperación exterior.",
+            debate: "Prioriza el control de fronteras y la seguridad; críticos advierten del riesgo de exagerar cifras fronterizas o tensionar acuerdos con comunidades autónomas.",
+            contradiction: "Exige mayor control, recursos y criterios claros en la acogida de migrantes, pero en ocasiones ha rechazado mecanismos de reparto o ha mantenido posturas distintas según la comunidad autónoma."
+          },
+          fa: {
+            promise: "Defensa de los derechos humanos, regularización amplia, vías legales, lucha contra el racismo y ampliación de recursos de acogida e integración.",
+            history: "Posiciones favorables a políticas de regularización y garantía de derechos sociales para personas migrantes desde su espacio político y municipal.",
+            debate: "Subraya la aportación social y laboral de la población migrante; sectores críticos alertan sobre presión en servicios locales y vivienda.",
+            contradiction: "Reclama políticas migratorias garantistas y regularizaciones ágiles, pero como socio de gobierno ha chocado con los ritmos y límites impuestos por el ala socialista del Ejecutivo."
+          },
+          vox: {
+            promise: "Eje de 'prioridad nacional' y 'remigración', prohibición de regularizaciones masivas, endurecimiento de requisitos de nacionalidad, aumento de deportaciones y restricción de ayudas sociales y sanitarias a personas en situación irregular.",
+            history: "Discurso frontal contra la inmigración irregular y las políticas de acogida tanto en el Congreso como en negociaciones autonómicas.",
+            debate: "Plantea un giro radical de ruptura con el marco actual; juristas y analistas señalan límites legales, constitucionales y de derecho europeo a determinadas propuestas.",
+            contradiction: "Defiende el endurecimiento máximo frente a la inmigración irregular y el rechazo a regularizaciones, pero en ámbitos locales y autonómicos los sectores económicos que respalda suelen demandar mano de obra."
+          }
+        }
+      },
+      {
+        id: "pensiones",
+        label: "Pensiones y Servicios Públicos",
+        profiles: ["pensionistas", "familias"],
+        items: {
+          psoe: {
+            promise: "Garantía de revalorización de las pensiones conforme al IPC, reducción de la brecha de género en pensiones, ampliación de permisos y refuerzo de la sanidad y educación públicas.",
+            history: "Reforma de pensiones ligada al IPC (Ley 21/2021), reposición de la 'hucha de las pensiones' (+13.114 M€ desde 2019) y políticas sanitarias/educativas.",
+            debate: "Pone en valor la protección del poder adquisitivo de los pensionistas; críticos cuestionan el equilibrio financiero del sistema a medio y largo plazo.",
+            contradiction: "Defiende la blindada sostenibilidad y revalorización de las pensiones mientras el gasto contributivo crece por encima de los ingresos ordinarios y exige transferencias y ajustes continuos."
+          },
+          pp: {
+            promise: "Sostenibilidad del sistema de pensiones y refuerzo de servicios públicos (sanidad, educación y dependencia) con mejor gestión y reducción de listas de espera.",
+            history: "Subida del 0,25% de las pensiones en años de la etapa Rajoy (por debajo del IPC en varios ejercicios) y gestión autonómica de sanidad y educación (con modelos como el madrileño).",
+            debate: "Defiende la solvencia económica y la libertad de elección/colaboración; críticos denuncian privatizaciones o externalizaciones y tensiones en la atención primaria.",
+            contradiction: "Afirma haber defendido siempre el poder adquisitivo de los pensionistas, pero durante su etapa de gobierno aplicó revalorizaciones del 0,25% que supusieron pérdida real frente a la inflación de esos años."
+          },
+          fa: {
+            promise: "Blindaje de las pensiones públicas, prestación por crianza (200 €/mes por hijo) y ampliación de coberturas sanitarias y educativas públicas sin copagos ni privatizaciones.",
+            history: "Impulso desde su espacio político de medidas de protección social, crianza y defensa de la gestión pública directa frente a externalizaciones.",
+            debate: "Prioriza el gasto social directo y lo público; críticos señalan el elevado coste fiscal de sumar nuevas prestaciones universales o de gran alcance.",
+            contradiction: "Exige blindar y ampliar los servicios públicos y prestaciones sociales sin concesiones, mientras ha respaldado presupuestos y políticas estatales que considera insuficientes."
+          },
+          vox: {
+            promise: "Defensa de las pensiones actuales y del modelo de sostenibilidad, prioridad para nacionales en ayudas sociales y críticas a la gestión de servicios públicos y políticas de género/identidad.",
+            history: "Postura crítica con reformas de pensiones y políticas sociales del Gobierno y exigencia de auditoría y recorte de gasto improductivo en administraciones.",
+            debate: "Apela al ahorro fiscal y al control del gasto; analistas señalan ambigüedad o contradicciones entre declaraciones sobre sistemas mixtos/reparto y el programa oficial.",
+            contradiction: "Asegura defender las pensiones y la sostenibilidad sin recortar derechos, pero ha mantenido mensajes ambiguos o contradictorios sobre modelos mixtos y recorte de gasto público."
+          }
+        }
+      },
+      {
+        id: "territorial",
+        label: "Modelo Territorial e Instituciones",
+        profiles: ["familias", "jovenes"],
+        items: {
+          psoe: {
+            promise: "Consolidación del Estado autonómico, diálogo territorial y estabilidad institucional dentro del marco constitucional.",
+            history: "Ocho años marcados por pactos de investidura y legislatura con fuerzas nacionalistas/independentistas, medidas de gracia/amnistía y tensiones políticas e institucionales.",
+            debate: "Defiende la desescalada territorial y la gobernabilidad parlamentaria; críticos acusan de cesiones excesivas y deterioro institucional.",
+            contradiction: "Sostuvo en campaña anterior que no habría amnistía o determinados acuerdos y posteriormente los asumió como parte de la gobernabilidad parlamentaria."
+          },
+          pp: {
+            promise: "Regeneración institucional, reformas en normas de indultos/amnistía y tipificación penal, y refuerzo de la independencia y requisitos de acceso a órganos judiciales y constitucionales.",
+            history: "Gestión de la crisis territorial en Cataluña (aplicación del artículo 155 en 2017) y etapas de bloqueo o negociación en la renovación de órganos institucionales.",
+            debate: "Reivindica igualdad ante la ley y firmeza constitucional; críticos reprochan uso partidista de las instituciones y bloqueos prolongados.",
+            contradiction: "Exige ejemplaridad y regeneración institucional mientras arrastra casos de corrupción del pasado y ha protagonizado largos bloqueos en la renovación de órganos constitucionales."
+          },
+          fa: {
+            promise: "Impulso de un modelo territorial plurinacional, reconocimiento de la diversidad territorial y profundización democrática y de derechos.",
+            history: "Defensa del diálogo territorial y de políticas descentralizadas desde el espacio de Sumar y la experiencia municipal en Cataluña.",
+            debate: "Aboga por acomodar la plurinacionalidad; sectores críticos temen asimetrías o tensiones sobre la igualdad territorial.",
+            contradiction: "Promete una transformación plurinacional y social profunda, pero su margen de acción depende de equilibrios parlamentarios y pactos con actores de distinta signo territorial."
+          },
+          vox: {
+            promise: "Centralización de competencias clave (como educación, sanidad o seguridad), recentralización del Estado y reforma o supresión de estructuras autonómicas consideradas duplicadas.",
+            history: "Ha criticado el Estado de las autonomías mientras ha participado y negociado cargos, consejerías o presupuestos dentro de gobiernos autonómicos.",
+            debate: "Plantea un cambio profundo del modelo territorial; críticos apuntan a la incoherencia de criticar las autonomías mientras se gestionan o pactan en ellas.",
+            contradiction: "Defiende la centralización y crítica el modelo autonómico, pero ha participado y pactado gobiernos y presupuestos en comunidades autónomas."
+          }
+        }
+      }
+    ];
+
+    const TRAYECTORIA_DATA = [
+      {
+        party: "psoe",
+        title: "PSOE · 8 años en el Gobierno de España (desde 2018)",
+        role: "Presidencia del Gobierno de España en dos etapas/legislaturas.",
+        highlights: "Evolución del SMI (+66%), reforma laboral, revalorización de pensiones con el IPC y despliegue de fondos europeos en un contexto de pandemia, crisis energética y tensiones territoriales.",
+        critiques: "Encarecimiento de la vivienda (+70% según IPV), presión fiscal y deuda en términos absolutos, dificultades de estabilidad parlamentaria y casos judiciales/políticos en el entorno del partido o el Gobierno."
+      },
+      {
+        party: "pp",
+        title: "PP · 8 años con Mariano Rajoy + Gobiernos Autonómicos (incluida Madrid)",
+        role: "Gobierno central (2011–2018) y gobiernos en numerosas comunidades autónomas, destacando la Comunidad de Madrid.",
+        highlights: "Salida de la crisis financiera, consolidación fiscal y reforma laboral en etapa Rajoy; políticas de bajadas de impuestos autonómicas, atracción de inversión y gestión sanitaria/educativa en comunidades como Madrid.",
+        critiques: "Recortes y subidas fiscales al inicio de la etapa Rajoy, revalorización del 0,25% de pensiones en años de inflación, debates sobre sanidad/vivienda en comunidades y casos de corrupción histórica."
+      },
+      {
+        party: "fa",
+        title: "Frente Amplio · Evolución de Sumar y liderazgo de Ada Colau",
+        role: "Espacio político sucesor/transformado de Sumar (socio de coalición estatal) con Ada Colau (exalcaldesa de Barcelona).",
+        highlights: "Impulso de medidas laborales y sociales en la coalición estatal y políticas municipales en Barcelona centradas en vivienda, regulación turística y movilidad.",
+        critiques: "Tensiones internas y fragmentación a la izquierda del PSOE, debates sobre eficacia de políticas de vivienda/turismo y contradicción entre el tono opositor y su participación en el poder."
+      },
+      {
+        party: "vox",
+        title: "Vox · Presencia y condicionamiento en Gobiernos Autonómicos",
+        role: "Socio o fuerza determinante en acuerdos de gobierno/investidura autonómicos junto al PP.",
+        highlights: "Traslado al debate público y autonómico de su agenda de prioridad nacional, control migratorio, rebaja de impuestos/tasas y recorte de gasto o estructuras administrativas.",
+        critiques: "Tensiones y rupturas en coaliciones autonómicas, propuestas que chocan con marcos normativos vigentes y debate sobre la coherencia entre el discurso anti-autonómico y la gestión territorial."
+      }
+    ];
+
+    const MATRIZ_DATA = [
+      {
+        area: "Vivienda",
+        clash: "Regulación de alquileres, zonas tensionadas y parque público (PSOE/Frente Amplio) frente a liberalización del suelo, desregulación y enfoque en oferta/propiedad (PP/Vox).",
+        convergence: "Diagnóstico compartido sobre la gravedad del problema de acceso a la vivienda y la necesidad de aumentar disponibilidad para jóvenes y familias."
+      },
+      {
+        area: "Fiscalidad y Gasto",
+        clash: "Mayor progresividad y gravámenes a rentas altas/grandes empresas (PSOE/Frente Amplio) frente a rebajas fiscales y recorte de gasto (PP/Vox).",
+        convergence: "Debate constante sobre el equilibrio entre financiación de servicios públicos, deuda y alivio fiscal a hogares y pymes."
+      },
+      {
+        area: "Inmigración",
+        clash: "Vías legales, acogida y derechos (PSOE/Frente Amplio) frente a control estricto, expulsiones y 'remigración'/restricción de ayudas (PP/Vox).",
+        convergence: "Reconocimiento de la necesidad de orden y control fronterizo, aunque con diagnósticos y soluciones opuestas."
+      },
+      {
+        area: "Modelo Territorial",
+        clash: "Estado autonómico y diálogo territorial o plurinacionalidad (PSOE/PP/Frente Amplio) frente a recentralización y crítica al modelo autonómico (Vox).",
+        convergence: "Referencia formal al marco constitucional y a la estabilidad institucional, con interpretaciones muy distintas."
+      }
+    ];
+
+    const DEBATE_DATA = [{"id": "abascal-extracomunitarios-50-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "vox", "party_label": "Vox · Santiago Abascal", "topic": "inmigracion", "topic_label": "Inmigración y Seguridad", "claim": "Aseguró que hay un 50% de «extracomunitarios» sin cotizar en la Seguridad Social.", "verdict": "Sin cálculo oficial / Dudas metodológicas", "factcheck": "No existe ninguna fuente oficial que desglose directamente los trabajadores extracomunitarios en edad de trabajar sin dar de alta. La cifra sale de una noticia de ABC (enero de 2026) que cruza datos de población del INE con afiliaciones de extracomunitarios, pero los expertos consultados por Newtral.es matizaron las dudas metodológicas de ese cálculo.", "source": "Newtral.es · Verificación en directo debate a cuatro candidatos (26/11/2026)"}, {"id": "abascal-triplicado-violaciones-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "vox", "party_label": "Vox · Santiago Abascal", "topic": "justicia", "topic_label": "Justicia e Instituciones", "claim": "Afirmó que desde que Pedro Sánchez es presidente «se han triplicado las violaciones».", "verdict": "Falso / Cálculo erróneo por cambio penal", "factcheck": "Compara series heterogéneas tras el cambio penal de la ley de libertad sexual de 2022 (que subsumió el abuso sexual dentro de agresión sexual). En 2018 hubo 1.700 agresiones sexuales con penetración y 1.044 abusos sexuales con penetración (2.744 en total). En 2025 se registraron 5.370 agresiones sexuales con penetración: al comparar con el dato agrupado de 2018 el incremento es del 96%, 161 puntos menos de lo que dice Abascal.", "source": "Newtral.es / Ministerio del Interior (26/11/2026)"}, {"id": "colau-delincuencia-extranjeros-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "fa", "party_label": "Frente Amplio · Ada Colau", "topic": "inmigracion", "topic_label": "Inmigración y Seguridad", "claim": "Rebatió los «bulos» sobre delitos cometidos por extranjeros señalando su proporción sobre el total de detenidos y sobre la población extranjera residente.", "verdict": "Dato respaldado", "factcheck": "De los 25.701 detenidos e investigados en 2025 según el Ministerio del Interior, el 72% tenía nacionalidad española. Los 7.211 extranjeros detenidos representan aproximadamente el 0,1% de la población extranjera residente en España recogida por el INE.", "source": "Newtral.es / Ministerio del Interior / INE (26/11/2026)"}, {"id": "feijoo-colau-llegadas-el-hierro-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "matiz", "party_label": "Contraste de datos · Feijóo / Colau", "topic": "inmigracion", "topic_label": "Inmigración y Seguridad", "claim": "Cruce sobre las llegadas de migrantes en cayuco a la isla de El Hierro durante el último mes.", "verdict": "Dato respaldado con contexto", "factcheck": "Según datos de Salvamento Marítimo recogidos por RTVE, en un solo día llegaron 15 embarcaciones con 2.121 migrantes a bordo a El Hierro, entre ellos un fallecido y una niña de cuatro días nacida en el Atlántico.", "source": "Newtral.es / Salvamento Marítimo / RTVE (26/11/2026)"}, {"id": "feijoo-inmigracion-irregular-40-ceuta-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "pp", "party_label": "PP · Alberto Núñez Feijóo", "topic": "inmigracion", "topic_label": "Inmigración y Seguridad", "claim": "Afirmó que «la inmigración irregular ha subido un 40%» y que «el CNI avisó de la entrada masiva a Ceuta» del pasado mes de julio.", "verdict": "Dato aproximado + Precisión de organismo", "factcheck": "Según Frontex, los cruces irregulares detectados en España entre enero y octubre de 2026 subieron un 39% respecto al mismo periodo de 2025 (aunque en la ruta de Canarias bajaron un 13%). Respecto a los avisos previos a la entrada en Ceuta del 30 de julio, el informe del 28 de julio que alertaba de convocatorias en redes correspondía al CENIF de la Policía Nacional, no al CNI.", "source": "Newtral.es / Frontex / Informes desclasificados (26/11/2026)"}, {"id": "abascal-ley-nietos-supremo-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "vox", "party_label": "Vox · Santiago Abascal", "topic": "justicia", "topic_label": "Justicia e Instituciones", "claim": "Sobre la ley de nietos, dijo que «el Supremo ha tenido que tumbar hoy todas sus pretensiones de alterar el resultado de las elecciones».", "verdict": "Engañoso / Confunde medida cautelar con fallo de fondo", "factcheck": "El Tribunal Supremo no ha anulado la ley ni el fondo del asunto: tras los recursos de Vox e Iustitia Europa contra la instrucción de Justicia que ampliaba la nacionalidad sin requisito de exilio, el alto tribunal acordó únicamente suspender de forma cautelar el voto en estas elecciones de quienes obtuvieron la nacionalidad por esa vía.", "source": "Newtral.es / Tribunal Supremo (26/11/2026)"}, {"id": "feijoo-penas-malversacion-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "pp", "party_label": "PP · Alberto Núñez Feijóo", "topic": "justicia", "topic_label": "Justicia e Instituciones", "claim": "Se comprometió a que las penas por malversación «no se van a volver a rebajar» tras las reformas del Ejecutivo.", "verdict": "Dato respaldado con contexto", "factcheck": "El Gobierno de Pedro Sánchez rebajó las penas por delito de malversación para algunas modalidades —como el uso temporal de patrimonio público o el desvío de fondos a otras finalidades públicas— mediante la reforma del Código Penal aprobada en 2022.", "source": "Newtral.es · Verificación en directo debate a cuatro candidatos (26/11/2026)"}, {"id": "abascal-amnistia-internacional-dinero-publico-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "vox", "party_label": "Vox · Santiago Abascal", "topic": "justicia", "topic_label": "Justicia e Instituciones", "claim": "Incluyó a Amnistía Internacional entre las «organizaciones no gubernamentales mantenidas con dinero público de los españoles».", "verdict": "Falso", "factcheck": "Amnistía Internacional no recibe dinero público: sus cuentas auditadas y políticas de financiación establecen expresamente que rechaza subvenciones gubernamentales y aportaciones de partidos políticos.", "source": "Newtral.es / Cuentas de Amnistía Internacional (26/11/2026)"}, {"id": "sanchez-rajoy-smi-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "psoe", "party_label": "PSOE · Pedro Sánchez", "topic": "fiscalidad", "topic_label": "Impuestos, Deuda y Salarios", "claim": "Aseguró que durante el mandato de Mariano Rajoy «se congeló el SMI».", "verdict": "Engañoso / Subió ligeramente, no se congeló", "factcheck": "Aunque durante la etapa de Rajoy el Salario Mínimo Interprofesional tuvo subidas muy reducidas en varios ejercicios, no llegó a congelarse en el conjunto del mandato: aumentó en 94 euros. (Por su parte, Feijóo replicó recordando que Sánchez votó como diputado la congelación de las pensiones contributivas con Zapatero mediante el decreto-ley 8/2010).", "source": "Newtral.es · Verificación en directo debate a cuatro candidatos (26/11/2026)"}, {"id": "colau-pp-condena-organizacion-criminal-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "fa", "party_label": "Frente Amplio · Ada Colau", "topic": "justicia", "topic_label": "Justicia e Instituciones", "claim": "Afirmó hasta en dos ocasiones que el PP ha sido «condenado por organización criminal».", "verdict": "Engañoso / Condena como partícipe a título lucrativo", "factcheck": "La Justicia condenó al PP como partícipe a título lucrativo por haberse beneficiado económicamente de la trama Gürtel, pero no lo condenó como organización criminal.", "source": "Newtral.es · Verificación en directo debate a cuatro candidatos (26/11/2026)"}, {"id": "feijoo-abascal-clan-rochos-psoe-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "matiz", "party_label": "Contraste judicial · Feijóo / Abascal", "topic": "justicia", "topic_label": "Justicia e Instituciones", "claim": "Mencionaron al clan de Los Rochos y su supuesta vinculación con el PSOE en la causa sobre la jueza Beatriz Biedma.", "verdict": "Requiere contexto procesal", "factcheck": "La Justicia investiga si hubo conexión entre el PSOE y las coacciones denunciadas por la magistrada Beatriz Biedma (que instruyó la causa de David Sánchez). El juez Santiago Pedraz rechazó en octubre imputar al PSOE por falta de indicios (dejando abierta la vía si surgen nuevas pruebas), mientras informes de la UCO vinculan a la exmilitante socialista Leire Díez y al exmagistrado Sáenz de Tejada con contactos con el clan de Los Rochos para desestabilizar el proceso.", "source": "Newtral.es / Autos judiciales e informes UCO (26/11/2026)"}, {"id": "sanchez-rankings-calidad-democratica-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "psoe", "party_label": "PSOE · Pedro Sánchez", "topic": "justicia", "topic_label": "Justicia e Instituciones", "claim": "Aseguró que desde que es presidente «España ha mejorado en los principales rankings de calidad democrática».", "verdict": "Engañoso / Solo mejora en uno de cuatro", "factcheck": "Desde 2018 España únicamente ha mejorado su puntuación en el índice de The Economist, es decir, en uno de los cuatro principales rankings internacionales que miden la calidad democrática.", "source": "Newtral.es · Verificación en directo debate a cuatro candidatos (26/11/2026)"}, {"id": "colau-mazon-aforado-dana-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "fa", "party_label": "Frente Amplio · Ada Colau", "topic": "justicia", "topic_label": "Justicia e Instituciones", "claim": "Criticó que Carlos Mazón, expresidente de la Generalitat Valenciana durante la dana de 2024, mantenga su condición de diputado y, por tanto, siga aforado.", "verdict": "Dato respaldado", "factcheck": "Es cierto: al mantener su acta de diputado, conserva el aforamiento, lo que implica que solo pueda juzgarle un tribunal superior en lugar de un juzgado ordinario.", "source": "Newtral.es · Verificación en directo debate a cuatro candidatos (26/11/2026)"}, {"id": "abascal-menos-medicos-profesores-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "vox", "party_label": "Vox · Santiago Abascal", "topic": "pensiones", "topic_label": "Pensiones y Servicios Públicos", "claim": "Afirmó que en España hoy hay «menos médicos, menos profesores y menos sanitarios».", "verdict": "Engañoso / Cifras oficiales al alza", "factcheck": "Según el Ministerio de Sanidad (datos de 2023), España cuenta con 212.201 médicos en total (público y privado), 24.035 más que en 2018 (+12,8%). En educación, el curso 2025/2026 suma 806.414 docentes en régimen general no universitario frente a los 752.088 del curso 2017/2018.", "source": "Newtral.es / Ministerio de Sanidad / Ministerio de Educación (26/11/2026)"}, {"id": "feijoo-pulseras-antimaltrato-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "pp", "party_label": "PP · Alberto Núñez Feijóo", "topic": "justicia", "topic_label": "Justicia e Instituciones", "claim": "Repitió en varias ocasiones que las pulseras antimaltrato «no funcionan».", "verdict": "Engañoso / Requiere contexto técnico", "factcheck": "La Memoria anual de la Fiscalía señala que ninguna mujer ha sido asesinada portando este dispositivo (ni con el anterior ni con el nuevo). Las incidencias documentadas ocurren cuando el juez fija órdenes de alejamiento inferiores a 500 metros (a veces de 100 metros), distancia insuficiente para que salte la alerta y lleguen a tiempo las fuerzas de seguridad (Igualdad sitúa el mínimo técnico en 350 metros).", "source": "Newtral.es / Memoria de la Fiscalía / Ministerio de Igualdad (26/11/2026)"}, {"id": "sanchez-recorte-presupuesto-sergas-galicia-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "psoe", "party_label": "PSOE · Pedro Sánchez", "topic": "pensiones", "topic_label": "Pensiones y Servicios Públicos", "claim": "Acusó a Feijóo de recortar «el presupuesto del servicio de salud gallego» y «el número de camas hospitalarias» durante su presidencia en la Xunta.", "verdict": "Engañoso / Subió presupuesto, bajaron camas", "factcheck": "La partida presupuestaria destinada al Servicio Gallego de Salud (Sergas) entre 2009 y 2022 aumentó un 23% (al igual que la plantilla sanitaria), aunque según el Instituto Gallego de Estadística sí disminuyó el número de camas instaladas y en funcionamiento en ese periodo.", "source": "Newtral.es / Sergas / Instituto Gallego de Estadística (26/11/2026)"}, {"id": "sanchez-feijoo-otan-5-por-ciento-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "matiz", "party_label": "Contraste de datos · Sánchez / Feijóo", "topic": "infraestructuras", "topic_label": "Economía e Infraestructuras", "claim": "Sánchez dijo que «se partió la cara ante Trump y en la OTAN diciendo que no al 5%» y Feijóo le replicó «pero lo firmó, ¿no?».", "verdict": "Requiere contexto", "factcheck": "Los aliados de la OTAN suscribieron el marco de alcanzar el 5% del PIB en defensa reclamado por Trump (objetivo que el PP incluye en su programa electoral), pero España pactó un acuerdo específico para situarse en el 2,1%. Actualmente destina el 2% del PIB frente al 0,92% cuando Sánchez llegó al Gobierno.", "source": "Newtral.es / OTAN / Moncloa (26/11/2026)"}, {"id": "sanchez-multiplicar-por-tres-hucha-pensiones-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "psoe", "party_label": "PSOE · Pedro Sánchez", "topic": "pensiones", "topic_label": "Pensiones y Servicios Públicos", "claim": "Aseguró que ha multiplicado «por tres la hucha de las pensiones» y aludió a las posiciones de Vox y PP sobre el sistema.", "verdict": "Dato respaldado con contexto histórico", "factcheck": "El Fondo de Reserva de la Seguridad Social ha crecido de forma continua desde 2021 hasta cerrar 2026 en unos 20.000 millones de euros según el Gobierno (+13.114 millones € respecto a 2019), aunque sigue lejos del pico histórico de 2011 (66.815 millones €). Respecto a las críticas a la oposición, Vox propuso un sistema mixto en su programa de 2019 (no en el de 2026) y la portavoz del PP Ester Muñoz declaró que el sistema actual «va a petar».", "source": "Newtral.es / Seguridad Social (26/11/2026)"}, {"id": "feijoo-rebaja-penas-1400-agresores-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "pp", "party_label": "PP · Alberto Núñez Feijóo", "topic": "justicia", "topic_label": "Justicia e Instituciones", "claim": "Afirmó en el debate a cuatro que con la ley del «solo sí es sí» se han rebajado las penas a 1.400 agresores sexuales.", "verdict": "Engañoso / Cifra inflada", "factcheck": "Según el último balance oficial del Consejo General del Poder Judicial (noviembre de 2023), las reducciones de pena acordadas fueron 1.233 (y 126 excarcelaciones), por debajo de los 1.400 que cita Feijóo.", "source": "Newtral.es / CGPJ (26/11/2026)"}, {"id": "feijoo-ningun-presupuesto-sanchez-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "pp", "party_label": "PP · Alberto Núñez Feijóo", "topic": "fiscalidad", "topic_label": "Impuestos, Deuda y Salarios", "claim": "Afirmó que «el señor Sánchez no ha sido capaz de presentar un solo presupuesto».", "verdict": "Engañoso / Omite presupuestos de la anterior legislatura", "factcheck": "Aunque el Ejecutivo no ha presentado Presupuestos Generales del Estado en la última legislatura, sí presentó y aprobó cuentas en 2020, 2021 y 2022.", "source": "Newtral.es · Verificación en directo debate a cuatro candidatos (26/11/2026)"}, {"id": "abascal-prohibicion-tierras-raras-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "vox", "party_label": "Vox · Santiago Abascal", "topic": "infraestructuras", "topic_label": "Economía e Infraestructuras", "claim": "Habló de tierras raras y afirmó que en el Congreso se prohibió «explorar y explotar nuestros recursos naturales».", "verdict": "Falso", "factcheck": "La Ley de Cambio Climático prohíbe la exploración y explotación de minerales radiactivos e hidrocarburos, pero no prohíbe la de tierras raras.", "source": "Newtral.es · Verificación en directo debate a cuatro candidatos (26/11/2026)"}, {"id": "sanchez-colau-bono-termico-abascal-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "matiz", "party_label": "Contraste · Sánchez / Colau / Abascal", "topic": "fiscalidad", "topic_label": "Impuestos, Deuda y Salarios", "claim": "Sánchez y Colau reprocharon a Abascal cobrar el bono térmico para familias vulnerables.", "verdict": "Dato respaldado con contexto", "factcheck": "Según adelantó InfoLibre, la pareja de Santiago Abascal percibió en 2025 un pago de 210,71 euros del bono social térmico de la Comunidad de Madrid al acogerse a la condición legal de familia numerosa.", "source": "Newtral.es / InfoLibre (26/11/2026)"}, {"id": "sanchez-feijoo-inflacion-guerra-iran-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "matiz", "party_label": "Contraste de datos · Sánchez / Feijóo", "topic": "fiscalidad", "topic_label": "Impuestos, Deuda y Salarios", "claim": "Sánchez dijo que antes de la guerra de Irán (febrero de 2026) el IPC de España estaba por debajo del 3% y Feijóo replicó que ya superaba la media europea.", "verdict": "Ambos datos son ciertos", "factcheck": "Según Eurostat, en febrero de 2026 la inflación en España se situaba en el 2,5% (por debajo del umbral del 3% citado por Sánchez), pero efectivamente estaba por encima de la media de la Unión Europea, que era del 2,1%.", "source": "Newtral.es / Eurostat (26/11/2026)"}, {"id": "sanchez-renta-real-hogares-10-por-ciento-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "psoe", "party_label": "PSOE · Pedro Sánchez", "topic": "fiscalidad", "topic_label": "Impuestos, Deuda y Salarios", "claim": "Aseguró que la renta real de los hogares «ha subido un 10%, el doble que en Italia».", "verdict": "Impreciso / Cifra redondeada al alza y base elegida", "factcheck": "Según la OCDE (entre el 1T de 2022 y el 4T de 2025, último dato disponible), la renta disponible real de los hogares en España creció un 8,4% (quinto país de 21 con datos, frente al 2,1% de Italia y el 4,8% del G-7). El Gobierno toma el inicio de 2022 para partir del choque inflacionario tras la invasión de Ucrania.", "source": "Newtral.es / OCDE (26/11/2026)"}, {"id": "colau-feijoo-votacion-smi-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "fa", "party_label": "Frente Amplio · Ada Colau", "topic": "fiscalidad", "topic_label": "Impuestos, Deuda y Salarios", "claim": "Preguntó a Feijóo por qué el PP ha votado «hasta cuatro veces en contra del SMI» en el Congreso y cifró la subida desde 2018 con Yolanda Díaz de 725 € a 1.286 €.", "verdict": "Impreciso / El SMI no se vota en el Congreso", "factcheck": "El SMI se aprueba mediante real decreto del Gobierno tras dialogar con sindicatos y patronal y no pasa por votación en el Congreso (Colau matizó después que se refería a apoyarlo). Además, cuando Yolanda Díaz asumió Trabajo en enero de 2020, el SMI ya estaba en 900 € (subió de 735,9 € en 2018 a 1.221 € en 2026).", "source": "Newtral.es · Verificación en directo debate a cuatro candidatos (26/11/2026)"}, {"id": "sanchez-espana-mas-crece-europa-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "psoe", "party_label": "PSOE · Pedro Sánchez", "topic": "infraestructuras", "topic_label": "Economía e Infraestructuras", "claim": "Aseguró que la economía española «es la que más crece de toda Europa».", "verdict": "Engañoso / Es novena en la UE, primera entre las grandes", "factcheck": "Según Eurostat (2T 2026), España creció un 2,7% interanual (frente al 1,4% de la UE y el 1,2% de la eurozona). Superó a las otras cuatro grandes economías europeas (Alemania, Francia, Italia y Países Bajos), pero fue el noveno país de la Unión Europea en crecimiento.", "source": "Newtral.es / Eurostat (26/11/2026)"}, {"id": "colau-recorte-gasto-publico-figaredo-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "fa", "party_label": "Frente Amplio · Ada Colau", "topic": "fiscalidad", "topic_label": "Impuestos, Deuda y Salarios", "claim": "Advirtió sobre el recorte masivo de gasto público planteado por el portavoz económico de Vox, José María Figaredo.", "verdict": "Dato respaldado", "factcheck": "En una entrevista publicada por Bloomberg el mismo 26 de noviembre de 2026, Figaredo afirmó literalmente: «En total, disponemos de un fondo de unos 224.000 millones de euros que hay que revisar (…) Así, con un recorte moderado del 50 %, se eliminarían 112.000 millones de euros del gasto público».", "source": "Newtral.es / Bloomberg (26/11/2026)"}, {"id": "feijoo-pisos-turisticos-1-por-ciento-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "pp", "party_label": "PP · Alberto Núñez Feijóo", "topic": "vivienda", "topic_label": "Vivienda", "claim": "Aseguró que los pisos turísticos representan apenas el 1% del total de viviendas en España.", "verdict": "Verdad a medias", "factcheck": "La media nacional se sitúa en torno al 1,3% del parque residencial según el INE, pero esa media oculta una fuerte concentración local: en hasta 60 municipios supera el 10% y en algunos alcanza entre el 24% y el 33%.", "source": "Newtral.es / INE (26/11/2026)"}, {"id": "colau-feijoo-millon-viviendas-publicas-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "matiz", "party_label": "Contraste · Colau / Feijóo", "topic": "vivienda", "topic_label": "Vivienda", "claim": "Colau señaló que Feijóo prometió construir un millón de viviendas y después pareció corregirse.", "verdict": "Requiere contexto", "factcheck": "En una entrevista en Politico, Feijóo matizó que no había prometido un millón de viviendas «públicas», sino que España necesita un millón de viviendas (una versión inicial omitió por error la palabra «públicas» y fue corregida). Tanto en el programa electoral del PP (pág. 41) como en sus intervenciones habla de promover un millón de viviendas en general.", "source": "Newtral.es / Politico / Programa PP 2026 (26/11/2026)"}, {"id": "sanchez-alquileres-ley-vivienda-barcelona-madrid-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "psoe", "party_label": "PSOE · Pedro Sánchez", "topic": "vivienda", "topic_label": "Vivienda", "claim": "Comparó la evolución del precio del alquiler entre comunidades que aplican la Ley de Vivienda estatal y las que no.", "verdict": "Verdad a medias / Omite caída de oferta", "factcheck": "Aunque el precio del alquiler sube menos donde se aplica el tope (en Barcelona subió un 0,3% interanual en octubre de 2026 hasta 20,5 €/m² frente al +4,5% en Madrid hasta 23,4 €/m² según Idealista), Sánchez omite la reducción de oferta: en Barcelona los nuevos contratos de alquiler cayeron un 17% entre el 1T de 2024 y el 1T de 2026 (de 9.825 a 8.156).", "source": "Newtral.es / Idealista / Ayuntamiento de Barcelona (26/11/2026)"}, {"id": "abascal-seis-millones-inmigrantes-vivienda-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "vox", "party_label": "Vox · Santiago Abascal", "topic": "inmigracion", "topic_label": "Inmigración y Seguridad", "claim": "Afirmó que «en los últimos seis años han entrado seis millones de personas según el INE y únicamente se han construido 100.000 viviendas al año».", "verdict": "Engañoso / Ignora salidas y emigración", "factcheck": "El cálculo suma solo entradas brutas (unos 4,7 millones entre 2021 y 2024 según el INE) sin descontar a quienes abandonaron España cada año (por ejemplo, en 2024 entraron 1,29 millones pero emigraron 662.294, incluyendo españoles y duplicidades de personas que entran y salen).", "source": "Newtral.es / INE (26/11/2026)"}, {"id": "abascal-contratos-alquiler-barcelona-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "vox", "party_label": "Vox · Santiago Abascal", "topic": "vivienda", "topic_label": "Vivienda", "claim": "Aseguró que los contratos de alquiler declarados en Barcelona han caído a la mitad entre 2021 y 2026.", "verdict": "Engañoso / Compara año completo con medio año", "factcheck": "Compara todo 2021 (57.158 contratos) con solo el primer semestre de 2026 (16.001 contratos). En el último año completo disponible (2025) se firmaron 30.789 contratos en Barcelona.", "source": "Newtral.es / Ayuntamiento de Barcelona (26/11/2026)"}, {"id": "abascal-excarcelaciones-machismo-importado-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "vox", "party_label": "Vox · Santiago Abascal", "topic": "inmigracion", "topic_label": "Inmigración y Seguridad", "claim": "Denunció que el Gobierno ha excarcelado a violadores y ha «importado» machismo de otros países.", "verdict": "Engañoso / El 84,5% de detenidos tiene nacionalidad española", "factcheck": "Hasta noviembre de 2023 (último dato del CGPJ), las excarcelaciones por la ley del solo sí es sí fueron 126. Respecto a la autoría de delitos sexuales, según el último informe del Ministerio del Interior (2025, pág. 70), el 84,49% de los detenidos por delitos contra la libertad sexual tenía nacionalidad española.", "source": "Newtral.es / Ministerio del Interior / CGPJ (26/11/2026)"}, {"id": "sanchez-700000-viviendas-construidas-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "psoe", "party_label": "PSOE · Pedro Sánchez", "topic": "vivienda", "topic_label": "Vivienda", "claim": "Afirmó en este debate que su Gobierno ha construido «en estos años 700.000 viviendas» (tras hablar de un millón en el cara a cara).", "verdict": "Dato respaldado con precisión sobre VPO", "factcheck": "Entre el 2T de 2018 y el 2T de 2026 se finalizaron en España 719.602 viviendas según el Ministerio de Vivienda: 631.248 libres (87,7%) y el 12,3% con calificación definitiva de protegida (categoría que también incluye rehabilitaciones de edificios públicos, no solo obra nueva).", "source": "Newtral.es / Ministerio de Vivienda (26/11/2026)"}, {"id": "feijoo-90-desahucios-diarios-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "pp", "party_label": "PP · Alberto Núñez Feijóo", "topic": "vivienda", "topic_label": "Vivienda", "claim": "Afirmó que durante todo el mandato de Sánchez se han producido «90 desahucios diarios».", "verdict": "Requiere contexto / Confunde lanzamientos con desahucios", "factcheck": "Resulta de promediar 272.000 lanzamientos en ocho años (en el 1T de 2026 fueron 4.005, unos 44 diarios). El CGPJ recuerda que no todos los lanzamientos son desahucios de vivienda habitual, ya que incluyen fincas, garajes o locales comerciales.", "source": "Newtral.es / CGPJ (26/11/2026)"}, {"id": "abascal-derribo-presas-obras-hidraulicas-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "vox", "party_label": "Vox · Santiago Abascal", "topic": "infraestructuras", "topic_label": "Economía e Infraestructuras", "claim": "Aseguró que en los últimos ocho años «han dejado de hacerse las obras hidráulicas que habrían impedido catástrofes».", "verdict": "Requiere contexto", "factcheck": "En la línea de afirmaciones previas de Vox sobre el supuesto derribo de presas, Newtral.es recuerda que el Gobierno no ha demolido presas operativas de almacenamiento, sino azudes o construcciones fluviales en desuso que no embalsaban agua.", "source": "Newtral.es · Verificación en directo debate a cuatro candidatos (26/11/2026)"}, {"id": "feijoo-primarias-psoe-suegro-crowdfunding-26n", "debate": "debate-candidatos-26n", "debate_label": "Debate a cuatro candidatos (26-N)", "party": "pp", "party_label": "PP · Alberto Núñez Feijóo", "topic": "justicia", "topic_label": "Justicia e Instituciones", "claim": "Reiteró la pregunta sobre quién financió las primarias del PSOE de 2017 en las que Sánchez fue elegido secretario general.", "verdict": "Sin pruebas / Verificado por Tribunal de Cuentas", "factcheck": "No existen pruebas de que el suegro de Sánchez financiara dichas primarias con dinero de locales de prostitución, como difundieron algunos portales. En 2017 Sánchez recaudó más de 100.000 € mediante crowdfunding y el Tribunal de Cuentas examinó y avaló el ajuste a la ley de partidos (aunque en el Senado en octubre de 2025 Sánchez dijo que «no le consta» si se entregó el listado completo de donantes).", "source": "Newtral.es / Tribunal de Cuentas / RTVE (26/11/2026)"}, {"id": "feijoo-ceuta-el-hierro-19n", "debate": "cara-a-cara", "debate_label": "Cara a cara (19-N)", "party": "pp", "party_label": "PP · Alberto Núñez Feijóo", "topic": "inmigracion", "topic_label": "Inmigración y Seguridad", "claim": "Afirmó que llegaron 100.000 personas a Ceuta, 9.000 a El Hierro, que en la frontera de Ceuta había solo 5 guardias civiles y que la regularización provoca un «efecto llamada» en pateras.", "verdict": "Falso / Sin respaldo oficial", "factcheck": "No consta la cifra de 100.000 llegadas a Ceuta (las cifras oficiales citadas se situaban en torno a 80.000); en El Hierro solo en lo que iba de noviembre se contabilizaban ya 12.000 llegadas; el 30 de julio en Ceuta hubo 243 guardias civiles operativos en total (48 en el turno nocturno), no 5; y los migrantes africanos llegados en patera representan una parte muy minoritaria frente al conjunto de la regularización, sin que explique por sí sola el flujo en patera.", "source": "Verificación de Newtral.es (Cara a cara 19-N / datos oficiales de Interior)"}, {"id": "feijoo-solo-si-es-si-19n", "debate": "cara-a-cara", "debate_label": "Cara a cara (19-N)", "party": "pp", "party_label": "PP · Alberto Núñez Feijóo", "topic": "justicia", "topic_label": "Justicia e Instituciones", "claim": "Aseguró que el Gobierno ha excarcelado a 1.400 violadores y condenados por abusos sexuales por la ley del «solo sí es sí».", "verdict": "Engañoso / Confunde rebajas con excarcelaciones", "factcheck": "Mezcla reducciones de condena con excarcelaciones efectivas. Según los datos del Consejo General del Poder Judicial (CGPJ), hubo 1.233 rebajas de pena, de las cuales 126 derivaron en excarcelaciones.", "source": "Verificación de Newtral.es / Datos del CGPJ"}, {"id": "feijoo-cuerpo-pensiones-19n", "debate": "cara-a-cara", "debate_label": "Cara a cara (19-N)", "party": "pp", "party_label": "PP · Alberto Núñez Feijóo", "topic": "pensiones", "topic_label": "Pensiones y Servicios Públicos", "claim": "Sostuvo que el vicepresidente Carlos Cuerpo reconoció en Onda Cero que el sistema de pensiones no es sostenible o está quebrado.", "verdict": "Falso", "factcheck": "Carlos Cuerpo afirmó precisamente lo contrario: que la sostenibilidad de las pensiones y de la deuda pública está garantizada, advirtiendo en contra de lanzar mensajes alarmistas de insostenibilidad.", "source": "Verificación de Newtral.es / Entrevista en Onda Cero"}, {"id": "feijoo-apagon-2025-19n", "debate": "cara-a-cara", "debate_label": "Cara a cara (19-N)", "party": "pp", "party_label": "PP · Alberto Núñez Feijóo", "topic": "infraestructuras", "topic_label": "Economía e Infraestructuras", "claim": "Reprochó que el Ejecutivo no haya dado explicaciones sobre el apagón eléctrico de abril de 2025.", "verdict": "Falso / Omite informes publicados", "factcheck": "Varios organismos —incluido un informe publicado por el propio Gobierno dos meses después— difundieron análisis y datos sobre las causas del apagón.", "source": "Verificación de Newtral.es (Cara a cara 19-N)"}, {"id": "feijoo-vivienda-540-19n", "debate": "cara-a-cara", "debate_label": "Cara a cara (19-N)", "party": "pp", "party_label": "PP · Alberto Núñez Feijóo", "topic": "vivienda", "topic_label": "Vivienda", "claim": "Señaló cifras de ejecución muy bajas, como que apenas se han entregado 540 viviendas.", "verdict": "Incompleto / Requiere contexto", "factcheck": "Esa cifra corresponde a un cálculo de entregas concretas señalado por el PP, pero se han movilizado fondos y programas para más de 120.000 viviendas.", "source": "Verificación de Newtral.es (Cara a cara 19-N)"}, {"id": "sanchez-millon-viviendas-19n", "debate": "cara-a-cara", "debate_label": "Cara a cara (19-N)", "party": "psoe", "party_label": "PSOE · Pedro Sánchez", "topic": "vivienda", "topic_label": "Vivienda", "claim": "Afirmó que en España se han construido un millón de viviendas desde 2018.", "verdict": "Engañoso / Confunde iniciadas con terminadas", "factcheck": "La cifra cercana al millón corresponde a viviendas iniciadas en el periodo, mientras que las viviendas terminadas se sitúan en unas 750.000 (y dentro de las calificaciones de vivienda protegida, la mayoría no son obra nueva ni vivienda libre).", "source": "Verificación de Newtral.es (Cara a cara 19-N)"}, {"id": "sanchez-subida-impuestos-100-19n", "debate": "cara-a-cara", "debate_label": "Cara a cara (19-N)", "party": "psoe", "party_label": "PSOE · Pedro Sánchez", "topic": "fiscalidad", "topic_label": "Impuestos, Deuda y Salarios", "claim": "Sostuvo que no ha subido 100 veces los impuestos frente al reproche fiscal del debate.", "verdict": "Depende del criterio de recuento", "factcheck": "Los cómputos que hablan de decenas o un centenar de subidas suelen sumar variaciones diversas (como cotizaciones ligadas al SMI o variaciones del IVA tras rebajas temporales), por lo que el conteo varía según qué se considere una subida fiscal independiente.", "source": "Verificación de Newtral.es (Cara a cara 19-N)"}, {"id": "sanchez-hospital-vigo-19n", "debate": "cara-a-cara", "debate_label": "Cara a cara (19-N)", "party": "psoe", "party_label": "PSOE · Pedro Sánchez", "topic": "pensiones", "topic_label": "Pensiones y Servicios Públicos", "claim": "Acusó a Feijóo de haber privatizado el hospital de Vigo durante su etapa al frente de la Xunta de Galicia.", "verdict": "Impreciso / Confunde gestión del parking", "factcheck": "Lo que se privatizó fue la gestión del aparcamiento del hospital (lo que generó fuertes protestas), mientras que el centro sanitario mantuvo su titularidad/carácter público, aunque sí hubo polémica por sobrecostes de obra superiores a 400 millones de euros.", "source": "Verificación de Newtral.es (Cara a cara 19-N)"}, {"id": "sanchez-causas-judiciales-19n", "debate": "cara-a-cara", "debate_label": "Cara a cara (19-N)", "party": "psoe", "party_label": "PSOE · Pedro Sánchez", "topic": "justicia", "topic_label": "Justicia e Instituciones", "claim": "Planteó reproches y vinculaciones sobre causas judiciales y personas citadas en el debate.", "verdict": "Requiere precisión procesal", "factcheck": "Las comprobaciones recuerdan precisar el estado procesal real de cada persona y causa (por ejemplo, distinguir entre procedimientos en los que alguien figura imputado y aquellos de los que fue excluido, como ocurrió con Juan Carlos Barrabés en la causa de Begoña Gómez frente a la pieza separada de Red.es).", "source": "Verificación de Newtral.es (Cara a cara 19-N)"}, {"id": "matiz-crecimiento-pib-19n", "debate": "cara-a-cara", "debate_label": "Cara a cara (19-N)", "party": "matiz", "party_label": "Contraste de datos · Sánchez / Feijóo", "topic": "infraestructuras", "topic_label": "Economía e Infraestructuras", "claim": "Sánchez defendió que España es la gran economía que más crece y Feijóo señaló que otros países crecen más.", "verdict": "Lecturas comparativas distintas", "factcheck": "Según los últimos datos trimestrales comparables de Eurostat (2T 2026), cada parte selecciona distintos marcos o grupos de países de referencia para sostener su argumento.", "source": "Verificación de Newtral.es / Eurostat"}, {"id": "matiz-deuda-presion-fiscal-19n", "debate": "cara-a-cara", "debate_label": "Cara a cara (19-N)", "party": "matiz", "party_label": "Contraste de datos · Sánchez / Feijóo", "topic": "fiscalidad", "topic_label": "Impuestos, Deuda y Salarios", "claim": "Cruce sobre el aumento de la presión fiscal y el peso de la deuda pública desde 2018.", "verdict": "Requiere distinguir magnitudes", "factcheck": "La presión fiscal ha subido (del ~36% al 38,1% en 2025, aunque por debajo de la media de la UE del 40,7%) y la deuda sobre el PIB ronda el 100% (+1,6 puntos desde 2018 tras superar el 120% en pandemia, aunque +553.194 millones € en términos absolutos).", "source": "Verificación de Newtral.es / Eurostat / Banco de España"}, {"id": "bravo-deduccion-maternidad-13n", "debate": "debate-a-cuatro", "debate_label": "Debate a cuatro laSexta (13-N)", "party": "pp", "party_label": "PP · Juan Bravo", "topic": "pensiones", "topic_label": "Pensiones y Servicios Públicos", "claim": "Afirmó que la ayuda de 100 euros para madres trabajadoras la creó José María Aznar en 2003 y que «a día de hoy, sigue igual».", "verdict": "Engañoso / Omite ampliaciones", "factcheck": "Aunque la cuantía base de 100 €/mes se mantiene, desde 2018 se añadió un suplemento por gastos de guardería de hasta 1.000 euros anuales y posteriormente se cambió la norma para ampliar los perfiles de madres beneficiarias, algo que Bravo omite.", "source": "Newtral.es · Verificación en directo debate laSexta (13/11/2026)"}, {"id": "bravo-pensiones-025-13n", "debate": "debate-a-cuatro", "debate_label": "Debate a cuatro laSexta (13-N)", "party": "pp", "party_label": "PP · Juan Bravo", "topic": "pensiones", "topic_label": "Pensiones y Servicios Públicos", "claim": "Defendió que el PP nunca ha congelado las pensiones y que siempre ha votado a favor de revalorizarlas con el IPC cuando se presentan por separado.", "verdict": "Verdad a medias / Omite contexto", "factcheck": "Aunque Mariano Rajoy no aplicó una congelación como el decreto-ley 8/2010 de Zapatero (que congeló las contributivas, sin afectar a mínimas, SOVI ni no contributivas), sí decretó subidas del 0,25% que quedaron por debajo de la inflación y supusieron pérdida de poder adquisitivo. Además, el PP votó en contra de la reforma estructural (Ley 21/2021) que blindó el IPC, rechazó los PGE de 2022 y 2023 y votó en contra en 2024.", "source": "Newtral.es · Verificación en directo debate laSexta (13/11/2026)"}, {"id": "bravo-cis-clase-social-13n", "debate": "debate-a-cuatro", "debate_label": "Debate a cuatro laSexta (13-N)", "party": "pp", "party_label": "PP · Juan Bravo", "topic": "justicia", "topic_label": "Justicia e Instituciones", "claim": "Criticó que cada vez más ciudadanos se consideran de clase baja y menos de clase media comparando los barómetros actuales del CIS con los de 2018-2019.", "verdict": "Engañoso / Series no comparables", "factcheck": "El CIS cambió su metodología en septiembre de 2019: antes se construía mediante un cálculo objetivo múltiple (ocupación, situación profesional, cabeza de familia) y desde entonces pregunta por la autodefinición subjetiva del entrevistado, por lo que las cifras no son comparables.", "source": "Newtral.es · Verificación en directo debate laSexta (13/11/2026)"}, {"id": "bravo-fondos-europeos-selfie-13n", "debate": "debate-a-cuatro", "debate_label": "Debate a cuatro laSexta (13-N)", "party": "pp", "party_label": "PP · Juan Bravo", "topic": "fiscalidad", "topic_label": "Impuestos, Deuda y Salarios", "claim": "Criticó que los fondos europeos se destinen a proyectos como «puntos de selfie», mostrando imágenes durante el debate.", "verdict": "Verdad a medias", "factcheck": "Las imágenes corresponden a proyectos financiados parcialmente con fondos europeos, pero Bravo omite que varios de esos proyectos fueron presentados e impulsados por comunidades autónomas o ayuntamientos, incluidos algunos gobernados por el PP.", "source": "Newtral.es · Verificación en directo debate laSexta (13/11/2026)"}, {"id": "bravo-precio-vivienda-70-13n", "debate": "debate-a-cuatro", "debate_label": "Debate a cuatro laSexta (13-N)", "party": "pp", "party_label": "PP · Juan Bravo", "topic": "vivienda", "topic_label": "Vivienda", "claim": "Denunció que el precio de la vivienda ha aumentado un 70% desde que gobierna Pedro Sánchez y citó el déficit de vivienda del Banco de España.", "verdict": "Dato respaldado con contexto", "factcheck": "Según el Índice de Precios de Vivienda (IPV) del INE, pasó de 65,56 puntos en 2018 a 111,09 en el 2T de 2026, un aumento del 70%. La cifra de falta de vivienda del Banco de España se refiere al déficit residencial acumulado entre 2021 y 2025.", "source": "Newtral.es / INE / Banco de España"}, {"id": "figaredo-seis-millones-vivienda-13n", "debate": "debate-a-cuatro", "debate_label": "Debate a cuatro laSexta (13-N)", "party": "vox", "party_label": "Vox · José María Figaredo", "topic": "inmigracion", "topic_label": "Inmigración y Seguridad", "claim": "Atribuyó el problema de la vivienda a «meter a medio mundo en España» y aseguró que han llegado al país seis millones de personas sin construir vivienda.", "verdict": "Engañoso / Omite salidas del país", "factcheck": "Según el INE (1 de enero de 2025), residían en España 9,46 millones de nacidos en el extranjero, con una media de 939.885 llegadas anuales desde 2021 (~4,7-6 millones brutos en el periodo), pero el cálculo mide solo llegadas e ignora a quienes abandonaron España cada año. Además, el parque de viviendas creció en 475.848 unidades entre 2020 y 2025 (de 26,6 a 27,1 millones).", "source": "Newtral.es · Verificación en directo debate laSexta (13/11/2026)"}, {"id": "figaredo-afiliacion-extracomunitarios-13n", "debate": "debate-a-cuatro", "debate_label": "Debate a cuatro laSexta (13-N)", "party": "vox", "party_label": "Vox · José María Figaredo", "topic": "inmigracion", "topic_label": "Inmigración y Seguridad", "claim": "Repitió que el 50% de los extranjeros extracomunitarios no está afiliado a la Seguridad Social porque «no quieren trabajar».", "verdict": "Cálculo sin corroboración independiente", "factcheck": "El dato sale de un cruce publicado por ABC entre afiliación de diciembre de 2024 y población del INE de 20 a 64 años a 1 de enero de 2025, pero Newtral advierte de que no ha podido corroborar de forma independiente con expertos la fiabilidad metodológica de ese cálculo. Según el INE (3T 2026), el paro era del 9,26% en españoles, 10,04% en extranjeros UE y 16,04% en extracomunitarios, y en cinco años la población activa extranjera creció en casi dos millones.", "source": "Newtral.es · Verificación en directo debate laSexta (13/11/2026)"}, {"id": "figaredo-presion-fiscal-lider-ue-13n", "debate": "debate-a-cuatro", "debate_label": "Debate a cuatro laSexta (13-N)", "party": "vox", "party_label": "Vox · José María Figaredo", "topic": "fiscalidad", "topic_label": "Impuestos, Deuda y Salarios", "claim": "Criticó que España es el país de la Unión Europea donde más ha aumentado la presión fiscal.", "verdict": "Falso", "factcheck": "Según Eurostat, entre 2018 y 2025 la presión fiscal en España subió 2,9 puntos, por detrás de Estonia (+3,8 puntos) y Lituania (+3,5 puntos). Además, en 2025 se situó en el 38,1%, por debajo de la media de la UE (40,7%) y de otros 13 Estados miembros.", "source": "Newtral.es / Eurostat"}, {"id": "figaredo-caida-inversion-infraestructuras-13n", "debate": "debate-a-cuatro", "debate_label": "Debate a cuatro laSexta (13-N)", "party": "vox", "party_label": "Vox · José María Figaredo", "topic": "infraestructuras", "topic_label": "Economía e Infraestructuras", "claim": "Mostró un gráfico asegurando que la inversión en infraestructuras ferroviarias ha caído un 65%.", "verdict": "Engañoso / Confunde todas las infraestructuras con tren", "factcheck": "Un estudio de BBVA señala que el volumen de inversión real en infraestructuras de uso público está un 60% por debajo del máximo de 2009, pero se refiere al conjunto de todas las infraestructuras (hidráulicas, carreteras, viarias, etc.) y no únicamente a las ferroviarias.", "source": "Newtral.es / Fundación BBVA"}, {"id": "figaredo-salario-modal-13n", "debate": "debate-a-cuatro", "debate_label": "Debate a cuatro laSexta (13-N)", "party": "vox", "party_label": "Vox · José María Figaredo", "topic": "fiscalidad", "topic_label": "Impuestos, Deuda y Salarios", "claim": "Afirmó que el sueldo más frecuente ha caído desde 2018 y que la recaudación está en máximos históricos.", "verdict": "Datos ciertos con apunte estadístico", "factcheck": "Según el INE, el salario modal (más frecuente, que agrupa al 3,8% de asalariados) pasó de 18.468,93 € en 2018 a 16.520,18 € en 2024; los expertos recuerdan que la moda es el valor más repetido en una distribución asimétrica y suele ser inferior al sueldo medio. La recaudación subió un 56% (de 208.685 M€ en 2018 a 325.356 M€ en 2025).", "source": "Newtral.es / INE / Agencia Tributaria"}, {"id": "bustinduy-compras-tocateja-13n", "debate": "debate-a-cuatro", "debate_label": "Debate a cuatro laSexta (13-N)", "party": "fa", "party_label": "Frente Amplio · Pablo Bustinduy", "topic": "vivienda", "topic_label": "Vivienda", "claim": "Aseguró que «la mitad de las casas se compran sin hipoteca, a tocateja».", "verdict": "Impreciso / Cifra inflada según fuentes", "factcheck": "Un informe de UVE Valoraciones sobre datos del INE situaba en el 30% las viviendas adquiridas sin hipoteca, mientras que Idealista cifraba en el 45,2% las compras «a tocateja» en mayo de 2026 (el nivel más bajo desde 2020).", "source": "Newtral.es / INE / UVE Valoraciones / Idealista"}, {"id": "bustinduy-sistema-mixto-vox-atico-13n", "debate": "debate-a-cuatro", "debate_label": "Debate a cuatro laSexta (13-N)", "party": "fa", "party_label": "Frente Amplio · Pablo Bustinduy", "topic": "pensiones", "topic_label": "Pensiones y Servicios Públicos", "claim": "Criticó la propuesta de Vox de un sistema mixto de pensiones y reprochó al PP gastar «siete millones» en «comprarle un ático a la presidenta Ayuso».", "verdict": "Requiere contexto", "factcheck": "La propuesta de sistema mixto no figura en el programa de Vox de 2026 (remite a declaraciones previas de Figaredo y documentos pasados). Respecto al inmueble en Madrid, se compró en abril por 6,3 millones de euros a través de la empresa pública Planifica Madrid y la Comunidad ha dado varias versiones sobre su uso (desde oficina para Ayuso hasta alojamiento de autoridades).", "source": "Newtral.es · Verificación en directo debate laSexta (13/11/2026)"}, {"id": "cuerpo-renta-disponible-mantenimiento-13n", "debate": "debate-a-cuatro", "debate_label": "Debate a cuatro laSexta (13-N)", "party": "psoe", "party_label": "PSOE · Carlos Cuerpo", "topic": "infraestructuras", "topic_label": "Economía e Infraestructuras", "claim": "Defendió que la renta disponible real de los hogares creció desde inicios de 2022 más que en EE. UU., Francia, Alemania o Italia, y destacó el aumento del gasto en mantenimiento ferroviario.", "verdict": "Datos ciertos con matiz metodológico", "factcheck": "Según la OCDE (1T 2022 – 4T 2025), la renta disponible real creció un 8,4% en España frente al 4,8% del G-7, aunque elegir principios de 2022 toma como base el choque inflacionario de Ucrania. En alta velocidad, el gasto de mantenimiento subió un 95% en bruto en la última década, pero baja al +48% al descontar la inflación y al +16% si se mide por kilómetro de vía.", "source": "Newtral.es / OCDE / Eurostat / Adif"}];
+
+    // Estado global
+    const state = {
+      topic: "all",
+      profile: "all",
+      parties: { psoe: true, pp: true, fa: true, vox: true },
+      cardMode: "expanded",
+      cardSubtabs: {},
+      cTopic: "all",
+      cParty: "all",
+      dSession: "all",
+      dParty: "all",
+      dTopic: "all",
+      search: ""
+    };
+
+    function normalizeText(str) {
+      return (str || "")
+        .toString()
+        .normalize("NFD")
+        .replace(/[̀-ͯ]/g, "")
+        .toLowerCase();
+    }
+
+    function matchesSearch(text) {
+      const q = normalizeText(state.search).trim();
+      if (!q) return true;
+      const tokens = q.split(/\s+/).filter(Boolean);
+      const normText = normalizeText(text);
+      return tokens.every(token => normText.includes(token));
+    }
+
+    function highlightText(text) {
+      const q = state.search.trim();
+      if (!q) return text;
+      const tokens = q.split(/\s+/).filter(Boolean);
+      let result = text;
+      tokens.forEach(token => {
+        const escaped = token.replace(/[.*+?^${}()|[\]\]/g, "\$&");
+        const regex = new RegExp(`(?![^<]*>)` + escaped, "gi");
+        result = result.replace(regex, match => `<mark>${match}</mark>`);
+      });
+      return result;
+    }
+
+    function setCardDefaultTab(mode) {
+      state.cardMode = mode;
+      document.getElementById("modeExpandedBtn").classList.toggle("active", mode === "expanded");
+      document.getElementById("modeTabsBtn").classList.toggle("active", mode === "tabs");
+      renderComparador();
+      updateSearchSummary();
+    }
+
+    function switchCardSubTab(cardKey, subtab) {
+      state.cardSubtabs[cardKey] = subtab;
+      renderComparador();
+      updateSearchSummary();
+    }
+
+    function renderComparador() {
+      const container = document.getElementById("comparadorContainer");
+      const activeParties = Object.keys(state.parties).filter(p => state.parties[p]);
+
+      const filteredTopics = TOPICS.filter(t => {
+        const topicMatch = state.topic === "all" || t.id === state.topic;
+        const profileMatch = state.profile === "all" || t.profiles.includes(state.profile);
+        return topicMatch && profileMatch;
+      });
+
+      let html = "";
+      let totalRenderedCards = 0;
+
+      filteredTopics.forEach(topic => {
+        const partyCards = [];
+        activeParties.forEach(pKey => {
+          const data = topic.items[pKey];
+          const combinedText = `${topic.label} ${PARTIES[pKey].name} ${data.promise} ${data.history} ${data.debate} ${data.contradiction}`;
+          if (matchesSearch(combinedText)) {
+            const cardKey = `${topic.id}_${pKey}`;
+            const currentSub = state.cardSubtabs[cardKey] || "promise";
+            const showAll = state.cardMode === "expanded";
+
+            const bodyContent = showAll
+              ? `
+                <div class="block-box">
+                  <div class="block-title">Qué promete para el 29-N</div>
+                  <div>${highlightText(data.promise)}</div>
+                </div>
+                <div class="block-box">
+                  <div class="block-title">Qué ha hecho donde ha gobernado</div>
+                  <div>${highlightText(data.history)}</div>
+                </div>
+                <div class="block-box">
+                  <div class="block-title">Debate y contrastes</div>
+                  <div>${highlightText(data.debate)}</div>
+                </div>
+                <div class="contradiction-box">
+                  <div class="block-title">Foco de contradicción (Decir vs. Hacer)</div>
+                  <div>${highlightText(data.contradiction)}</div>
+                </div>
+              `
+              : `
+                <div class="subtabs">
+                  <button type="button" class="subtab-btn ${currentSub === "promise" ? "active" : ""}" onclick="switchCardSubTab('${cardKey}', 'promise')">Promesa 29-N</button>
+                  <button type="button" class="subtab-btn ${currentSub === "history" ? "active" : ""}" onclick="switchCardSubTab('${cardKey}', 'history')">Historial</button>
+                  <button type="button" class="subtab-btn ${currentSub === "debate" ? "active" : ""}" onclick="switchCardSubTab('${cardKey}', 'debate')">Debate</button>
+                  <button type="button" class="subtab-btn ${currentSub === "contradiction" ? "active" : ""}" onclick="switchCardSubTab('${cardKey}', 'contradiction')">Contradicción</button>
+                </div>
+                <div class="${currentSub === "contradiction" ? "contradiction-box" : "block-box"}">
+                  <div class="block-title">${
+                    currentSub === "promise" ? "Qué promete para el 29-N" :
+                    currentSub === "history" ? "Qué ha hecho donde ha gobernado" :
+                    currentSub === "debate" ? "Debate y contrastes" :
+                    "Foco de contradicción (Decir vs. Hacer)"
+                  }</div>
+                  <div>${highlightText(data[currentSub])}</div>
+                </div>
+              `;
+
+            partyCards.push(`
+              <article class="card">
+                <div class="card-header">
+                  <span class="party-pill ${PARTIES[pKey].badgeClass}">${PARTIES[pKey].name}</span>
+                  <span class="topic-tag">${topic.label}</span>
+                </div>
+                ${bodyContent}
+              </article>
+            `);
+            totalRenderedCards++;
+          }
+        });
+
+        if (partyCards.length > 0) {
+          html += `
+            <div style="margin-bottom: 24px;">
+              <h3 style="margin: 0 0 12px; font-size: 1.1rem; color: #0f172a;">${highlightText(topic.label)}</h3>
+              <div class="grid-cards">${partyCards.join("")}</div>
+            </div>
+          `;
+        }
+      });
+
+      container.innerHTML = totalRenderedCards > 0
+        ? html
+        : `<div class="empty-state">No hay fichas que coincidan con los filtros o la búsqueda actual.</div>`;
+
+      return totalRenderedCards;
+    }
+
+    function renderContradicciones() {
+      const container = document.getElementById("contradiccionesContainer");
+      const cards = [];
+
+      TOPICS.forEach(topic => {
+        if (state.cTopic !== "all" && state.cTopic !== topic.id) return;
+
+        Object.keys(PARTIES).forEach(pKey => {
+          if (state.cParty !== "all" && state.cParty !== pKey) return;
+          const item = topic.items[pKey];
+          const textBlob = `${topic.label} ${PARTIES[pKey].name} ${item.promise} ${item.history} ${item.contradiction}`;
+          if (!matchesSearch(textBlob)) return;
+
+          cards.push(`
+            <article class="card">
+              <div class="card-header">
+                <span class="party-pill ${PARTIES[pKey].badgeClass}">${PARTIES[pKey].name}</span>
+                <span class="topic-tag">${topic.label}</span>
+              </div>
+              <div class="block-box">
+                <div class="block-title">Lo que promete / dice para el 29-N</div>
+                <div>${highlightText(item.promise)}</div>
+              </div>
+              <div class="block-box">
+                <div class="block-title">Lo que ha hecho / gestionado</div>
+                <div>${highlightText(item.history)}</div>
+              </div>
+              <div class="contradiction-box">
+                <div class="block-title">Análisis de la contradicción o tensión</div>
+                <div>${highlightText(item.contradiction)}</div>
+              </div>
+            </article>
+          `);
+        });
+      });
+
+      container.innerHTML = cards.length > 0
+        ? cards.join("")
+        : `<div class="empty-state">No se han encontrado contradicciones con esos criterios.</div>`;
+
+      return cards.length;
+    }
+
+    function renderDebate19N() {
+      const container = document.getElementById("debateContainer");
+      const filtered = DEBATE_DATA.filter(entry => {
+        const sMatch = state.dSession === "all" || entry.debate === state.dSession;
+        const pMatch = state.dParty === "all" || entry.party === state.dParty;
+        const tMatch = state.dTopic === "all" || entry.topic === state.dTopic;
+        const blob = `${entry.debate_label} ${entry.party_label} ${entry.topic_label} ${entry.claim} ${entry.verdict} ${entry.factcheck} ${entry.source}`;
+        return sMatch && pMatch && tMatch && matchesSearch(blob);
+      });
+
+      container.innerHTML = filtered.length > 0
+        ? filtered.map(entry => {
+            const badgeClass =
+              entry.party === "pp" ? "party-pp" :
+              entry.party === "psoe" ? "party-psoe" :
+              entry.party === "vox" ? "party-vox" :
+              entry.party === "fa" ? "party-fa" : "party-matiz";
+
+            const verdictLower = entry.verdict.toLowerCase();
+            const verdictClass =
+              entry.party === "matiz" || verdictLower.includes("depende") || verdictLower.includes("contexto") || verdictLower.includes("procesal") || verdictLower.includes("ambos datos")
+                ? "verdict-pill matiz"
+                : verdictLower.includes("dato respaldado") || verdictLower.includes("datos ciertos")
+                  ? "verdict-pill verified"
+                  : "verdict-pill";
+
+            return `
+              <article class="card">
+                <div class="card-header">
+                  <span class="party-pill ${badgeClass}">${highlightText(entry.party_label)}</span>
+                  <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+                    <span class="debate-tag">${highlightText(entry.debate_label)}</span>
+                    <span class="topic-tag">${highlightText(entry.topic_label)}</span>
+                  </div>
+                </div>
+                <div>
+                  <span class="${verdictClass}">${highlightText(entry.verdict)}</span>
+                </div>
+                <div class="block-box">
+                  <div class="block-title">Lo que se dijo en el debate</div>
+                  <div>${highlightText(entry.claim)}</div>
+                </div>
+                <div class="contradiction-box">
+                  <div class="block-title">Qué dicen los datos y la verificación</div>
+                  <div>${highlightText(entry.factcheck)}</div>
+                </div>
+                <div class="source-footer">
+                  <span><strong>Fuente:</strong> ${highlightText(entry.source)}</span>
+                </div>
+              </article>
+            `;
+          }).join("")
+        : `<div class="empty-state">No hay verificaciones de los debates que coincidan con el filtro actual.</div>`;
+
+      return filtered.length;
+    }
+
+    function renderTrayectoria() {
+      const container = document.getElementById("trayectoriaContainer");
+      const filtered = TRAYECTORIA_DATA.filter(item => {
+        const blob = `${item.title} ${item.role} ${item.highlights} ${item.critiques}`;
+        return matchesSearch(blob);
+      });
+
+      container.innerHTML = filtered.length > 0
+        ? filtered.map(item => `
+            <article class="card">
+              <div class="card-header">
+                <span class="party-pill ${PARTIES[item.party].badgeClass}">${PARTIES[item.party].name}</span>
+              </div>
+              <h3 style="margin: 0; font-size: 1.05rem;">${highlightText(item.title)}</h3>
+              <div class="block-box">
+                <div class="block-title">Ámbito de gestión</div>
+                <div>${highlightText(item.role)}</div>
+              </div>
+              <div class="block-box">
+                <div class="block-title">Hitos y líneas reivindicadas</div>
+                <div>${highlightText(item.highlights)}</div>
+              </div>
+              <div class="contradiction-box">
+                <div class="block-title">Críticas y asignaturas pendientes</div>
+                <div>${highlightText(item.critiques)}</div>
+              </div>
+            </article>
+          `).join("")
+        : `<div class="empty-state">No hay trayectorias que coincidan con la búsqueda.</div>`;
+
+      return filtered.length;
+    }
+
+    function renderMatriz() {
+      const container = document.getElementById("matrizContainer");
+      const filtered = MATRIZ_DATA.filter(row => {
+        const blob = `${row.area} ${row.clash} ${row.convergence}`;
+        return matchesSearch(blob);
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="empty-state">No hay filas de la matriz que coincidan con la búsqueda.</div>`;
+        return 0;
+      }
+
+      container.innerHTML = `
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th>Eje</th>
+              <th>Principales choques</th>
+              <th>Puntos de convergencia o debate común</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${filtered.map(row => `
+              <tr>
+                <td><strong>${highlightText(row.area)}</strong></td>
+                <td>${highlightText(row.clash)}</td>
+                <td>${highlightText(row.convergence)}</td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      `;
+      return filtered.length;
+    }
+
+    function countMatchesByView() {
+      const activeParties = Object.keys(state.parties).filter(p => state.parties[p]);
+      let compCount = 0;
+      TOPICS.forEach(topic => {
+        activeParties.forEach(pKey => {
+          const data = topic.items[pKey];
+          if (matchesSearch(`${topic.label} ${PARTIES[pKey].name} ${data.promise} ${data.history} ${data.debate} ${data.contradiction}`)) {
+            compCount++;
+          }
+        });
+      });
+
+      let contraCount = 0;
+      TOPICS.forEach(topic => {
+        Object.keys(PARTIES).forEach(pKey => {
+          const item = topic.items[pKey];
+          if (matchesSearch(`${topic.label} ${PARTIES[pKey].name} ${item.promise} ${item.history} ${item.contradiction}`)) {
+            contraCount++;
+          }
+        });
+      });
+
+      const debateCount = DEBATE_DATA.filter(entry =>
+        matchesSearch(`${entry.debate_label} ${entry.party_label} ${entry.topic_label} ${entry.claim} ${entry.verdict} ${entry.factcheck} ${entry.source}`)
+      ).length;
+
+      const trayCount = TRAYECTORIA_DATA.filter(item =>
+        matchesSearch(`${item.title} ${item.role} ${item.highlights} ${item.critiques}`)
+      ).length;
+
+      const matCount = MATRIZ_DATA.filter(row =>
+        matchesSearch(`${row.area} ${row.clash} ${row.convergence}`)
+      ).length;
+
+      return { compCount, contraCount, debateCount, trayCount, matCount };
+    }
+
+    function updateSearchSummary() {
+      const summaryEl = document.getElementById("searchSummary");
+      const q = state.search.trim();
+      const counts = countMatchesByView();
+
+      if (!q) {
+        summaryEl.innerHTML = `<span>Coincidencias globales: Comparador (${counts.compCount}) · Contradicciones (${counts.contraCount}) · Debates y Fact-Check (${counts.debateCount})</span>`;
+        return;
+      }
+
+      summaryEl.innerHTML = `
+        <span>Resultados para "<strong>${q}</strong>":</span>
+        <button type="button" class="search-jump" onclick="switchMainView('comparador')">Comparador (${counts.compCount})</button>
+        <button type="button" class="search-jump" onclick="switchMainView('contradicciones')">Contradicciones (${counts.contraCount})</button>
+        <button type="button" class="search-jump" onclick="switchMainView('debate19n')">Debates (${counts.debateCount})</button>
+        <button type="button" class="search-jump" onclick="switchMainView('trayectoria')">Trayectoria (${counts.trayCount})</button>
+        <button type="button" class="search-jump" onclick="switchMainView('matriz')">Matriz (${counts.matCount})</button>
+      `;
+    }
+
+    function renderAllViews() {
+      renderComparador();
+      renderContradicciones();
+      renderDebate19N();
+      renderTrayectoria();
+      renderMatriz();
+      updateSearchSummary();
+    }
+
+    function switchMainView(viewId) {
+      document.querySelectorAll(".view-section").forEach(sec => {
+        sec.classList.toggle("active", sec.id === `view-${viewId}`);
+      });
+      document.querySelectorAll(".main-tab").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.view === viewId);
+      });
+    }
+
+    function handleSearchKeydown(event) {
+      if (event.key === "Escape") {
+        event.target.value = "";
+        state.search = "";
+        renderAllViews();
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const searchInput = document.getElementById("globalSearch");
+      const clearBtn = document.getElementById("clearSearchBtn");
+
+      searchInput.addEventListener("input", e => {
+        state.search = e.target.value;
+        renderAllViews();
+      });
+
+      clearBtn.addEventListener("click", () => {
+        searchInput.value = "";
+        state.search = "";
+        renderAllViews();
+        searchInput.focus();
+      });
+
+      document.querySelectorAll("#topicFilters .chip").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll("#topicFilters .chip").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          state.topic = btn.dataset.topic;
+          renderAllViews();
+        });
+      });
+
+      document.getElementById("profileFilter").addEventListener("change", e => {
+        state.profile = e.target.value;
+        renderAllViews();
+      });
+
+      document.querySelectorAll("#partyFilters .party-toggle").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const p = btn.dataset.party;
+          state.parties[p] = !state.parties[p];
+          btn.classList.toggle("active", state.parties[p]);
+          renderAllViews();
+        });
+      });
+
+      document.querySelectorAll("#contraTopicFilters .chip").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll("#contraTopicFilters .chip").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          state.cTopic = btn.dataset.ctopic;
+          renderAllViews();
+        });
+      });
+
+      document.querySelectorAll("#contraPartyFilters .chip").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll("#contraPartyFilters .chip").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          state.cParty = btn.dataset.cparty;
+          renderAllViews();
+        });
+      });
+
+      document.querySelectorAll("#debateSessionFilters .chip").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll("#debateSessionFilters .chip").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          state.dSession = btn.dataset.dsession;
+          renderAllViews();
+        });
+      });
+
+      document.querySelectorAll("#debatePartyFilters .chip").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll("#debatePartyFilters .chip").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          state.dParty = btn.dataset.dparty;
+          renderAllViews();
+        });
+      });
+
+      document.querySelectorAll("#debateTopicFilters .chip").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll("#debateTopicFilters .chip").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          state.dTopic = btn.dataset.dtopic;
+          renderAllViews();
+        });
+      });
+
+      renderAllViews();
+    });
+  </script>
+</body>
+</html>
